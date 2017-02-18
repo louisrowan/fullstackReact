@@ -18,11 +18,8 @@ const App = React.createClass({
       type: 'post',
       data: { name: data}
     }).done(function(res){
-      console.log(res)
-      console.log(that.state.todos)
       var todos = that.state.todos.concat([res])
 
-      console.log(todos)
       that.setState({ todos })
     })
   },
@@ -34,21 +31,57 @@ const App = React.createClass({
       that.setState({ todos: res})
     })
   },
+  handleChange(e, id, i) {
+    var newName = $('#' + 'input' + i.toString()).val()
+    var that = this
+    $.ajax({
+      url: '/todos',
+      type: 'put',
+      data: { newName: newName, i: id }
+    }).done(function(res){
+      var todos = Object.assign([], that.state.todos)
+      todos[i] = res.value
+      that.componentDidMount()
+      $('#' + 'input' + i.toString()).val('')
+      $('#' + 'span' + i.toString()).text(res.value.name)
+    })
+  },
+
   render(){
+    console.log('rendered and ', this.state.todos[1])
     var todos;
+    var that = this;
     if (this.state.todos != ''){
       todos =
       this.state.todos.map(function(m, i) {
-          return <li key={i}>{m.name}</li>
+          
+          return (
+          <tr key={i}>
+            <td>
+            <span id={'span' + i}>{m.name}</span>
+            </td>
+            <td>
+            <input type='text' id={'input' + i} />
+            </td>
+            <td>
+            <button onClick={(e) => that.handleChange(e, m._id, i)}>
+            Update
+            </button>
+            </td>
+          </tr>
+          )
         })
     } else {
       todos = ''
     }
     return (
       <div>
-        <ul>
+        <a href='/otherpage'>CLICK</a>
+        <table>
+          <tbody>
           {todos}
-        </ul>
+          </tbody>
+        </table>
         <input id='newTodo' />
         <button onClick={()=> this.doSomething()}>Add</button>
       </div>

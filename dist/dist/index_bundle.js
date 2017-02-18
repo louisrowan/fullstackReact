@@ -9454,11 +9454,8 @@ var App = React.createClass({
       type: 'post',
       data: { name: data }
     }).done(function (res) {
-      console.log(res);
-      console.log(that.state.todos);
       var todos = that.state.todos.concat([res]);
 
-      console.log(todos);
       that.setState({ todos: todos });
     });
   },
@@ -9470,16 +9467,58 @@ var App = React.createClass({
       that.setState({ todos: res });
     });
   },
+  handleChange: function handleChange(e, id, i) {
+    var newName = $('#' + 'input' + i.toString()).val();
+    var that = this;
+    $.ajax({
+      url: '/todos',
+      type: 'put',
+      data: { newName: newName, i: id }
+    }).done(function (res) {
+      var todos = Object.assign([], that.state.todos);
+      todos[i] = res.value;
+      that.componentDidMount();
+      $('#' + 'input' + i.toString()).val('');
+      $('#' + 'span' + i.toString()).text(res.value.name);
+    });
+  },
   render: function render() {
     var _this = this;
 
+    console.log('rendered and ', this.state.todos[1]);
     var todos;
+    var that = this;
     if (this.state.todos != '') {
       todos = this.state.todos.map(function (m, i) {
+
         return React.createElement(
-          'li',
+          'tr',
           { key: i },
-          m.name
+          React.createElement(
+            'td',
+            null,
+            React.createElement(
+              'span',
+              { id: 'span' + i },
+              m.name
+            )
+          ),
+          React.createElement(
+            'td',
+            null,
+            React.createElement('input', { type: 'text', id: 'input' + i })
+          ),
+          React.createElement(
+            'td',
+            null,
+            React.createElement(
+              'button',
+              { onClick: function onClick(e) {
+                  return that.handleChange(e, m._id, i);
+                } },
+              'Update'
+            )
+          )
         );
       });
     } else {
@@ -9489,9 +9528,18 @@ var App = React.createClass({
       'div',
       null,
       React.createElement(
-        'ul',
+        'a',
+        { href: '/otherpage' },
+        'CLICK'
+      ),
+      React.createElement(
+        'table',
         null,
-        todos
+        React.createElement(
+          'tbody',
+          null,
+          todos
+        )
       ),
       React.createElement('input', { id: 'newTodo' }),
       React.createElement(

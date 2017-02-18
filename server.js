@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectId
 
 app = express()
 
@@ -33,10 +34,24 @@ app.get('/bananas', function(req, res){
 
 app.get('/todos', function(req, res){
   db.collection('todos').find().toArray(function(err, items){
-    console.log(items)
     res.send(items)  
   })
 
+})
+
+app.get('/otherpage', function(req, res){
+  res.sendFile(path.resolve(__dirname, './dist/otherpage.html'))
+})
+
+app.put('/todos', function(req, res){
+  var o_id = new ObjectId(req.body.i)
+  db.collection('todos').findOneAndUpdate({ _id: o_id }, { $set: {
+      name: req.body.newName
+      }
+  }, function(err, result){
+    if (err) return res.send(err)
+    res.send(result)
+  })
 })
 
 app.post('/bananas', function(req, res){
