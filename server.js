@@ -3,6 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectId
+require('dotenv').config()
 
 app = express()
 
@@ -76,7 +77,8 @@ app.post('/bananas', function(req, res){
 })
 
 
-var url = 'mongodb://louisrowan:mongo@ds011873.mlab.com:11873/reactcrud'
+
+var url = 'mongodb://louisrowan:' + process.env.DBPASSWORD + '@ds011873.mlab.com:11873/reactcrud'
 
 MongoClient.connect(url, (err, database) => {
   if (err) return console.log(err)
