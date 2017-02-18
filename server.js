@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const MongoClient = require('mongodb').MongoClient
 
 app = express()
 
@@ -9,6 +10,12 @@ todos = [
   {name: 'call mom'}
 
 ]
+
+
+
+
+
+
 
 app.use(express.static(__dirname + '/dist'))
 app.use(express.static(__dirname + '/public'))
@@ -25,12 +32,28 @@ app.get('/bananas', function(req, res){
 })
 
 app.get('/todos', function(req, res){
-  res.send(todos)
+  db.collection('todos').find().toArray(function(err, items){
+    console.log(items)
+    res.send(items)  
+  })
+
 })
 
 app.post('/bananas', function(req, res){
-  todos.push(req.body)
+  db.collection('todos').save(req.body, (err, result) => {
+    if (err) return console.log(err)
+    console.log(req.body, ' saved to database')
+  })
   res.send(req.body)
 })
 
-app.listen(5000)
+
+var url = 'mongodb://louisrowan:mongo@ds011873.mlab.com:11873/reactcrud'
+
+MongoClient.connect(url, (err, database) => {
+  if (err) return console.log(err)
+  db = database
+  app.listen(5000)
+})
+
+
