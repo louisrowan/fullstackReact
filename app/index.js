@@ -1,6 +1,45 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const $ = require('jquery')
+const { Router, hashHistory, Route} = require('react-router')
+
+const Routes = React.createClass({
+  render() {
+    return (
+      <Router history={hashHistory}>
+
+        <Route path='/' component={App} />
+        <Route path='/:id' component={Show} />
+
+
+
+      </Router>
+    )
+  }
+})
+
+const Show = React.createClass({
+  getInitialState(){
+    return {
+      item: ''
+    }
+  },
+  componentDidMount(){
+    $.ajax({
+      url: '/' + this.props.params.id,
+      type: 'get'
+    }).done(function(res){
+      this.setState({ item: res.name })
+    }.bind(this))
+  },
+  render(){
+    return (
+      <div><h1>in show</h1>
+      <a href='/'>home</a>
+      <p>{this.state.item}</p></div>
+    )
+  }
+})
 
 const App = React.createClass({
   getInitialState(){
@@ -16,7 +55,7 @@ const App = React.createClass({
     $.ajax({
       url: '/bananas',
       type: 'post',
-      data: { name: data}
+      data: { name: data, completed: false}
     }).done(function(res){
       var todos = that.state.todos.concat([res])
 
@@ -73,6 +112,12 @@ const App = React.createClass({
             <span id={'span' + i}>{m.name}</span>
             </td>
             <td>
+            {m.completed}
+            </td>
+            <td>
+            <a href={'/#/' + m._id.toString()}>show</a>
+            </td>
+            <td>
             <input type='text' id={'input' + i} />
             </td>
             <td>
@@ -92,6 +137,7 @@ const App = React.createClass({
     return (
       <div>
         <a href='/otherpage'>CLICK</a>
+        
         <table>
           <tbody>
           {todos}
@@ -105,4 +151,4 @@ const App = React.createClass({
   }
 })
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<Routes />, document.getElementById('app'))

@@ -6,13 +6,6 @@ const ObjectId = require('mongodb').ObjectId
 
 app = express()
 
-todos = [
-  {name: 'mow lawn'},
-  {name: 'call mom'}
-
-]
-
-
 
 
 
@@ -37,6 +30,18 @@ app.get('/todos', function(req, res){
     res.send(items)  
   })
 
+})
+
+app.get('/:id', function(req, res){
+  // console.log(__dirname)
+  // res.sendFile(path.resolve(__dirname, './dist/index.html'))
+
+  console.log(req.params)
+  var o_id = new ObjectId(req.params.id)
+  db.collection('todos').find({ _id: o_id}).toArray(function(err, result){
+    if (err) return res.send(err)
+    res.send(result[0])
+  })
 })
 
 app.get('/otherpage', function(req, res){
