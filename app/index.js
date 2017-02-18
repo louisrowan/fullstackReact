@@ -41,6 +41,7 @@ const App = React.createClass({
     }).done(function(res){
       var todos = Object.assign([], that.state.todos)
       todos[i] = res.value
+      // temporary fix to show updated list
       that.componentDidMount()
       $('#' + 'input' + i.toString()).val('')
       $('#' + 'span' + i.toString()).text(res.value.name)
