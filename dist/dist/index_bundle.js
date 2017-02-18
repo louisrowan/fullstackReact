@@ -9477,15 +9477,29 @@ var App = React.createClass({
     }).done(function (res) {
       var todos = Object.assign([], that.state.todos);
       todos[i] = res.value;
+      // temporary fix to show updated list
       that.componentDidMount();
       $('#' + 'input' + i.toString()).val('');
       $('#' + 'span' + i.toString()).text(res.value.name);
     });
   },
+  handleDelete: function handleDelete(e, id, i) {
+    var that = this;
+    $.ajax({
+      url: '/todos',
+      type: 'delete',
+      data: { i: id }
+    }).done(function (res) {
+      console.log(res);
+      var todos = Object.assign([], that.state.todos);
+      todos.splice(i, 1);
+      console.log(todos);
+      that.setState({ todos: todos });
+    });
+  },
   render: function render() {
     var _this = this;
 
-    console.log('rendered and ', this.state.todos[1]);
     var todos;
     var that = this;
     if (this.state.todos != '') {
@@ -9518,6 +9532,17 @@ var App = React.createClass({
                 } },
               'Update'
             )
+          ),
+          React.createElement(
+            'td',
+            null,
+            React.createElement(
+              'button',
+              { onClick: function onClick(e) {
+                  return that.handleDelete(e, m._id, i);
+                } },
+              'Delete'
+            )
           )
         );
       });
@@ -9541,7 +9566,14 @@ var App = React.createClass({
           todos
         )
       ),
+      React.createElement(
+        'h4',
+        null,
+        'Add new'
+      ),
+      ':',
       React.createElement('input', { id: 'newTodo' }),
+      React.createElement('br', null),
       React.createElement(
         'button',
         { onClick: function onClick() {

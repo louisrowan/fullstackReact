@@ -47,9 +47,22 @@ const App = React.createClass({
       $('#' + 'span' + i.toString()).text(res.value.name)
     })
   },
+  handleDelete(e, id, i){
+    var that = this
+    $.ajax({
+      url: '/todos',
+      type: 'delete',
+      data: { i: id}
+    }).done(function(res){
+      console.log(res)
+      var todos = Object.assign([], that.state.todos)
+      todos.splice(i, 1)
+      console.log(todos)
+      that.setState({ todos })
+    })
+  },
 
   render(){
-    console.log('rendered and ', this.state.todos[1])
     var todos;
     var that = this;
     if (this.state.todos != ''){
@@ -65,9 +78,12 @@ const App = React.createClass({
             <input type='text' id={'input' + i} />
             </td>
             <td>
-            <button onClick={(e) => that.handleChange(e, m._id, i)}>
+              <button onClick={(e) => that.handleChange(e, m._id, i)}>
             Update
             </button>
+            </td>
+            <td>
+              <button onClick={(e) => that.handleDelete(e, m._id, i)}>Delete</button>
             </td>
           </tr>
           )
@@ -83,7 +99,8 @@ const App = React.createClass({
           {todos}
           </tbody>
         </table>
-        <input id='newTodo' />
+        <h4>Add new</h4>:
+        <input id='newTodo' /><br />
         <button onClick={()=> this.doSomething()}>Add</button>
       </div>
     )

@@ -54,6 +54,14 @@ app.put('/todos', function(req, res){
   })
 })
 
+app.delete('/todos', function(req, res){
+  var o_id = new ObjectId(req.body.i)
+  db.collection('todos').findOneAndDelete({ _id: o_id }, function(err, result){
+    if (err) return res.send(err)
+      res.send(result)
+  })
+})
+
 app.post('/bananas', function(req, res){
   db.collection('todos').save(req.body, (err, result) => {
     if (err) return console.log(err)
