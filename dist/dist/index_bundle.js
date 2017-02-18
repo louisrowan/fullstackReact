@@ -9490,10 +9490,8 @@ var App = React.createClass({
       type: 'delete',
       data: { i: id }
     }).done(function (res) {
-      console.log(res);
       var todos = Object.assign([], that.state.todos);
       todos.splice(i, 1);
-      console.log(todos);
       that.setState({ todos: todos });
     });
   },
@@ -9569,9 +9567,8 @@ var App = React.createClass({
       React.createElement(
         'h4',
         null,
-        'Add new'
+        'Add new:'
       ),
-      ':',
       React.createElement('input', { id: 'newTodo' }),
       React.createElement('br', null),
       React.createElement(

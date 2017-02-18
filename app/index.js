@@ -54,10 +54,8 @@ const App = React.createClass({
       type: 'delete',
       data: { i: id}
     }).done(function(res){
-      console.log(res)
       var todos = Object.assign([], that.state.todos)
       todos.splice(i, 1)
-      console.log(todos)
       that.setState({ todos })
     })
   },
@@ -99,7 +97,7 @@ const App = React.createClass({
           {todos}
           </tbody>
         </table>
-        <h4>Add new</h4>:
+        <h4>Add new:</h4>
         <input id='newTodo' /><br />
         <button onClick={()=> this.doSomething()}>Add</button>
       </div>
