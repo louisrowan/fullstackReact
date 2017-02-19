@@ -9,9 +9,6 @@ app = express()
 
 
 
-
-
-
 app.use(express.static(__dirname + '/dist'))
 app.use(express.static(__dirname + '/public'))
 
@@ -22,7 +19,7 @@ app.get('/', function(req, res){
   res.sendFile(path.resolve(__dirname, './dist/index.html'))
 })
 
-app.get('/bananas', function(req, res){
+app.get('/allTodos', function(req, res){
   res.send('hi')
 })
 
@@ -34,9 +31,6 @@ app.get('/todos', function(req, res){
 })
 
 app.get('/:id', function(req, res){
-  // console.log(__dirname)
-  // res.sendFile(path.resolve(__dirname, './dist/index.html'))
-
   console.log(req.params)
   var o_id = new ObjectId(req.params.id)
   db.collection('todos').find({ _id: o_id}).toArray(function(err, result){
