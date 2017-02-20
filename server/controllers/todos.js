@@ -1,4 +1,5 @@
 const ObjectId = require('mongodb').ObjectId
+const test = require('../test')
 
 exports.param = function(req, res, next){
   req.body.id = new ObjectId(req.params.id)
@@ -20,6 +21,7 @@ exports.getOne = function(req, res, next){
 }
 
 exports.put = function(req, res, next){
+  test.newName(req.body.newName)
   db.collection('todos').findOneAndUpdate({ _id: req.body.id }, { $set: {
       name: req.body.newName
     }
