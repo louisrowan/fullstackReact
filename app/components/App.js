@@ -13,7 +13,7 @@ const App = React.createClass({
     $(input).val('')
     var that = this
     $.ajax({
-      url: '/allTodos',
+      url: '/api/todos',
       type: 'post',
       data: { name: data, completed: false}
     }).done(function(res){
@@ -25,7 +25,7 @@ const App = React.createClass({
   componentDidMount(){
     var that = this
     $.ajax({
-      url: '/todos'
+      url: '/api/todos'
     }).done(function(res){
       that.setState({ todos: res})
     })
@@ -34,7 +34,7 @@ const App = React.createClass({
     var newName = $('#' + 'input' + i.toString()).val()
     var that = this
     $.ajax({
-      url: '/todos',
+      url: '/api/todos/' + id,
       type: 'put',
       data: { newName: newName, i: id }
     }).done(function(res){
@@ -49,7 +49,7 @@ const App = React.createClass({
   handleDelete(e, id, i){
     var that = this
     $.ajax({
-      url: '/todos',
+      url: '/api/todos/' + id,
       type: 'delete',
       data: { i: id}
     }).done(function(res){

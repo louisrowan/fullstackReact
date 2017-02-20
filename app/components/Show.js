@@ -9,7 +9,7 @@ const Show = React.createClass({
   },
   componentDidMount(){
     $.ajax({
-      url: '/' + this.props.params.id,
+      url: '/api/todos/' + this.props.params.id,
       type: 'get'
     }).done(function(res){
       this.setState({ item: res.name })

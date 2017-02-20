@@ -22211,7 +22211,7 @@ var App = React.createClass({
     $(input).val('');
     var that = this;
     $.ajax({
-      url: '/allTodos',
+      url: '/api/todos',
       type: 'post',
       data: { name: data, completed: false }
     }).done(function (res) {
@@ -22223,7 +22223,7 @@ var App = React.createClass({
   componentDidMount: function componentDidMount() {
     var that = this;
     $.ajax({
-      url: '/todos'
+      url: '/api/todos'
     }).done(function (res) {
       that.setState({ todos: res });
     });
@@ -22232,7 +22232,7 @@ var App = React.createClass({
     var newName = $('#' + 'input' + i.toString()).val();
     var that = this;
     $.ajax({
-      url: '/todos',
+      url: '/api/todos/' + id,
       type: 'put',
       data: { newName: newName, i: id }
     }).done(function (res) {
@@ -22247,7 +22247,7 @@ var App = React.createClass({
   handleDelete: function handleDelete(e, id, i) {
     var that = this;
     $.ajax({
-      url: '/todos',
+      url: '/api/todos/' + id,
       type: 'delete',
       data: { i: id }
     }).done(function (res) {
@@ -22378,7 +22378,7 @@ var Show = React.createClass({
   },
   componentDidMount: function componentDidMount() {
     $.ajax({
-      url: '/' + this.props.params.id,
+      url: '/api/todos/' + this.props.params.id,
       type: 'get'
     }).done(function (res) {
       this.setState({ item: res.name });
