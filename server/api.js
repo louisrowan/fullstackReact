@@ -5,6 +5,8 @@ router.route('/todos')
   .get(todosController.get)
   .post(todosController.post)
 
+router.param('id', todosController.param)
+
 router.route('/todos/:id')
   .get(todosController.getOne)
   .put(todosController.put)

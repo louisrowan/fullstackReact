@@ -1,28 +1,28 @@
 const ObjectId = require('mongodb').ObjectId
 
+exports.param = function(req, res, next){
+  req.body.id = new ObjectId(req.params.id)
+  next()
+}
+
 
 exports.get = function(req, res, next){
   db.collection('todos').find().toArray(function(err, items){
     res.send(items)  
   })
-
 }
 
 exports.getOne = function(req, res, next){
-  console.log(req.params)
-  var o_id = new ObjectId(req.params.id)
-  db.collection('todos').find({ _id: o_id}).toArray(function(err, result){
+  db.collection('todos').find({ _id: req.body.id}).toArray(function(err, result){
     if (err) return res.send(err)
     res.send(result[0])
   })
 }
 
 exports.put = function(req, res, next){
-  console.log('in put')
-  var o_id = new ObjectId(req.body.i)
-  db.collection('todos').findOneAndUpdate({ _id: o_id }, { $set: {
+  db.collection('todos').findOneAndUpdate({ _id: req.body.id }, { $set: {
       name: req.body.newName
-      }
+    }
   }, function(err, result){
     if (err) return res.send(err)
     res.send(result)
@@ -30,9 +30,7 @@ exports.put = function(req, res, next){
 }
 
 exports.delete = function(req, res, next){
-  console.log('in delete')
-  var o_id = new ObjectId(req.body.i)
-  db.collection('todos').findOneAndDelete({ _id: o_id }, function(err, result){
+  db.collection('todos').findOneAndDelete({ _id: req.body.id }, function(err, result){
     if (err) return res.send(err)
       res.send(result)
   })

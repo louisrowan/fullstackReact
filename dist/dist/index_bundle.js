@@ -22234,7 +22234,7 @@ var App = React.createClass({
     $.ajax({
       url: '/api/todos/' + id,
       type: 'put',
-      data: { newName: newName, i: id }
+      data: { newName: newName }
     }).done(function (res) {
       var todos = Object.assign([], that.state.todos);
       todos[i] = res.value;
@@ -22248,8 +22248,7 @@ var App = React.createClass({
     var that = this;
     $.ajax({
       url: '/api/todos/' + id,
-      type: 'delete',
-      data: { i: id }
+      type: 'delete'
     }).done(function (res) {
       var todos = Object.assign([], that.state.todos);
       todos.splice(i, 1);
