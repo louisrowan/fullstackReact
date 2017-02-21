@@ -5,7 +5,8 @@ const Parser = React.createClass({
   getInitialState(){
     return {
       team: '',
-      coach: ''
+      coach: '',
+      baseball: ''
     }
   },
   findCoach(){
@@ -21,13 +22,30 @@ const Parser = React.createClass({
     })
   },
   baseball(){
+    var that = this
     $.ajax({
       url:'/api/baseball',
     }).done((b) => {
       console.log('in b', b)
+      that.setState({ baseball: b})
     })
   },
   render(){
+    var content;
+    if (this.state.baseball != '') {
+
+
+      content = this.state.baseball.map((obj) => {
+
+
+        return Object.keys(obj).map((k, i) => {
+          console.log(k, obj[k])
+          return <p>{k}, {obj[k]}</p>
+      })
+
+    })
+
+    }
     return (
       <div>
         <h1>in parse</h1>
@@ -37,6 +55,7 @@ const Parser = React.createClass({
         {this.state.team}{this.state.coach}
         </p>
         <input onClick={()=> this.baseball()} type='submit' />
+        {content}
       </div>
     )
   }

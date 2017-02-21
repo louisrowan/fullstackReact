@@ -22376,7 +22376,8 @@ var Parser = React.createClass({
   getInitialState: function getInitialState() {
     return {
       team: '',
-      coach: ''
+      coach: '',
+      baseball: ''
     };
   },
   findCoach: function findCoach() {
@@ -22392,15 +22393,34 @@ var Parser = React.createClass({
     });
   },
   baseball: function baseball() {
+    var that = this;
     $.ajax({
       url: '/api/baseball'
     }).done(function (b) {
       console.log('in b', b);
+      that.setState({ baseball: b });
     });
   },
   render: function render() {
     var _this = this;
 
+    var content;
+    if (this.state.baseball != '') {
+
+      content = this.state.baseball.map(function (obj) {
+
+        return Object.keys(obj).map(function (k, i) {
+          console.log(k, obj[k]);
+          return React.createElement(
+            'p',
+            null,
+            k,
+            ', ',
+            obj[k]
+          );
+        });
+      });
+    }
     return React.createElement(
       'div',
       null,
@@ -22421,7 +22441,8 @@ var Parser = React.createClass({
       ),
       React.createElement('input', { onClick: function onClick() {
           return _this.baseball();
-        }, type: 'submit' })
+        }, type: 'submit' }),
+      content
     );
   }
 });
