@@ -22373,18 +22373,46 @@ var $ = __webpack_require__(47);
 
 var Parser = React.createClass({
   displayName: 'Parser',
-  componentDidMount: function componentDidMount() {
+  getInitialState: function getInitialState() {
+    return {
+      team: '',
+      coach: ''
+    };
+  },
+  findCoach: function findCoach() {
+    var team = document.getElementById('inp');
+    team = $(team).val();
+    var that = this;
     $.ajax({
-      url: '/api/parser'
+      url: '/api/parser',
+      type: 'post',
+      data: { team: team }
     }).done(function (f) {
       console.log('res', f);
+      that.setState({ team: team + "'s coach is ", coach: f });
     });
   },
   render: function render() {
+    var _this = this;
+
     return React.createElement(
       'div',
       null,
-      'in parse'
+      React.createElement(
+        'h1',
+        null,
+        'in parse'
+      ),
+      React.createElement('input', { id: 'inp', type: 'text' }),
+      React.createElement('input', { onClick: function onClick() {
+          return _this.findCoach();
+        }, type: 'submit' }),
+      React.createElement(
+        'p',
+        null,
+        this.state.team,
+        this.state.coach
+      )
     );
   }
 });

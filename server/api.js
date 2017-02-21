@@ -3,9 +3,9 @@ var todosController = require('./controllers/todos')
 var test = require('./test')
 
 router.route('/parser')
-  .get(function(req, res, next) {
+  .post(function(req, res, next) {
     new Promise(function(resolve, reject){
-      resolve(test.parse())
+      resolve(test.parse(req.body.team))
     }).then(function(promise){
       res.send(promise)
     })

@@ -6,8 +6,9 @@ exports.newName = function(param){
   console.log(param.toUpperCase())
 }
 
-exports.parse = function(){
-  var url = 'http://www.cfbdatawarehouse.com/data/active/n/north_texas/index.php'
+exports.parse = function(team){
+  team = team.split(' ').join('_')
+  var url = 'http://www.cfbdatawarehouse.com/data/active/' + team[0] + '/' + team + '/index.php'
 
 
   return new Promise(function(resolve, reject){
