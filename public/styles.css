@@ -3,7 +3,11 @@ body {
   width: 100vw;
   min-height: 500px;
   min-width: 500px;
-  background: lightblue;
+  background: white;
   margin: 0;
   padding: 0;
+  color: darkblue;
+  font-weight: bold;
+  font-size: 1.1em;
 }
+

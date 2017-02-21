@@ -22171,9 +22171,9 @@ var _require = __webpack_require__(222),
     hashHistory = _require.hashHistory,
     Route = _require.Route;
 
-var Show = __webpack_require__(113);
+var Show = __webpack_require__(112);
 var App = __webpack_require__(111);
-var Parser = __webpack_require__(112);
+var BaseballContainer = __webpack_require__(113);
 __webpack_require__(240);
 
 var Routes = React.createClass({
@@ -22183,7 +22183,7 @@ var Routes = React.createClass({
       Router,
       { history: hashHistory },
       React.createElement(Route, { path: '/', component: App }),
-      React.createElement(Route, { path: '/parse', component: Parser }),
+      React.createElement(Route, { path: '/parse', component: BaseballContainer }),
       React.createElement(Route, { path: '/:id', component: Show })
     );
   }
@@ -22371,8 +22371,58 @@ module.exports = App;
 var React = __webpack_require__(6);
 var $ = __webpack_require__(47);
 
-var Parser = React.createClass({
-  displayName: 'Parser',
+var Show = React.createClass({
+  displayName: 'Show',
+  getInitialState: function getInitialState() {
+    return {
+      item: ''
+    };
+  },
+  componentDidMount: function componentDidMount() {
+    $.ajax({
+      url: '/api/todos/' + this.props.params.id,
+      type: 'get'
+    }).done(function (res) {
+      this.setState({ item: res.name });
+    }.bind(this));
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h1',
+        null,
+        'in show'
+      ),
+      React.createElement(
+        'a',
+        { href: '/' },
+        'home'
+      ),
+      React.createElement(
+        'p',
+        null,
+        this.state.item
+      )
+    );
+  }
+});
+
+module.exports = Show;
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(6);
+var $ = __webpack_require__(47);
+
+var BaseballContainer = React.createClass({
+  displayName: 'BaseballContainer',
   getInitialState: function getInitialState() {
     return {
       player: '',
@@ -22504,57 +22554,7 @@ var Parser = React.createClass({
   }
 });
 
-module.exports = Parser;
-
-/***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(6);
-var $ = __webpack_require__(47);
-
-var Show = React.createClass({
-  displayName: 'Show',
-  getInitialState: function getInitialState() {
-    return {
-      item: ''
-    };
-  },
-  componentDidMount: function componentDidMount() {
-    $.ajax({
-      url: '/api/todos/' + this.props.params.id,
-      type: 'get'
-    }).done(function (res) {
-      this.setState({ item: res.name });
-    }.bind(this));
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'h1',
-        null,
-        'in show'
-      ),
-      React.createElement(
-        'a',
-        { href: '/' },
-        'home'
-      ),
-      React.createElement(
-        'p',
-        null,
-        this.state.item
-      )
-    );
-  }
-});
-
-module.exports = Show;
+module.exports = BaseballContainer;
 
 /***/ }),
 /* 114 */
@@ -22565,7 +22565,7 @@ exports = module.exports = __webpack_require__(115)();
 
 
 // module
-exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 500px;\r\n  min-width: 500px;\r\n  background: lightblue;\r\n  margin: 0;\r\n  padding: 0;\r\n}", ""]);
+exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 500px;\r\n  min-width: 500px;\r\n  background: white;\r\n  margin: 0;\r\n  padding: 0;\r\n  color: darkblue;\r\n  font-weight: bold;\r\n  font-size: 1.1em;\r\n}\r\n\r\n", ""]);
 
 // exports
 

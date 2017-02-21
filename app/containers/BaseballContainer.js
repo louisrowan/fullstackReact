@@ -1,7 +1,7 @@
 const React = require('react')
 const $ = require('jquery')
 
-const Parser = React.createClass({
+const BaseballContainer = React.createClass({
   getInitialState(){
     return {
       player: '',
@@ -88,4 +88,4 @@ const Parser = React.createClass({
   }
 })
 
-module.exports = Parser
+module.exports = BaseballContainer
