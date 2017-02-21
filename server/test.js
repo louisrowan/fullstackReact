@@ -29,7 +29,7 @@ exports.baseball = function(){
 
     function numParse(str){
       return str.split('').filter((s) => {
-        if (+s || s === '.') return s
+        if (+s || s === '.' || s === '0') return s
       }).join('')
     }
 
@@ -68,9 +68,6 @@ exports.baseball = function(){
         })
         i += 1
         if (obj) file.push(obj)
-      })
-      fs.writeFile('./fs.txt', file, function(err){
-        if (err) console.log(err)
       })
 
       resolve(file)
