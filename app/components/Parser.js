@@ -6,7 +6,8 @@ const Parser = React.createClass({
     return {
       team: '',
       coach: '',
-      baseball: ''
+      baseball: '',
+      headers: ''
     }
   },
   findCoach(){
@@ -27,22 +28,35 @@ const Parser = React.createClass({
       url:'/api/baseball',
     }).done((b) => {
       console.log('in b', b)
-      that.setState({ baseball: b})
+      var headers = Object.keys(b[0]).map((k) => {
+        return k
+      })
+      that.setState({ baseball: b, headers: headers })
     })
   },
   render(){
     var content;
+    var rows;
+    var headers;
+    if (this.state.headers) {
+      headers = <tr>{this.state.headers.map((h) => <td>{h}</td>)}</tr>
+    }
     if (this.state.baseball != '') {
+      var rows = []
 
 
-      content = this.state.baseball.map((obj) => {
+      this.state.baseball.map((obj) => {
 
 
-        return Object.keys(obj).map((k, i) => {
-          console.log(k, obj[k])
-          return <p>{k}, {obj[k]}</p>
-      })
+      rows.push(Object.keys(obj).map((k, i) => {
 
+          return <td>{obj[k]}</td>
+      }))
+
+    })
+
+    content = rows.map((r) => {
+      return <tr>{r}</tr>
     })
 
     }
@@ -55,7 +69,7 @@ const Parser = React.createClass({
         {this.state.team}{this.state.coach}
         </p>
         <input onClick={()=> this.baseball()} type='submit' />
-        {content}
+        <table><tbody>{headers}{content}</tbody></table>
       </div>
     )
   }

@@ -22377,7 +22377,8 @@ var Parser = React.createClass({
     return {
       team: '',
       coach: '',
-      baseball: ''
+      baseball: '',
+      headers: ''
     };
   },
   findCoach: function findCoach() {
@@ -22398,27 +22399,52 @@ var Parser = React.createClass({
       url: '/api/baseball'
     }).done(function (b) {
       console.log('in b', b);
-      that.setState({ baseball: b });
+      var headers = Object.keys(b[0]).map(function (k) {
+        return k;
+      });
+      that.setState({ baseball: b, headers: headers });
     });
   },
   render: function render() {
     var _this = this;
 
     var content;
-    if (this.state.baseball != '') {
-
-      content = this.state.baseball.map(function (obj) {
-
-        return Object.keys(obj).map(function (k, i) {
-          console.log(k, obj[k]);
+    var rows;
+    var headers;
+    if (this.state.headers) {
+      headers = React.createElement(
+        'tr',
+        null,
+        this.state.headers.map(function (h) {
           return React.createElement(
-            'p',
+            'td',
             null,
-            k,
-            ', ',
+            h
+          );
+        })
+      );
+    }
+    if (this.state.baseball != '') {
+      var rows = [];
+
+      this.state.baseball.map(function (obj) {
+
+        rows.push(Object.keys(obj).map(function (k, i) {
+
+          return React.createElement(
+            'td',
+            null,
             obj[k]
           );
-        });
+        }));
+      });
+
+      content = rows.map(function (r) {
+        return React.createElement(
+          'tr',
+          null,
+          r
+        );
       });
     }
     return React.createElement(
@@ -22442,7 +22468,12 @@ var Parser = React.createClass({
       React.createElement('input', { onClick: function onClick() {
           return _this.baseball();
         }, type: 'submit' }),
-      content
+      React.createElement(
+        'table',
+        null,
+        headers,
+        content
+      )
     );
   }
 });

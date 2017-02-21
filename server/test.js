@@ -46,10 +46,12 @@ exports.baseball = function(){
 
         $(this).children('td').each(function(index){
           var text = $(this).text()
+          if (text === '') text = '-'
           if (i === 0) {
             headers.push(text)
           } else {
             var prop = headers[index]
+            if (prop === 'Diff' || prop === 'GDP') return
             obj[prop] = text
           }
         })
