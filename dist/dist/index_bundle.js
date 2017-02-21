@@ -22375,28 +22375,33 @@ var Parser = React.createClass({
   displayName: 'Parser',
   getInitialState: function getInitialState() {
     return {
-      team: '',
-      coach: '',
+      player: '',
       baseball: '',
       headers: ''
     };
   },
-  findCoach: function findCoach() {
-    var team = document.getElementById('inp');
-    team = $(team).val();
-    var that = this;
-    $.ajax({
-      url: '/api/parser',
-      type: 'post',
-      data: { team: team }
-    }).done(function (coach) {
-      that.setState({ team: team + "'s coach is ", coach: coach.substring(6) });
-    });
-  },
+
+  // findCoach(){
+  //   var team = document.getElementById('inp')
+  //   team = $(team).val()
+  //   var that = this
+  //   $.ajax({
+  //     url: '/api/parser',
+  //     type: 'post',
+  //     data: { team: team }
+  //   }).done((coach) => {
+  //     that.setState({ team: team + "'s coach is ", coach: coach.substring(6)})
+  //   })
+  // },
   baseball: function baseball() {
+    var player = document.getElementById('playerInput');
+    player = $(player).val();
+    this.setState({ player: player, baseball: '' });
     var that = this;
     $.ajax({
-      url: '/api/baseball'
+      url: '/api/baseball',
+      type: 'post',
+      data: { player: player }
     }).done(function (b) {
       console.log('in b', b);
       var headers = Object.keys(b[0]).map(function (k) {
@@ -22455,19 +22460,15 @@ var Parser = React.createClass({
         null,
         'in parse'
       ),
-      React.createElement('input', { id: 'inp', type: 'text' }),
-      React.createElement('input', { onClick: function onClick() {
-          return _this.findCoach();
-        }, type: 'submit' }),
-      React.createElement(
-        'p',
-        null,
-        this.state.team,
-        this.state.coach
-      ),
+      React.createElement('input', { id: 'playerInput', type: 'text' }),
       React.createElement('input', { onClick: function onClick() {
           return _this.baseball();
         }, type: 'submit' }),
+      React.createElement(
+        'h1',
+        null,
+        this.state.player
+      ),
       React.createElement(
         'table',
         null,

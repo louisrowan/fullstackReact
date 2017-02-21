@@ -24,8 +24,10 @@ exports.parse = function(team){
       
 }
 
-exports.baseball = function(){
-  var url = 'http://www.thebaseballcube.com/players/profile.asp?P=albert-pujols'
+exports.baseball = function(player){
+  player = player.split(' ').join('-')
+  console.log(player)
+  var url = 'http://www.thebaseballcube.com/players/profile.asp?P=' + player
 
     function numParse(str){
       return str.split('').filter((s) => {
@@ -45,25 +47,27 @@ exports.baseball = function(){
       $(tr).each(function(i){
         if ($(this).hasClass('firstRow')) done = true
         if (done) return
-
         if (i > 0) var obj = {}
 
         $(this).children('td').each(function(index){
           var text = $(this).text()
           if (text === '') text = '-'
+
           if (i === 0) {
             headers.push(text)
           } else {
             var prop = headers[index]
             if (prop === 'Diff' || prop === 'GDP') return
+
             if (index > 8) {
               obj[prop] = numParse(text) 
             } else {
               obj[prop] = text
             }
           }
+
         })
-        i += 1
+
         if (obj) file.push(obj)
       })
 

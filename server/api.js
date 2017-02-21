@@ -13,9 +13,9 @@ router.route('/parser')
   })
 
 router.route('/baseball')
-  .get(function(req, res, next) {
+  .post(function(req, res, next) {
     new Promise(function(resolve, reject){
-      resolve(test.baseball())
+      resolve(test.baseball(req.body.player))
     }).then(function(p){
 
       res.send(p)
