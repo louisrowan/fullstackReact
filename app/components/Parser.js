@@ -5,8 +5,9 @@ const Parser = React.createClass({
   getInitialState(){
     return {
       player: '',
-      parsedData: '',
-      headers: '',
+      parsedData: [],
+      mlbOnly: false,
+      headers: [],
       found: ''
     }
   },
@@ -14,7 +15,7 @@ const Parser = React.createClass({
     var playerInput = document.getElementById('playerInput')
     var player = $(playerInput).val()
     $(playerInput).val('')
-    this.setState({ player, baseball: '', found: '' })
+    this.setState({ player, parsedData: [], found: '' })
     var that = this
     $.ajax({
       url:'/api/baseball',
@@ -23,7 +24,7 @@ const Parser = React.createClass({
     }).done((data) => {
       console.log(data)
       if (data.length === 0) {
-        that.setState({ parsedData: '', headers: '', found: false})
+        that.setState({ parsedData: [], headers: [], found: false})
         return
       }
       var headers = Object.keys(data[0]).map((k) => {
@@ -32,6 +33,18 @@ const Parser = React.createClass({
       that.setState({ parsedData: data, headers: headers, found: true })
     })
   },
+  dataFilter(){
+    if (this.state.mlbOnly) {
+      return this.state.parsedData.filter((d) => {
+        return d.Level === 'MLB'
+      })
+    } else {
+      return this.state.parsedData
+    }
+  },
+  handleDataFilter() {
+    this.setState({ mlbOnly: !this.state.mlbOnly })
+  },
   render(){
     var content;
     var rows;
@@ -39,9 +52,9 @@ const Parser = React.createClass({
     if (this.state.headers) {
       headers = <tr>{this.state.headers.map((h, i) => <td key={i}>{h}</td>)}</tr>
     }
-    if (this.state.parsedData != '') {
+    if (this.state.shownData != '') {
       var rows = []
-      this.state.parsedData.map((obj) => {
+      this.dataFilter().map((obj) => {
         rows.push(Object.keys(obj).map((k, i) => {
           return <td key={i}>{obj[k]}</td>
         }))
@@ -66,6 +79,7 @@ const Parser = React.createClass({
           <input type='submit' />
         </form>
         <h1>{this.state.player}</h1>
+        <button onClick={() => this.handleDataFilter()}>Toggle MLB Data Only</button>
 
         <table><tbody>{headers}{content}</tbody></table>
         {notFound}

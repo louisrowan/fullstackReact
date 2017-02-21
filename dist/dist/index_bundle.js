@@ -22376,8 +22376,9 @@ var Parser = React.createClass({
   getInitialState: function getInitialState() {
     return {
       player: '',
-      parsedData: '',
-      headers: '',
+      parsedData: [],
+      mlbOnly: false,
+      headers: [],
       found: ''
     };
   },
@@ -22385,7 +22386,7 @@ var Parser = React.createClass({
     var playerInput = document.getElementById('playerInput');
     var player = $(playerInput).val();
     $(playerInput).val('');
-    this.setState({ player: player, baseball: '', found: '' });
+    this.setState({ player: player, parsedData: [], found: '' });
     var that = this;
     $.ajax({
       url: '/api/baseball',
@@ -22394,7 +22395,7 @@ var Parser = React.createClass({
     }).done(function (data) {
       console.log(data);
       if (data.length === 0) {
-        that.setState({ parsedData: '', headers: '', found: false });
+        that.setState({ parsedData: [], headers: [], found: false });
         return;
       }
       var headers = Object.keys(data[0]).map(function (k) {
@@ -22402,6 +22403,18 @@ var Parser = React.createClass({
       });
       that.setState({ parsedData: data, headers: headers, found: true });
     });
+  },
+  dataFilter: function dataFilter() {
+    if (this.state.mlbOnly) {
+      return this.state.parsedData.filter(function (d) {
+        return d.Level === 'MLB';
+      });
+    } else {
+      return this.state.parsedData;
+    }
+  },
+  handleDataFilter: function handleDataFilter() {
+    this.setState({ mlbOnly: !this.state.mlbOnly });
   },
   render: function render() {
     var _this = this;
@@ -22422,9 +22435,9 @@ var Parser = React.createClass({
         })
       );
     }
-    if (this.state.parsedData != '') {
+    if (this.state.shownData != '') {
       var rows = [];
-      this.state.parsedData.map(function (obj) {
+      this.dataFilter().map(function (obj) {
         rows.push(Object.keys(obj).map(function (k, i) {
           return React.createElement(
             'td',
@@ -22468,6 +22481,13 @@ var Parser = React.createClass({
         'h1',
         null,
         this.state.player
+      ),
+      React.createElement(
+        'button',
+        { onClick: function onClick() {
+            return _this.handleDataFilter();
+          } },
+        'Toggle MLB Data Only'
       ),
       React.createElement(
         'table',
