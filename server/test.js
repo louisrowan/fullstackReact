@@ -30,16 +30,37 @@ exports.baseball = function(){
     request(url, function(err, res, html){
       var $ = cheerio.load(html)
       var tr = $('#battingReports tr')
-      var i = 0
-      $(tr).each(function(){
-        console.log('TABLE ROW>>=', i)
-        i += 1
-        $(this).children('td').each(function(){
-          console.log($(this).text())
-        })
 
+      var i = 0
+      var headers = []
+      var done = false
+      var file = []
+
+      $(tr).each(function(){
+        if ($(this).hasClass('firstRow')) {
+          done = true
+        }
+        if (done) return
+
+        if (i > 0) var obj = {}
+
+        $(this).children('td').each(function(index){
+          var text = $(this).text()
+          if (i === 0) {
+            headers.push(text)
+          } else {
+            var prop = headers[index]
+            obj[prop] = text
+          }
+        })
+        i += 1
+        if (obj) file.push(obj)
       })
-      resolve('hi')
+      fs.writeFile('./fs.txt', file, function(err){
+        if (err) console.log(err)
+      })
+
+      resolve(file)
     })
   }).then(function(p) {
     return p
