@@ -7,7 +7,7 @@ exports.newName = function(param){
 }
 
 exports.parse = function(team){
-  team = team.split(' ').join('_')
+  team = team.split(' ').join('_').toLowerCase()
   var url = 'http://www.cfbdatawarehouse.com/data/active/' + team[0] + '/' + team + '/index.php'
 
 

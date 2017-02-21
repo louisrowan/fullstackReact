@@ -22387,9 +22387,8 @@ var Parser = React.createClass({
       url: '/api/parser',
       type: 'post',
       data: { team: team }
-    }).done(function (f) {
-      console.log('res', f);
-      that.setState({ team: team + "'s coach is ", coach: f });
+    }).done(function (coach) {
+      that.setState({ team: team + "'s coach is ", coach: coach.substring(6) });
     });
   },
   render: function render() {
