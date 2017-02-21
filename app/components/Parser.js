@@ -20,17 +20,16 @@ const Parser = React.createClass({
       url:'/api/baseball',
       type: 'post',
       data: { player: player}
-    }).done((b) => {
-      console.log(b)
-      if (b.length === 0) {
-        console.log('length zero')
+    }).done((data) => {
+      console.log(data)
+      if (data.length === 0) {
         that.setState({ parsedData: '', headers: '', found: false})
         return
       }
-      var headers = Object.keys(b[0]).map((k) => {
+      var headers = Object.keys(data[0]).map((k) => {
         return k
       })
-      that.setState({ parsedData: b, headers: headers, found: true })
+      that.setState({ parsedData: data, headers: headers, found: true })
     })
   },
   render(){
@@ -42,22 +41,14 @@ const Parser = React.createClass({
     }
     if (this.state.parsedData != '') {
       var rows = []
-
-
       this.state.parsedData.map((obj) => {
-
-
-      rows.push(Object.keys(obj).map((k, i) => {
-
+        rows.push(Object.keys(obj).map((k, i) => {
           return <td key={i}>{obj[k]}</td>
-      }))
-
-    })
-
-    content = rows.map((r, i) => {
-      return <tr key={i}>{r}</tr>
-    })
-
+        }))
+      })
+      content = rows.map((r, i) => {
+        return <tr key={i}>{r}</tr>
+      })
     }
 
     var notFound;
@@ -68,10 +59,12 @@ const Parser = React.createClass({
     }
     return (
       <div>
-        <h1>in parse</h1>
+        <h1>Baseball Cube Parsing</h1>
 
-        <input id='playerInput' type='text' />
-        <input onClick={()=> this.baseball()} type='submit' />
+        <form onSubmit={()=> this.baseball()} >
+          <input id='playerInput' type='text' />
+          <input type='submit' />
+        </form>
         <h1>{this.state.player}</h1>
 
         <table><tbody>{headers}{content}</tbody></table>

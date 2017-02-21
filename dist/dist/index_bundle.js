@@ -22391,17 +22391,16 @@ var Parser = React.createClass({
       url: '/api/baseball',
       type: 'post',
       data: { player: player }
-    }).done(function (b) {
-      console.log(b);
-      if (b.length === 0) {
-        console.log('length zero');
+    }).done(function (data) {
+      console.log(data);
+      if (data.length === 0) {
         that.setState({ parsedData: '', headers: '', found: false });
         return;
       }
-      var headers = Object.keys(b[0]).map(function (k) {
+      var headers = Object.keys(data[0]).map(function (k) {
         return k;
       });
-      that.setState({ parsedData: b, headers: headers, found: true });
+      that.setState({ parsedData: data, headers: headers, found: true });
     });
   },
   render: function render() {
@@ -22425,11 +22424,8 @@ var Parser = React.createClass({
     }
     if (this.state.parsedData != '') {
       var rows = [];
-
       this.state.parsedData.map(function (obj) {
-
         rows.push(Object.keys(obj).map(function (k, i) {
-
           return React.createElement(
             'td',
             { key: i },
@@ -22437,7 +22433,6 @@ var Parser = React.createClass({
           );
         }));
       });
-
       content = rows.map(function (r, i) {
         return React.createElement(
           'tr',
@@ -22459,12 +22454,16 @@ var Parser = React.createClass({
       React.createElement(
         'h1',
         null,
-        'in parse'
+        'Baseball Cube Parsing'
       ),
-      React.createElement('input', { id: 'playerInput', type: 'text' }),
-      React.createElement('input', { onClick: function onClick() {
-          return _this.baseball();
-        }, type: 'submit' }),
+      React.createElement(
+        'form',
+        { onSubmit: function onSubmit() {
+            return _this.baseball();
+          } },
+        React.createElement('input', { id: 'playerInput', type: 'text' }),
+        React.createElement('input', { type: 'submit' })
+      ),
       React.createElement(
         'h1',
         null,
