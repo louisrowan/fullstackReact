@@ -14,7 +14,6 @@ app.use(express.static(__dirname + '/dist'))
 app.use(express.static(__dirname + '/public'))
 
 
-
 app.get('/', function(req, res){
   res.sendFile(path.resolve(__dirname, './dist/index.html'))
 })
@@ -24,6 +23,7 @@ app.get('/otherpage', function(req, res){
 })
 
 app.use('/api', api)
+
 
 
 

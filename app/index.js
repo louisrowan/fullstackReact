@@ -11,8 +11,9 @@ const Routes = React.createClass({
     return (
       <Router history={hashHistory}>
         <Route path='/' component={App} />
-        <Route path='/:id' component={Show} />
         <Route path='/parse' component={Parser} />
+        <Route path='/:id' component={Show} />
+        
       </Router>
     )
   }

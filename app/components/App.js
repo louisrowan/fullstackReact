@@ -85,7 +85,7 @@ const App = React.createClass({
     }
     return (
       <div>
-        <a href='/otherpage'>CLICK</a>
+        <a href='/#/parse'>CLICK</a>
         <table>
           <tbody>
             {todos}
