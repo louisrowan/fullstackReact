@@ -17,7 +17,14 @@ const Parser = React.createClass({
       type: 'post',
       data: { team: team }
     }).done((coach) => {
-      that.setState({ team: team. + "'s coach is ", coach: coach.substring(6)})
+      that.setState({ team: team + "'s coach is ", coach: coach.substring(6)})
+    })
+  },
+  baseball(){
+    $.ajax({
+      url:'/api/baseball',
+    }).done((b) => {
+      console.log('in b', b)
     })
   },
   render(){
@@ -29,6 +36,7 @@ const Parser = React.createClass({
         <p>
         {this.state.team}{this.state.coach}
         </p>
+        <input onClick={()=> this.baseball()} type='submit' />
       </div>
     )
   }

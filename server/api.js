@@ -12,6 +12,16 @@ router.route('/parser')
 
   })
 
+router.route('/baseball')
+  .get(function(req, res, next) {
+    new Promise(function(resolve, reject){
+      resolve(test.baseball())
+    }).then(function(p){
+
+      res.send(p)
+    })
+  })
+
 router.route('/todos')
   .get(todosController.get)
   .post(todosController.post)

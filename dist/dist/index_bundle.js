@@ -22391,6 +22391,13 @@ var Parser = React.createClass({
       that.setState({ team: team + "'s coach is ", coach: coach.substring(6) });
     });
   },
+  baseball: function baseball() {
+    $.ajax({
+      url: '/api/baseball'
+    }).done(function (b) {
+      console.log('in b', b);
+    });
+  },
   render: function render() {
     var _this = this;
 
@@ -22411,7 +22418,10 @@ var Parser = React.createClass({
         null,
         this.state.team,
         this.state.coach
-      )
+      ),
+      React.createElement('input', { onClick: function onClick() {
+          return _this.baseball();
+        }, type: 'submit' })
     );
   }
 });
