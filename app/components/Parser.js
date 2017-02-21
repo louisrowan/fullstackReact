@@ -5,23 +5,11 @@ const Parser = React.createClass({
   getInitialState(){
     return {
       player: '',
-      baseball: '',
+      parsedData: '',
       headers: '',
       found: ''
     }
   },
-  // findCoach(){
-  //   var team = document.getElementById('inp')
-  //   team = $(team).val()
-  //   var that = this
-  //   $.ajax({
-  //     url: '/api/parser',
-  //     type: 'post',
-  //     data: { team: team }
-  //   }).done((coach) => {
-  //     that.setState({ team: team + "'s coach is ", coach: coach.substring(6)})
-  //   })
-  // },
   baseball(){
     var playerInput = document.getElementById('playerInput')
     var player = $(playerInput).val()
@@ -36,13 +24,13 @@ const Parser = React.createClass({
       console.log(b)
       if (b.length === 0) {
         console.log('length zero')
-        that.setState({ baseball: '', headers: '', found: false})
+        that.setState({ parsedData: '', headers: '', found: false})
         return
       }
       var headers = Object.keys(b[0]).map((k) => {
         return k
       })
-      that.setState({ baseball: b, headers: headers, found: true })
+      that.setState({ parsedData: b, headers: headers, found: true })
     })
   },
   render(){
@@ -52,11 +40,11 @@ const Parser = React.createClass({
     if (this.state.headers) {
       headers = <tr>{this.state.headers.map((h, i) => <td key={i}>{h}</td>)}</tr>
     }
-    if (this.state.baseball != '') {
+    if (this.state.parsedData != '') {
       var rows = []
 
 
-      this.state.baseball.map((obj) => {
+      this.state.parsedData.map((obj) => {
 
 
       rows.push(Object.keys(obj).map((k, i) => {
