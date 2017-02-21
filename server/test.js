@@ -25,7 +25,14 @@ exports.parse = function(team){
 }
 
 exports.baseball = function(){
-  var url = 'http://www.thebaseballcube.com/players/profile.asp?P=babe-ruth'
+  var url = 'http://www.thebaseballcube.com/players/profile.asp?P=albert-pujols'
+
+    function numParse(str){
+      return str.split('').filter((s) => {
+        if (+s || s === '.') return s
+      }).join('')
+    }
+
   return new Promise(function(resolve, reject){
     request(url, function(err, res, html){
       var $ = cheerio.load(html)
@@ -52,7 +59,11 @@ exports.baseball = function(){
           } else {
             var prop = headers[index]
             if (prop === 'Diff' || prop === 'GDP') return
-            obj[prop] = text
+            if (index > 8) {
+              obj[prop] = numParse(text) 
+            } else {
+              obj[prop] = text
+            }
           }
         })
         i += 1

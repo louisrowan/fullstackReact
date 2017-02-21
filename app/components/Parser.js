@@ -39,7 +39,7 @@ const Parser = React.createClass({
     var rows;
     var headers;
     if (this.state.headers) {
-      headers = <tr>{this.state.headers.map((h) => <td>{h}</td>)}</tr>
+      headers = <tr>{this.state.headers.map((h, i) => <td key={i}>{h}</td>)}</tr>
     }
     if (this.state.baseball != '') {
       var rows = []
@@ -50,13 +50,13 @@ const Parser = React.createClass({
 
       rows.push(Object.keys(obj).map((k, i) => {
 
-          return <td>{obj[k]}</td>
+          return <td key={i}>{obj[k]}</td>
       }))
 
     })
 
-    content = rows.map((r) => {
-      return <tr>{r}</tr>
+    content = rows.map((r, i) => {
+      return <tr key={i}>{r}</tr>
     })
 
     }

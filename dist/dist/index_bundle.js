@@ -22415,10 +22415,10 @@ var Parser = React.createClass({
       headers = React.createElement(
         'tr',
         null,
-        this.state.headers.map(function (h) {
+        this.state.headers.map(function (h, i) {
           return React.createElement(
             'td',
-            null,
+            { key: i },
             h
           );
         })
@@ -22433,16 +22433,16 @@ var Parser = React.createClass({
 
           return React.createElement(
             'td',
-            null,
+            { key: i },
             obj[k]
           );
         }));
       });
 
-      content = rows.map(function (r) {
+      content = rows.map(function (r, i) {
         return React.createElement(
           'tr',
-          null,
+          { key: i },
           r
         );
       });
@@ -22471,8 +22471,12 @@ var Parser = React.createClass({
       React.createElement(
         'table',
         null,
-        headers,
-        content
+        React.createElement(
+          'tbody',
+          null,
+          headers,
+          content
+        )
       )
     );
   }
