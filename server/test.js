@@ -38,15 +38,12 @@ exports.baseball = function(){
       var $ = cheerio.load(html)
       var tr = $('#battingReports tr')
 
-      var i = 0
       var headers = []
       var done = false
       var file = []
 
-      $(tr).each(function(){
-        if ($(this).hasClass('firstRow')) {
-          done = true
-        }
+      $(tr).each(function(i){
+        if ($(this).hasClass('firstRow')) done = true
         if (done) return
 
         if (i > 0) var obj = {}
