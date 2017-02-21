@@ -6,7 +6,8 @@ const Parser = React.createClass({
     return {
       player: '',
       baseball: '',
-      headers: ''
+      headers: '',
+      found: ''
     }
   },
   // findCoach(){
@@ -22,20 +23,26 @@ const Parser = React.createClass({
   //   })
   // },
   baseball(){
-    var player = document.getElementById('playerInput')
-    player = $(player).val()
-    this.setState({ player, baseball: '' })
+    var playerInput = document.getElementById('playerInput')
+    var player = $(playerInput).val()
+    $(playerInput).val('')
+    this.setState({ player, baseball: '', found: '' })
     var that = this
     $.ajax({
       url:'/api/baseball',
       type: 'post',
       data: { player: player}
     }).done((b) => {
-      console.log('in b', b)
+      console.log(b)
+      if (b.length === 0) {
+        console.log('length zero')
+        that.setState({ baseball: '', headers: '', found: false})
+        return
+      }
       var headers = Object.keys(b[0]).map((k) => {
         return k
       })
-      that.setState({ baseball: b, headers: headers })
+      that.setState({ baseball: b, headers: headers, found: true })
     })
   },
   render(){
@@ -64,6 +71,13 @@ const Parser = React.createClass({
     })
 
     }
+
+    var notFound;
+    if (this.state.found === false) {
+      notFound = this.state.player + ' was not found, try again'
+    } else {
+      notFound = ''
+    }
     return (
       <div>
         <h1>in parse</h1>
@@ -71,7 +85,9 @@ const Parser = React.createClass({
         <input id='playerInput' type='text' />
         <input onClick={()=> this.baseball()} type='submit' />
         <h1>{this.state.player}</h1>
+
         <table><tbody>{headers}{content}</tbody></table>
+        {notFound}
       </div>
     )
   }
