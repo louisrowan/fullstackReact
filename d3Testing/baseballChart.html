@@ -6,13 +6,35 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
-  <p>Hellooooooooooo</p>
+
+  <div></div>
 
 
   <script>
 
-  var p = d3.select(p)
-  console.log(p)
+
+
+  var data = [
+  {year: 2000, HR: 14},
+  {year: 2001, HR: 8},
+  {year: 2002, HR: 18},
+  {year: 2003, HR: 21},
+  {year: 2004, HR: 28},
+  {year: 2005, HR: 4},
+  {year: 2006, HR: 16},
+  {year: 2007, HR: 20},
+  {year: 2008, HR: 13},
+  {year: 2009, HR: 10},
+  {year: 2010, HR: 18},
+  {year: 2011, HR: 31},
+  {year: 2012, HR: 26}
+]
+
+  var svg = d3.select('div')
+    .append('svg')
+    .attr('height', 500)
+    .attr('width', 500)
+    .style('border', '1px solid black')
 
 
 
