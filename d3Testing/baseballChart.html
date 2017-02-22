@@ -133,13 +133,18 @@
     .append('g')
     .classed('d3BubbleG', true)
 
-  d3.select('svg')
-    .append('rect')
+  var rect = d3.select('svg')
+    .append('g')
+
+    rect.append('rect')
     .classed('moveableRect', true)
     .attr('x', 0)
     .attr('y', height)
     .style('fill', 'none')
     .style('stroke', 'black')
+
+    rect.append('text')
+      .text('hi')
 
 
   groups.append('circle')
