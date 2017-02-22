@@ -6,6 +6,20 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+  <style>
+
+  text {
+    font-size: 16px;
+  }
+
+  input {
+    width: 300px;
+    padding: 20px;
+  }
+
+
+  </style>
+
 </head>
 <body>
 
@@ -119,11 +133,31 @@
     .append('g')
     .classed('d3BubbleG', true)
 
+  d3.select('svg')
+    .append('rect')
+    .classed('moveableRect', true)
+    .attr('x', 0)
+    .attr('y', height)
+
 
   groups.append('circle')
     .attr('cx', (d) => xScale(d.year))
     .attr('cy', (d) => height - yScale(d.HR))
     .attr('r', radius)
+    .on('mouseover', function(){
+      d3.select(this).style('fill', 'blue')
+      var that = d3.select(this)
+      var rWidth = d3.select(this).attr('cx')
+      var rHeight = d3.select(this).attr('cy')
+      d3.select('.moveableRect')
+        .attr('height', rHeight)
+        .attr('width', rWidth)
+        .attr('y', height - rHeight)
+        .style('stroke', 'black')
+    })
+    .on('mouseout', function(){
+      d3.select(this).style('fill', 'black')
+    })
 
 
     
