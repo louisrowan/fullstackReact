@@ -18,6 +18,8 @@
   }
 
 
+
+
   </style>
 
 </head>
@@ -94,7 +96,8 @@
     .attr('width', width)
     .style('border', '1px solid black')
     .style('overflow', 'visible')
-    .style('margin-bottom','10px')
+
+    .style('margin', '20px')
 
 
   function renderChart(data){
@@ -109,8 +112,12 @@
 
 
   var yScale = d3.scaleLinear()
-    .domain([d3.min(data, (d) => d.HR), d3.max(data, (d)=> d.HR)])
-    .range([2*radius + padding, height - 2*radius])
+    .domain([0, d3.max(data, (d)=> d.HR)])
+    .range([2*radius, height - 2*radius])
+
+  var yAxisScale = d3.scaleLinear()
+    .domain([0, d3.max(data, (d)=> d.HR)])
+    .range([height - 2*radius, 2*radius])
 
   var xScale = d3.scaleLinear()
     .domain([d3.min(data, (d) => d.year), d3.max(data, (d) => d.year)])
@@ -120,11 +127,20 @@
   var xAxis = d3.axisBottom()
     .scale(xScale)
 
+  var yAxis = d3.axisLeft()
+    .scale(yAxisScale)
+    .ticks(5)
+
 
   d3.select('svg')
     .append('g')
     .attr('transform', 'translate(0,' + (height) + ')')
     .call(xAxis)
+
+  d3.select('svg')
+    .append('g')
+    // .attr('transform', 'translate(' + 20 + ',0)')
+    .call(yAxis)
 
 
   var groups = svg.selectAll('.d3BubbleG')
@@ -144,7 +160,8 @@
     .style('stroke', 'black')
 
     rect.append('text')
-      .text('hi')
+      .text('')
+      .classed('toolTipText', true)
 
 
   groups.append('circle')
@@ -153,9 +170,13 @@
     .attr('r', radius)
     .on('mouseover', function(){
       d3.select(this).attr('r', 1.2*radius)
+      var hr = d3.select(this)._groups[0][0].__data__.HR
+      var year = d3.select(this)._groups[0][0].__data__.year
+
       var that = d3.select(this)
       var rWidth = d3.select(this).attr('cx')
       var rHeight = d3.select(this).attr('cy')
+      d3.select('.toolTipText').text(hr + ' HR in ' +  year).attr('x', rWidth).attr('y', rHeight - 30)
       d3.select('.moveableRect')
         .attr('height', height - rHeight)
         .attr('width', rWidth)
