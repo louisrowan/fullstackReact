@@ -85,7 +85,7 @@
 
 
 
-  const height = 800
+  const height = 400
   const width = 1000
 
     var svg = d3.select('div')
@@ -138,6 +138,8 @@
     .classed('moveableRect', true)
     .attr('x', 0)
     .attr('y', height)
+    .style('fill', 'none')
+    .style('stroke', 'black')
 
 
   groups.append('circle')
@@ -145,18 +147,21 @@
     .attr('cy', (d) => height - yScale(d.HR))
     .attr('r', radius)
     .on('mouseover', function(){
-      d3.select(this).style('fill', 'blue')
+      d3.select(this).attr('r', 1.2*radius)
       var that = d3.select(this)
       var rWidth = d3.select(this).attr('cx')
       var rHeight = d3.select(this).attr('cy')
       d3.select('.moveableRect')
-        .attr('height', rHeight)
+        .attr('height', height - rHeight)
         .attr('width', rWidth)
-        .attr('y', height - rHeight)
-        .style('stroke', 'black')
+        .attr('y', rHeight)
+        
     })
     .on('mouseout', function(){
-      d3.select(this).style('fill', 'black')
+      d3.select(this).attr('r', radius)
+      d3.select('.moveableRect')
+        .attr('height', 0)
+        .attr('width', 0)
     })
 
 
