@@ -15,7 +15,7 @@
 
 
   var data = [
-  {year: 2000, HR: 14},
+  {year: 2000, HR: 60},
   {year: 2001, HR: 8},
   {year: 2002, HR: 18},
   {year: 2003, HR: 21},
@@ -30,19 +30,19 @@
   {year: 2012, HR: 26}
 ]
 
-  var HRdata = data.map((d) => d.HR)
-
-  var histogram = d3.histogram()
-    .thresholds(5)
-    (HRdata)
-
   const height = 500
   const width = 500
 
+  const radius = 10
+
 
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(histogram.map((d) => d.length))])
-    .range([0, height - 20])
+    .domain([d3.min(data, (d) => d.HR), d3.max(data, (d)=> d.HR)])
+    .range([2*radius, height - 2*radius])
+
+  var xScale = d3.scaleLinear()
+    .domain([d3.min(data, (d) => d.year), d3.max(data, (d) => d.year)])
+    .range([2*radius, width - 2*radius])
 
 
 
@@ -53,22 +53,16 @@
     .style('border', '1px solid black')
 
   var groups = svg.selectAll('g')
-    .data(histogram)
+    .data(data)
     .enter()
     .append('g')
 
-  groups.append('rect')
-    .attr('x', (d, i) => i * 60 + 20)
-    .attr('y', (d) => height - yScale(d.length))
-    .attr('width', (d, i) => 50)
-    .attr('height', (d) => yScale(d.length))
-
-  groups.append('text')
-    .text((d) => d)
+  groups.append('circle')
+    .attr('cx', (d) => xScale(d.year))
+    .attr('cy', (d) => height - yScale(d.HR))
+    .attr('r', radius)
 
 
-
-    console.log(histogram)
 
 
 
