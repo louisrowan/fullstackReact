@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <title>D3 spike</title>
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 </head>
 <body>
 
   <div></div>
+
+  <button id='myBut'>first</button>
+  <button id='myBut2'>second</button>
+  <input id='slider' type='range' min='0' max='2' oninput='sliderMove(this.value)'>
 
 
   <script>
 
 
 
-  var data = [
+  var dat = [
   {year: 2000, HR: 60},
   {year: 2001, HR: 8},
   {year: 2002, HR: 18},
@@ -30,10 +36,59 @@
   {year: 2012, HR: 26}
 ]
 
+  var data2 = [
+  {year: 2000, HR: 6},
+  {year: 2001, HR: 17},
+  {year: 2002, HR: 18},
+  {year: 2003, HR: 21},
+  {year: 2004, HR: 98},
+  {year: 2005, HR: 4},
+  {year: 2006, HR: 16},
+  {year: 2007, HR: 20},
+  {year: 2008, HR: 13},
+  {year: 2009, HR: 10},
+  {year: 2010, HR: 18},
+  {year: 2011, HR: 31},
+  {year: 2012, HR: 26}
+
+]
+
+  var data3 = [
+  {year: 2000, HR: 16},
+  {year: 2001, HR: 27},
+  {year: 2002, HR: 8},
+  {year: 2003, HR: 11},
+  {year: 2004, HR: 8},
+  {year: 2005, HR: 14},
+  {year: 2006, HR: 6},
+  {year: 2007, HR: 30},
+  {year: 2008, HR: 3},
+  {year: 2009, HR: 50},
+  {year: 2010, HR: 58},
+  {year: 2011, HR: 41},
+  {year: 2012, HR: 6}
+
+]
+
+
+
   const height = 500
   const width = 500
 
-  const radius = 10
+    var svg = d3.select('div')
+    .append('svg')
+    .attr('height', height)
+    .attr('width', width)
+    .style('border', '1px solid black')
+
+
+  function renderChart(data){
+
+
+  d3.select('svg').selectAll('*').remove()
+
+
+  const radius = width/(4*data.length)
 
 
   var yScale = d3.scaleLinear()
@@ -46,11 +101,8 @@
 
 
 
-  var svg = d3.select('div')
-    .append('svg')
-    .attr('height', height)
-    .attr('width', width)
-    .style('border', '1px solid black')
+
+
 
   var groups = svg.selectAll('g')
     .data(data)
@@ -64,10 +116,22 @@
 
 
 
+  }
 
 
 
+  $('#myBut').on('click', function(){
+    renderChart(dat)
+  })
 
+  $('#myBut2').on('click', function(){
+    renderChart(data2)
+  })
+
+  function sliderMove(val){
+    var dataSet = [dat, data2, data3]
+    renderChart(dataSet[val])
+  }
 
 
 
