@@ -30,11 +30,48 @@
   {year: 2012, HR: 26}
 ]
 
+  var HRdata = data.map((d) => d.HR)
+
+  var histogram = d3.histogram()
+    .thresholds(5)
+    (HRdata)
+
+  const height = 500
+  const width = 500
+
+
+  var yScale = d3.scaleLinear()
+    .domain([0, d3.max(histogram.map((d) => d.length))])
+    .range([0, height - 20])
+
+
+
   var svg = d3.select('div')
     .append('svg')
-    .attr('height', 500)
-    .attr('width', 500)
+    .attr('height', height)
+    .attr('width', width)
     .style('border', '1px solid black')
+
+  var groups = svg.selectAll('g')
+    .data(histogram)
+    .enter()
+    .append('g')
+
+  groups.append('rect')
+    .attr('x', (d, i) => i * 60 + 20)
+    .attr('y', (d) => height - yScale(d.length))
+    .attr('width', (d, i) => 50)
+    .attr('height', (d) => yScale(d.length))
+
+  groups.append('text')
+    .text((d) => d)
+
+
+
+    console.log(histogram)
+
+
+
 
 
 
