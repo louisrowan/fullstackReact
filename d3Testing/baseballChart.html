@@ -11,9 +11,8 @@
 
   <div></div>
 
-  <button id='myBut'>first</button>
-  <button id='myBut2'>second</button>
-  <input id='slider' type='range' min='0' max='2' oninput='sliderMove(this.value)'>
+
+  <input id='slider' type='range' min='0' max='2' value='0' oninput='sliderMove(this.value)'>
 
 
   <script>
@@ -72,14 +71,16 @@
 
 
 
-  const height = 500
-  const width = 500
+  const height = 800
+  const width = 1000
 
     var svg = d3.select('div')
     .append('svg')
     .attr('height', height)
     .attr('width', width)
     .style('border', '1px solid black')
+    .style('overflow', 'visible')
+    .style('margin-bottom','10px')
 
 
   function renderChart(data){
@@ -90,24 +91,34 @@
 
   const radius = width/(4*data.length)
 
+  var padding = 10
+
 
   var yScale = d3.scaleLinear()
     .domain([d3.min(data, (d) => d.HR), d3.max(data, (d)=> d.HR)])
-    .range([2*radius, height - 2*radius])
+    .range([2*radius + padding, height - 2*radius])
 
   var xScale = d3.scaleLinear()
     .domain([d3.min(data, (d) => d.year), d3.max(data, (d) => d.year)])
-    .range([2*radius, width - 2*radius])
+    .range([2*radius + padding, width - 2*radius])
 
 
+  var xAxis = d3.axisBottom()
+    .scale(xScale)
 
 
+  d3.select('svg')
+    .append('g')
+    .attr('transform', 'translate(0,' + (height) + ')')
+    .call(xAxis)
 
 
-  var groups = svg.selectAll('g')
+  var groups = svg.selectAll('.d3BubbleG')
     .data(data)
     .enter()
     .append('g')
+    .classed('d3BubbleG', true)
+
 
   groups.append('circle')
     .attr('cx', (d) => xScale(d.year))
@@ -115,18 +126,17 @@
     .attr('r', radius)
 
 
+    
+
+
 
   }
 
+  renderChart(dat)
 
 
-  $('#myBut').on('click', function(){
-    renderChart(dat)
-  })
 
-  $('#myBut2').on('click', function(){
-    renderChart(data2)
-  })
+
 
   function sliderMove(val){
     var dataSet = [dat, data2, data3]
