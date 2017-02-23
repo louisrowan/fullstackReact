@@ -9,17 +9,48 @@
   <style>
 
   text {
-    font-size: 16px;
+    font-size: 14px;
+    color: white;
+    fill: black;
   }
+
+  #container {
+    height: 500px;
+    width: 1000px;
+    margin: auto;
+    padding: 50px;
+  }
+
+
 
   .toolTipText {
     position: absolute;
     padding: 10px;
-    background: black;
-    color: white;
+    background: red;
+    color: yellow;
+    font-weight: bold;
     border-radius: 5px;
     opacity: 0;
     pointer-events: none;
+  }
+
+  body {
+    background: black;
+  }
+
+  .d3Axis {
+    stroke: white;
+    fill: yellow;
+  }
+
+  #butDiv {
+    text-align: center;
+  }
+
+  #butDiv button {
+    padding: 10px;
+    color: yellow;
+    background: black;
   }
 
 
@@ -29,8 +60,10 @@
 <body>
   <div id='container'></div>
 
+<div id='butDiv'>
   <button id='hr'>HR and RBI</button>
   <button id='slg'>OBP, SLG and OPS></button>
+</div>
 
 
 <script>
@@ -64,10 +97,10 @@ var svg = d3.select('#container')
   .append('svg')
   .attr('height', height)
   .attr('width', width)
-  .style('border', '1px solid black')
+  .style('border', '1px solid yellow')
   .style('overflow', 'visible')
-  .style('margin', '20px')
-  .style('background', 'white')
+  // .style('margin', '40px')
+  // .style('background', 'black')
 
   const radius = 20
   const padding = 30
@@ -137,18 +170,15 @@ var svg = d3.select('#container')
     obj.selectAll('*').on('mouseover', function(){
       d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
       var selector = d3.select(this)._groups[0][0].__data__
-      var statNum;
       var statName;
       if (d3.select(this).attr('class') === 'solidCircle'){
         statName = stats[0]
-        statNum = selector[statName]
       } else if (d3.select(this).attr('class') === 'solidRect'){
         statName = stats[1]
-        statNum = selector[statName]
       } else {
         statName = stats[2]
-        statNum = selector[statName]
       }
+      var statNum = selector[statName]
       var statYear = selector.year
       var tagName = this.tagName
       var rWidth;
@@ -230,11 +260,13 @@ var svg = d3.select('#container')
 
     d3.select('svg')
       .append('g')
+      .classed('d3Axis', true)
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis)
 
     d3.select('svg')
       .append('g')
+      .classed('d3Axis', true)
       .call(yAxis)
 
 
@@ -247,7 +279,7 @@ var svg = d3.select('#container')
       .attr('x', 0)
       .attr('y', height)
       .style('fill', 'none')
-      .style('stroke', 'black')
+      .style('stroke', 'yellow')
 
     d3.select('#container')
       .append('div')
