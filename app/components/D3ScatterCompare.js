@@ -9,7 +9,7 @@ const D3ScatterCompare = React.createClass({
   },
   render(){
     return (
-
+      <div>In scatter compare</div>
     )
   }
 })
