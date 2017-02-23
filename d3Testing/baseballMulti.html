@@ -9,31 +9,33 @@
 <body>
   <div id='container'></div>
 
+  <button id='hr'>HR and RBI</button>
+  <button id='slg'>OBP, SLG and OPS></button>
+
 
 <script>
 
   var data1 = [
-  {year: 2000, OBP: .450, OPS: .821, SLG: .501},
-  {year: 2001, OBP: .410, OPS: .801, SLG: .601},
-  {year: 2002, OBP: .420, OPS: .701, SLG: .401},
-  {year: 2003, OBP: .400, OPS: .961, SLG: .501},
-  {year: 2004, OBP: .450, OPS: .801, SLG: .521}
+  {year: 2000, OBP: .450, OPS: .821, SLG: .501, RBI: 130, HR: 40},
+  {year: 2001, OBP: .410, OPS: .801, SLG: .601, RBI: 120, HR: 50},
+  {year: 2002, OBP: .420, OPS: .701, SLG: .401, RBI: 110, HR: 30},
+  {year: 2003, OBP: .400, OPS: .961, SLG: .501, RBI: 100, HR: 21},
+  {year: 2004, OBP: .450, OPS: .801, SLG: .521, RBI: 130, HR: 6}
 ]
 
 var data2 = [
-  {year: 1980, OBP: .400, OPS: .901, SLG: .601},
-  {year: 1981, OBP: .460, OPS: 1.001, SLG: .701},
-  {year: 1982, OBP: .320, OPS: .601, SLG: .501}
+  {year: 1980, OBP: .400, OPS: .901, SLG: .601, RBI: 92, HR: 35},
+  {year: 1981, OBP: .460, OPS: 1.001, SLG: .701, RBI: 131, HR: 19},
+  {year: 1982, OBP: .320, OPS: .601, SLG: .501, RBI: 86, HR: 12}
 ]
 
 var data3 = [
-  {year: 1990, OBP: .410, OPS: .908, SLG: .621},
-  {year: 1991, OBP: .440, OPS: 1.021, SLG: .741},
-  {year: 1992, OBP: .350, OPS: .961, SLG: .401},
-  {year: 1993, OBP: .403, OPS: .860, SLG: .600}
+  {year: 1990, OBP: .410, OPS: .908, SLG: .621, RBI: 131, HR: 25},
+  {year: 1991, OBP: .440, OPS: 1.021, SLG: .741, RBI: 140, HR: 22},
+  {year: 1992, OBP: .350, OPS: .961, SLG: .401, RBI: 60, HR: 21},
+  {year: 1993, OBP: .403, OPS: .860, SLG: .600, RBI: 99, HR: 60}
 ]
 
-var stats = ['OBP', 'SLG', 'OPS']
 
 const height = 400
 const width = 1000
@@ -163,7 +165,16 @@ var svg = d3.select('#container')
     data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
   }
 
-  renderChart(data, stats)
+
+
+
+  $('#hr').on('click', function(){
+    renderChart(data, ['HR', 'RBI'])
+  })
+
+  $('#slg').on('click', function(){
+    renderChart(data, ['SLG', 'OPS', 'OBP'])
+  })
 
 
 
