@@ -94,7 +94,7 @@ var svg = d3.select('#container')
       .classed('d3BubbleG' + index, true) 
 
     d3.selectAll('.d3BubbleG' + index).append('rect')
-      .attr('x', (d, i) => xScale(i))
+      .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
       .attr('y', (d) => {
         
         return yScale(d.OBP)}) 
@@ -117,7 +117,7 @@ var svg = d3.select('#container')
       .classed('d3BubbleG' + index, true) 
 
     d3.selectAll('.d3BubbleG' + index).append('circle')
-      .attr('cx', (d, i) => xScale(i))
+      .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
       .attr('cy', (d) => {
         
         return yScale(d.SLG)}) 
