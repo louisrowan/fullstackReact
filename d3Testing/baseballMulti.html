@@ -50,8 +50,8 @@ var svg = d3.select('#container')
 
   var data = [data1, data2, data3]
 
-  function renderData(data, index, xScale, yScale){
-    console.log(index, data)
+  function renderData(data, index, xScale, yScale, stats){
+    
     
     
 
@@ -60,10 +60,7 @@ var svg = d3.select('#container')
 
     // axis stuff
 
-
-    
-
-  
+    stats.forEach((stat, statIndex) => {
 
     svg.selectAll('.d3BubbleG' + index)
       .data(data)
@@ -71,12 +68,7 @@ var svg = d3.select('#container')
       .append('g')
       .classed('d3BubbleG' + index, true) 
 
-    d3.selectAll('.d3BubbleG' + index).append('circle')
-      .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-      .attr('cy', (d) => {
-      
-        return yScale(d.OPS)}) 
-      .attr('r', 8)
+    var obj = d3.selectAll('.d3BubbleG' + index)
       .style('fill', (d) => {
         if (index === 0) {
           return 'rgba(22, 97, 247, .8)'
@@ -88,54 +80,51 @@ var svg = d3.select('#container')
         }
       })
 
-    svg.selectAll('.d3BubbleG' + index)
-      .data(data)
-      .enter()
-      .append('g')
-      .classed('d3BubbleG' + index, true) 
-
-    d3.selectAll('.d3BubbleG' + index).append('rect')
-      .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
-      .attr('y', (d) => {
-        
-        return yScale(d.OBP)}) 
-      .attr('height', 12)
-      .attr('width', 12)
-      .style('fill', (d) => {
-        if (index === 0) {
-          return 'rgba(22, 97, 247, .8)'
-        } else if (index === 1) {
-          return 'rgba(252, 30, 41, .8)'
-        } else {
-          return 'rgba(237, 252, 30, .8)'
-        }
-      })
-
-      svg.selectAll('.d3BubbleG' + index)
-      .data(data)
-      .enter()
-      .append('g')
-      .classed('d3BubbleG' + index, true) 
-
-    d3.selectAll('.d3BubbleG' + index).append('circle')
-      .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-      .attr('cy', (d) => {
-        
-        return yScale(d.SLG)}) 
-      .attr('r', 8)
-      .style('stroke', (d) => {
-        if (index === 0) {
-          return 'rgba(22, 97, 247, .8)'
-        } else if (index === 1) {
-          return 'rgba(252, 30, 41, .8)'
-        } else {
-          return 'rgba(237, 252, 30, .8)'
-        }
-      })
-      .style('fill', 'transparent')
+      if (statIndex === 0) {
+        obj
+          .append('circle')
+          .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+          .attr('cy', (d) => yScale(d[stat])) 
+          .attr('r', 8)
+      } else if (statIndex === 1 ){
+          obj
+            .append('rect')
+            .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
+            .attr('y', (d) => yScale(d[stat])) 
+            .attr('height', 12)
+            .attr('width', 12)
+      } else {
+        obj
+        .append('circle')
+        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+        .attr('cy', (d) => yScale(d[stat])) 
+        .attr('r', 8)
+        .style('stroke', (d) => {
+          if (index === 0) {
+            return 'rgba(22, 97, 247, .8)'
+          } else if (index === 1) {
+            return 'rgba(252, 30, 41, .8)'
+          } else {
+            return 'rgba(237, 252, 30, .8)'
+          }
+        })
+        .style('fill', 'transparent')
+      }
 
   
+
+
+
+
+
+    })
+
+
     
+
+
+
+  
 
 
   }
@@ -166,8 +155,10 @@ var svg = d3.select('#container')
       .domain([min, max])
       .range([height - padding, padding])
 
+    var stats = ['OBP', 'SLG', 'OPS']
 
-    data.forEach((d, index) => renderData(d, index, xScale, yScale))
+
+    data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
   }
 
   renderChart(data)
