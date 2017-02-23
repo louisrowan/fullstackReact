@@ -3,8 +3,96 @@
 <head>
   <meta charset="utf-8">
   <title>d3 take 2</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-yo
+  <div id='container'></div>
+
+
+<script>
+
+  var data1 = [
+  {year: 2000, OBP: .450, OPS: .901, SLG: .501},
+  {year: 2001, OBP: .410, OPS: .801, SLG: .601},
+  {year: 2002, OBP: .420, OPS: .701, SLG: .401},
+  {year: 2003, OBP: .400, OPS: .961, SLG: .501},
+  {year: 2004, OBP: .450, OPS: .801, SLG: .521}
+]
+
+var data2 = [
+  {year: 1980, OBP: .400, OPS: .901, SLG: .601},
+  {year: 1981, OBP: .460, OPS: 1.001, SLG: .701},
+  {year: 1982, OBP: .320, OPS: .601, SLG: .501}
+]
+
+var data3 = [
+  {year: 1990, OBP: .410, OPS: .801, SLG: .621},
+  {year: 1991, OBP: .440, OPS: 1.021, SLG: .741},
+  {year: 1992, OBP: .350, OPS: .561, SLG: .401},
+  {year: 1993, OBP: 403, OPS: .860, SLG: .600}
+]
+
+const height = 400
+const width = 1000
+
+var svg = d3.select('#container')
+  .append('svg')
+  .attr('height', height)
+  .attr('width', width)
+  .style('border', '1px solid black')
+  .style('overflow', 'visible')
+  .style('margin', '20px')
+
+  var data = [data1, data2, data3]
+
+  function renderData(data){
+    
+    
+
+    const radius = 20
+    const padding = 10
+
+
+    // axis stuff
+
+
+   
+     svg.selectAll('.d3BubbleG')
+      .data(data)
+      .enter()
+      .append('g')
+      .classed('d3BubbleG', true) 
+    
+
+    d3.selectAll('.d3BubbleG').append('circle')
+      .attr('cx', (d) => {
+        console.log(d)
+        return 100
+      })
+      .attr('cy', (d) => 100*d.OBP)
+      .attr('r', 2)
+    
+
+
+  }
+
+
+
+  function renderChart(data) {
+    d3.select('svg').selectAll('*').remove()
+    data.forEach((d) => renderData(d))
+  }
+
+  renderChart(data)
+
+
+
+
+
+
+
+
+  </script>
 </body>
 </html>
