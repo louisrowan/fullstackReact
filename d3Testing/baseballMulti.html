@@ -12,6 +12,15 @@
     font-size: 16px;
   }
 
+  .toolTipText {
+    position: absolute;
+    padding: 10px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    opacity: 0;
+  }
+
 
 
   </style>
@@ -56,7 +65,7 @@ var svg = d3.select('#container')
   .attr('width', width)
   .style('border', '1px solid black')
   .style('overflow', 'visible')
-  .style('margin', '40px')
+  .style('margin', '20px')
   .style('background', 'white')
 
   const radius = 20
@@ -91,7 +100,9 @@ var svg = d3.select('#container')
         obj
           .append('circle')
           .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-          .attr('cy', (d) => yScale(d[stat])) 
+          .attr('cy', (d, i) => {
+            d.stat = [stat, d[stat], i + 1]
+            return yScale(d[stat])}) 
           .attr('r', 8)
       } else if (statIndex === 1 ){
           obj
@@ -118,10 +129,35 @@ var svg = d3.select('#container')
         .style('fill', 'transparent')
       }
 
-    obj.on('mouseover', function(){
-      console.log(d3.select(this))
+    obj.selectAll('*').on('mouseover', function(){
+      d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
+      var selector = d3.select(this)._groups[0][0].__data__
+      var statNum = selector.stat[1]
+      var statName = selector.stat[0]
+      var statYear = selector.stat[2]
+      var tagName = this.tagName
+      var rWidth;
+      var rHeight;
+      if (tagName === 'circle'){
+        rWidth = d3.select(this).attr('cx')
+        rHeight = d3.select(this).attr('cy')
+      } else {
+        rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
+        rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
+      }
+
+      d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
+      d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
+
+      d3.select('.moveableRect')
+        .attr('height', height - rHeight)
+        .attr('width', rWidth)
+        .attr('y', rHeight)
+
+
+
     }).on('mouseout', function(){
-      console.log('outttt')
+      d3.select(this).style('transform', 'scale(1)').style('transform-origin', '50% 50%')
     })
 
 
