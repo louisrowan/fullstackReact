@@ -46,8 +46,8 @@ var svg = d3.select('#container')
   .attr('width', width)
   .style('border', '1px solid black')
   .style('overflow', 'visible')
-  .style('margin', '20px')
-  .style('background', 'rgba(0, 0, 0, 1)')
+  .style('margin', '40px')
+  .style('background', 'white')
 
   const radius = 20
   const padding = 10
@@ -57,13 +57,6 @@ var svg = d3.select('#container')
   function renderData(data, index, xScale, yScale, stats){
     
     
-    
-
-    
-
-
-    // axis stuff
-
     stats.forEach((stat, statIndex) => {
 
     svg.selectAll('.d3BubbleG' + index)
@@ -115,24 +108,11 @@ var svg = d3.select('#container')
         .style('fill', 'transparent')
       }
 
-  
-
-
-
-
 
     })
 
 
-    
-
-
-
-  
-
-
   }
-
 
 
   function renderChart(data, stats) {
@@ -150,7 +130,6 @@ var svg = d3.select('#container')
       }))
     }))
 
-
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(data.map((d) => d.length))])
       .range([padding, width - padding])
@@ -159,13 +138,46 @@ var svg = d3.select('#container')
       .domain([min, max])
       .range([height - padding, padding])
 
+    var yAxisScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([height, height - padding])
+
+    var xAxisScale = d3.scaleLinear()
+      .domain([1, d3.max(data.map((d) => d.length)) + 1])
+      .range([padding, width - padding])
+
+
+    var xAxis = d3.axisBottom()
+      .scale(xAxisScale)
+      .ticks(d3.max(data.map((d) => d.length)) + 1)
+
+    var yAxis = d3.axisLeft()
+      .scale(yScale)
+
+
+    d3.select('svg')
+      .append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
+
+    d3.select('svg')
+      .append('g')
+      .call(yAxis)
+
+
+
+
+
+
+
+
+
+
+
+
     
-
-
     data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
   }
-
-
 
 
   $('#hr').on('click', function(){
@@ -175,12 +187,6 @@ var svg = d3.select('#container')
   $('#slg').on('click', function(){
     renderChart(data, ['SLG', 'OPS', 'OBP'])
   })
-
-
-
-
-
-
 
 
   </script>
