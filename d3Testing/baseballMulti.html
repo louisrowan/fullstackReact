@@ -44,14 +44,17 @@ var svg = d3.select('#container')
   .style('overflow', 'visible')
   .style('margin', '20px')
 
+  const radius = 20
+  const padding = 10
+
   var data = [data1, data2, data3]
 
-  function renderData(data){
+  function renderData(data, index, xScale){
+    console.log(index)
     
     
 
-    const radius = 20
-    const padding = 10
+    
 
 
     // axis stuff
@@ -66,12 +69,18 @@ var svg = d3.select('#container')
     
 
     d3.selectAll('.d3BubbleG').append('circle')
-      .attr('cx', (d) => {
-        console.log(d)
-        return 100
-      })
+      .attr('cx', (d, i) => xScale(i))
       .attr('cy', (d) => 100*d.OBP)
       .attr('r', 2)
+      .style('fill', (d) => {
+        if (index === 0) {
+          return 'blue'
+        } else if (index === 1) {
+          return 'red'
+        } else {
+          return 'yellow'
+        }
+      })
     
 
 
@@ -81,7 +90,11 @@ var svg = d3.select('#container')
 
   function renderChart(data) {
     d3.select('svg').selectAll('*').remove()
-    data.forEach((d) => renderData(d))
+
+    var xScale = d3.scaleLinear()
+      .domain([0, d3.max(data.map((d) => d.length))])
+      .range([padding, width - padding])
+    data.forEach((d, index) => renderData(d, index, xScale))
   }
 
   renderChart(data)
