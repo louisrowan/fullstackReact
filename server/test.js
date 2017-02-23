@@ -59,7 +59,9 @@ exports.baseball = function(player){
             var prop = headers[index]
             if (prop === 'Diff' || prop === 'GDP') return
 
-            if (index > 8) {
+            if (prop === 'OPS') {
+              obj[prop] = (+numParse(text)/1000)
+            } else if (index > 8) {
               obj[prop] = numParse(text) 
             } else {
               obj[prop] = text
