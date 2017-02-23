@@ -5,6 +5,16 @@
   <title>d3 take 2</title>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <style>
+
+  text {
+    font-size: 16px;
+  }
+
+
+
+  </style>
 </head>
 <body>
   <div id='container'></div>
@@ -37,7 +47,7 @@ var data3 = [
 ]
 
 
-const height = 400
+const height = 500
 const width = 1000
 
 var svg = d3.select('#container')
@@ -50,7 +60,7 @@ var svg = d3.select('#container')
   .style('background', 'white')
 
   const radius = 20
-  const padding = 10
+  const padding = 30
 
   var data = [data1, data2, data3]
 
@@ -108,11 +118,18 @@ var svg = d3.select('#container')
         .style('fill', 'transparent')
       }
 
-
+    obj.on('mouseover', function(){
+      console.log(d3.select(this))
+    }).on('mouseout', function(){
+      console.log('outttt')
     })
 
 
+    })
+    // end of looping through all stats
+
   }
+  // end of renderData
 
 
   function renderChart(data, stats) {
@@ -163,6 +180,30 @@ var svg = d3.select('#container')
     d3.select('svg')
       .append('g')
       .call(yAxis)
+
+
+
+    var rect = d3.select('svg')
+      .append('g')
+
+    rect.append('rect')
+      .classed('moveableRect', true)
+      .attr('x', 0)
+      .attr('y', height)
+      .style('fill', 'none')
+      .style('stroke', 'black')
+
+    d3.select('#container')
+      .append('div')
+      .classed('toolTipText', true)
+      .classed('toolTipYear', true)
+      .text('')
+
+    d3.select('#container')
+      .append('div')
+      .classed('toolTipText', true)
+      .classed('toolTipNum', true)
+      .text()
 
 
 
