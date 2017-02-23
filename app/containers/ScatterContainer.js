@@ -34,7 +34,6 @@ const ScatterContainer = React.createClass({
     })
   },
   render(){
-    console.log(this.state.data.length)
     var playerList;
     if (this.state.players.length > 0){
       playerList = this.state.players.map((p, i) => <li key={i}>{p}</li>)

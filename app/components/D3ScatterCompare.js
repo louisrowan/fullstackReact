@@ -7,6 +7,9 @@ const D3ScatterCompare = React.createClass({
   renderChart(){
 
   },
+  componentDidUpdate(){
+    console.log(this.props.data)
+  },
   render(){
     return (
       <div>In scatter compare</div>

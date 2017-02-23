@@ -22378,6 +22378,9 @@ var D3ScatterCompare = React.createClass({
     this.renderChart();
   },
   renderChart: function renderChart() {},
+  componentDidUpdate: function componentDidUpdate() {
+    console.log(this.props.data);
+  },
   render: function render() {
     return React.createElement(
       'div',
@@ -22630,7 +22633,6 @@ var ScatterContainer = React.createClass({
   render: function render() {
     var _this = this;
 
-    console.log(this.state.data.length);
     var playerList;
     if (this.state.players.length > 0) {
       playerList = this.state.players.map(function (p, i) {
