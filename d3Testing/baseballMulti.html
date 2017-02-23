@@ -19,6 +19,7 @@
     width: 1000px;
     margin: auto;
     padding: 50px;
+    position: relative;
   }
 
 
@@ -69,24 +70,24 @@
 <script>
 
   var data1 = [
-  {year: 2000, OBP: .450, OPS: .821, SLG: .501, RBI: 130, HR: 40},
-  {year: 2001, OBP: .410, OPS: .801, SLG: .601, RBI: 120, HR: 50},
-  {year: 2002, OBP: .420, OPS: .701, SLG: .401, RBI: 110, HR: 30},
-  {year: 2003, OBP: .400, OPS: .961, SLG: .501, RBI: 100, HR: 21},
-  {year: 2004, OBP: .450, OPS: .801, SLG: .521, RBI: 130, HR: 6}
+  {year: 1926, OBP: .516, OPS: 1.253, SLG: .737, RBI: 150, HR: 47},
+  {year: 1927, OBP: .486, OPS: 1.258, SLG: .772, RBI: 164, HR: 60},
+  {year: 1928, OBP: .463, OPS: 1.172, SLG: .709, RBI: 142, HR: 54},
+  {year: 1929, OBP: .430, OPS: 1.127, SLG: .697, RBI: 154, HR: 46},
+  {year: 1930, OBP: .493, OPS: 1.225, SLG: .732, RBI: 153, HR: 49}
 ]
 
 var data2 = [
-  {year: 1980, OBP: .400, OPS: .901, SLG: .601, RBI: 92, HR: 35},
-  {year: 1981, OBP: .460, OPS: 1.001, SLG: .701, RBI: 131, HR: 19},
-  {year: 1982, OBP: .320, OPS: .601, SLG: .501, RBI: 86, HR: 12}
+  {year: 2012, OBP: .399, OPS: .963, SLG: .564, RBI: 83, HR: 30},
+  {year: 2013, OBP: .432, OPS: .988, SLG: .557, RBI: 97, HR: 27},
+  {year: 2014, OBP: .377, OPS: .939, SLG: .561, RBI: 111, HR: 36}
 ]
 
 var data3 = [
-  {year: 1990, OBP: .410, OPS: .908, SLG: .621, RBI: 131, HR: 25},
-  {year: 1991, OBP: .440, OPS: 1.021, SLG: .741, RBI: 140, HR: 22},
-  {year: 1992, OBP: .350, OPS: .961, SLG: .401, RBI: 60, HR: 21},
-  {year: 1993, OBP: .403, OPS: .860, SLG: .600, RBI: 99, HR: 60}
+  {year: 1997, OBP: .342, OPS: .875, SLG: .534, RBI: 98, HR: 30},
+  {year: 1998, OBP: .362, OPS: .946, SLG: .584, RBI: 122, HR: 35},
+  {year: 1998, OBP: .418, OPS: 1.022, SLG: .603, RBI: 104, HR: 27},
+  {year: 2000, OBP: .434, OPS: 1.033, SLG: .599, RBI: 96, HR: 21}
 ]
 
 
@@ -294,16 +295,6 @@ var svg = d3.select('#container')
       .text()
 
 
-
-
-
-
-
-
-
-
-
-
     
     data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
   }
@@ -321,6 +312,3 @@ var svg = d3.select('#container')
   </script>
 </body>
 </html>
-
-
-<!-- d.stat = [stat, d[stat], i + 1] -->
