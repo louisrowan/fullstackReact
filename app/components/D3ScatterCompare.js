@@ -2,10 +2,7 @@ const React = require('react')
 const $ = require('jquery')
 
 const D3ScatterCompare = React.createClass({
-  componentDidMount(){
-    
-  },
-  renderChart(){
+  compileChart(){
 
 const height = 500
 const width = 1000
@@ -239,13 +236,12 @@ var svg = d3.select('#container')
 
 
   },
-  componentDidUpdate(){
-    // console.log('data =', this.props.data)
+  componentDidMount(){
+    this.compileChart()
   },
   render(){
     return (
       <div id='container'>
-        <button onClick={()=> this.renderChart()}>Render!</button>
         <button id='hr'>HR and RBI</button>
         <button id='slg'>OBP, SLG and OPS></button>
       </div>
