@@ -2,6 +2,11 @@ const React = require('react')
 const $ = require('jquery')
 
 const D3ScatterCompare = React.createClass({
+  getInitialState(){
+    return {
+      stats: []
+    }
+  },
   compileChart(){
     const height = 500
     const width = 1000
@@ -207,12 +212,14 @@ const D3ScatterCompare = React.createClass({
         data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
       }
 
-
+    var that = this
     $('#hr').on('click', function(){
-      renderChart(data, ['HR', 'RBI'])
+      that.setState({ stats: ['HR', 'H', 'RBI']})
+      renderChart(data, ['HR', 'H', 'RBI'])
     })
 
     $('#slg').on('click', function(){
+      that.setState({ stats: ['SLG', 'OPS', 'OBP']})
       renderChart(data, ['SLG', 'OPS', 'OBP'])
     })
 
@@ -223,8 +230,8 @@ const D3ScatterCompare = React.createClass({
   render(){
     return (
       <div id='container'>
-        <button id='hr'>HR and RBI</button>
-        <button id='slg'>OBP, SLG and OPS></button>
+        <button id='hr'>HR, H, RBI</button>
+        <button id='slg'>OBP, SLG and OPS</button>
       </div>
     )
   }
