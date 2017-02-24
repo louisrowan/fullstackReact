@@ -6,7 +6,6 @@ const D3ScatterCompare = React.createClass({
     
   },
   renderChart(){
-console.log('in render chart')
 
 const height = 500
 const width = 1000
@@ -245,9 +244,8 @@ var svg = d3.select('#container')
   },
   render(){
     return (
-      <div>
+      <div id='container'>
         <button onClick={()=> this.renderChart()}>Render!</button>
-        <div id='container'></div>
         <button id='hr'>HR and RBI</button>
         <button id='slg'>OBP, SLG and OPS></button>
       </div>

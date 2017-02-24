@@ -22377,7 +22377,7 @@ var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   componentDidMount: function componentDidMount() {},
   renderChart: function renderChart() {
-    console.log('in render chart');
+    console.log('in render chart', this.props.players);
 
     var height = 500;
     var width = 1000;
@@ -22555,7 +22555,7 @@ var D3ScatterCompare = React.createClass({
 
     return React.createElement(
       'div',
-      null,
+      { id: 'container' },
       React.createElement(
         'button',
         { onClick: function onClick() {
@@ -22563,7 +22563,6 @@ var D3ScatterCompare = React.createClass({
           } },
         'Render!'
       ),
-      React.createElement('div', { id: 'container' }),
       React.createElement(
         'button',
         { id: 'hr' },
@@ -22811,14 +22810,14 @@ var ScatterContainer = React.createClass({
       if (data.length === 0) {
         that.setState({ newPlayer: '' });
       } else {
+        data.name = that.state.newPlayer;
         console.log(data);
         data = data.filter(function (d) {
           return d.Level === 'MLB';
         });
         console.log(data);
         var newData = [].concat(_toConsumableArray(that.state.data), [data]);
-        var players = Object.assign([], that.state.players);
-        players.push(that.state.newPlayer);
+        var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
 
         that.setState({ data: newData, players: players, newPlayer: '' });
       }
@@ -22857,7 +22856,7 @@ var ScatterContainer = React.createClass({
         null,
         playerList
       ),
-      React.createElement(D3ScatterCompare, { data: this.state.data })
+      React.createElement(D3ScatterCompare, { players: this.state.players, data: this.state.data })
     );
   }
 });

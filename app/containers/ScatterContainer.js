@@ -24,14 +24,14 @@ const ScatterContainer = React.createClass({
       if (data.length === 0) {
         that.setState({ newPlayer: ''})
       } else {
+        data.name = that.state.newPlayer
         console.log(data)
         data = data.filter((d) => {
           return d.Level === 'MLB'
         })
         console.log(data)
         let newData = [...that.state.data, data]
-        let players = Object.assign([], that.state.players)
-        players.push(that.state.newPlayer)
+        let players = [...that.state.players, that.state.newPlayer]
   
         that.setState({ data: newData, players, newPlayer: '' })
       }
@@ -56,7 +56,7 @@ const ScatterContainer = React.createClass({
       </ul>
 
 
-        <D3ScatterCompare data={this.state.data} />
+        <D3ScatterCompare players={this.state.players} data={this.state.data} />
       </div>
     )
   }
