@@ -1,7 +1,6 @@
 const React = require('react')
 const D3ScatterCompare = require('../components/D3ScatterCompare')
 const ScatterCompareForm = require('../components/ScatterCompareForm')
-const $ = require('jquery')
 
 const ScatterContainer = React.createClass({
   getInitialState(){
@@ -21,7 +20,6 @@ const ScatterContainer = React.createClass({
     } else {
       content = <ScatterCompareForm handleShowChart={this.handleShowChart} />
     }
-
     return (
       <div>
         {content}
