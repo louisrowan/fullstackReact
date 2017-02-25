@@ -1,5 +1,4 @@
 const React = require('react')
-const $ = require('jquery')
 
 const D3ScatterCompare = React.createClass({
   getInitialState(){
@@ -96,120 +95,120 @@ const D3ScatterCompare = React.createClass({
     data.forEach((d, index) => this.renderData(d, index, xScale, yScale, stats))
   },
   renderData(data, index, xScale, yScale, stats){
-  var height = this.state.height
-  var width = this.state.width
+    var height = this.state.height
+    var width = this.state.width
 
-  stats.forEach((stat, statIndex) => {
+    stats.forEach((stat, statIndex) => {
 
-    d3.select('.d3SVG').selectAll('.d3BubbleG' + index)
-      .data(data)
-      .enter()
-      .append('g')
-      .classed('d3BubbleG' + index, true) 
+      d3.select('.d3SVG').selectAll('.d3BubbleG' + index)
+        .data(data)
+        .enter()
+        .append('g')
+        .classed('d3BubbleG' + index, true) 
 
-    var obj = d3.selectAll('.d3BubbleG' + index)
-      .style('fill', (d, i) => {
-        if (index === 0) {
-          return 'rgba(22, 97, 247, .8)'
-        } else if (index === 1) {
-       
-          return 'rgba(252, 30, 41, .8)'
-        } else {
-          return 'rgba(237, 252, 30, .8)'
-        }
-      })
+      var obj = d3.selectAll('.d3BubbleG' + index)
+        .style('fill', (d, i) => {
+          if (index === 0) {
+            return 'rgba(22, 97, 247, .8)'
+          } else if (index === 1) {
+         
+            return 'rgba(252, 30, 41, .8)'
+          } else {
+            return 'rgba(237, 252, 30, .8)'
+          }
+        })
 
-    if (statIndex === 0) {
-      obj
-        .append('circle')
-        .classed('solidCircle', true)
-        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-        .attr('cy', (d, i) => {
-          d.year = i + 1
-          return yScale(+d[stat])}) 
-        .attr('r', 4)
-    } else if (statIndex === 1 ){
+      if (statIndex === 0) {
         obj
-          .append('rect')
-          .classed('solidRect', true)
-          .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
-          .attr('y', (d) => yScale(+d[stat])) 
-          .attr('height', 8)
-          .attr('width', 8)
-    } else {
-      obj
-      .append('circle')
-      .classed('transCircle', true)
-      .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-      .attr('cy', (d) => yScale(+d[stat])) 
-      .attr('r', 4)
-      .style('stroke', (d) => {
-        if (index === 0) {
-          return 'rgba(22, 97, 247, .8)'
-        } else if (index === 1) {
-          return 'rgba(252, 30, 41, .8)'
-        } else {
-          return 'rgba(237, 252, 30, .8)'
-        }
-      })
-      .style('fill', 'transparent')
-    }
+          .append('circle')
+          .classed('solidCircle', true)
+          .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+          .attr('cy', (d, i) => {
+            d.year = i + 1
+            return yScale(+d[stat])}) 
+          .attr('r', 4)
+      } else if (statIndex === 1 ){
+          obj
+            .append('rect')
+            .classed('solidRect', true)
+            .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
+            .attr('y', (d) => yScale(+d[stat])) 
+            .attr('height', 8)
+            .attr('width', 8)
+      } else {
+        obj
+        .append('circle')
+        .classed('transCircle', true)
+        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+        .attr('cy', (d) => yScale(+d[stat])) 
+        .attr('r', 4)
+        .style('stroke', (d) => {
+          if (index === 0) {
+            return 'rgba(22, 97, 247, .8)'
+          } else if (index === 1) {
+            return 'rgba(252, 30, 41, .8)'
+          } else {
+            return 'rgba(237, 252, 30, .8)'
+          }
+        })
+        .style('fill', 'transparent')
+      }
 
-    obj.selectAll('*').on('mouseover', function(){
-      d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
-      var selector = d3.select(this)._groups[0][0].__data__
-      var statName;
-      if (d3.select(this).attr('class') === 'solidCircle'){
-        statName = stats[0]
-      } else if (d3.select(this).attr('class') === 'solidRect'){
-        statName = stats[1]
-      } else {
-        statName = stats[2]
-      }
-      var statNum = selector[statName]
-      var statYear = selector.year
-      var tagName = this.tagName
-      var rWidth;
-      var rHeight;
-      if (tagName === 'circle'){
-        rWidth = d3.select(this).attr('cx')
-        rHeight = d3.select(this).attr('cy')
-      } else {
-        rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
-        rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
-      }
-      d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
-      d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
-      d3.select('.moveableRect')
-        .attr('height', height - rHeight)
-        .attr('width', rWidth)
-        .attr('y', rHeight)
-      }).on('mouseout', function(){
-        d3.select(this).style('transform', 'scale(1)').style('transform-origin', '50% 50%')
+      obj.selectAll('*').on('mouseover', function(){
+        d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
+        var selector = d3.select(this)._groups[0][0].__data__
+        var statName;
+        if (d3.select(this).attr('class') === 'solidCircle'){
+          statName = stats[0]
+        } else if (d3.select(this).attr('class') === 'solidRect'){
+          statName = stats[1]
+        } else {
+          statName = stats[2]
+        }
+        var statNum = selector[statName]
+        var statYear = selector.year
+        var tagName = this.tagName
+        var rWidth;
+        var rHeight;
+        if (tagName === 'circle'){
+          rWidth = d3.select(this).attr('cx')
+          rHeight = d3.select(this).attr('cy')
+        } else {
+          rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
+          rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
+        }
+        d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
+        d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
         d3.select('.moveableRect')
-          .attr('height', 0)
-          .attr('width', 0)
-        d3.selectAll('.toolTipText')
-          .style('opacity', 0)
-      })
+          .attr('height', height - rHeight)
+          .attr('width', rWidth)
+          .attr('y', rHeight)
+        }).on('mouseout', function(){
+          d3.select(this).style('transform', 'scale(1)').style('transform-origin', '50% 50%')
+          d3.select('.moveableRect')
+            .attr('height', 0)
+            .attr('width', 0)
+          d3.selectAll('.toolTipText')
+            .style('opacity', 0)
+        })
 
-    var valueline = d3.line()
-      .x(function(d) { return xScale(d.year - 1)})
-      .y(function(d) { return yScale(d[stat])})
+      var valueline = d3.line()
+        .x(function(d) { return xScale(d.year - 1)})
+        .y(function(d) { return yScale(d[stat])})
 
-    d3.select('.d3SVG').append('path')
-      .data([data])
-      .attr('class', 'line')
-      .style('stroke', () => {
-        if (index === 0) {
-          return 'blue' 
-        } else if (index === 1) {
-          return 'red'
-        } else {
-          return 'yellow'
-        }
-      })
-      .attr('d', valueline)
+      d3.select('.d3SVG').append('path')
+        .data([data])
+        .attr('class', 'line')
+        .style('stroke', () => {
+          if (index === 0) {
+            return 'blue' 
+          } else if (index === 1) {
+            return 'red'
+          } else {
+            return 'yellow'
+          }
+        })
+        .attr('d', valueline)
     })
   },
   showCounting(){
