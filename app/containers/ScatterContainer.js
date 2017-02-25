@@ -13,10 +13,13 @@ const ScatterContainer = React.createClass({
   handleShowChart(data, players){
     this.setState({ data, players, showChart: true})
   },
+  backToForm(){
+    this.setState({ players: [], data: [], showChart: false})
+  },
   render(){
     let content;
     if (this.state.showChart){
-      content = <D3ScatterCompare players={this.state.players} data={this.state.data} />
+      content = <D3ScatterCompare players={this.state.players} data={this.state.data} backToForm={this.backToForm} />
     } else {
       content = <ScatterCompareForm handleShowChart={this.handleShowChart} />
     }

@@ -292,6 +292,7 @@ const D3ScatterCompare = React.createClass({
             <button onClick={()=> this.showAverages()}>OBP, SLG and OPS</button>
           </div>
         </div>
+        <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
       </div>
     )
   }

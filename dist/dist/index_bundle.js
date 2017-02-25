@@ -22877,6 +22877,9 @@ var D3ScatterCompare = React.createClass({
   componentDidMount: function componentDidMount() {
     this.compileChart();
   },
+  componentWillUnmount: function componentWillUnmount() {
+    console.log('un mount');
+  },
   render: function render() {
     var _this2 = this;
 
@@ -23020,6 +23023,13 @@ var D3ScatterCompare = React.createClass({
             'OBP, SLG and OPS'
           )
         )
+      ),
+      React.createElement(
+        'button',
+        { onClick: function onClick() {
+            return _this2.props.backToForm();
+          } },
+        'Back to player selection'
       )
     );
   }
@@ -23346,10 +23356,13 @@ var ScatterContainer = React.createClass({
   handleShowChart: function handleShowChart(data, players) {
     this.setState({ data: data, players: players, showChart: true });
   },
+  backToForm: function backToForm() {
+    this.setState({ players: [], data: [], showChart: false });
+  },
   render: function render() {
     var content = void 0;
     if (this.state.showChart) {
-      content = React.createElement(D3ScatterCompare, { players: this.state.players, data: this.state.data });
+      content = React.createElement(D3ScatterCompare, { players: this.state.players, data: this.state.data, backToForm: this.backToForm });
     } else {
       content = React.createElement(ScatterCompareForm, { handleShowChart: this.handleShowChart });
     }
@@ -23372,7 +23385,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n  .line {\r\n    fill: none;\r\n    stroke-width: .5px;\r\n    stroke-opacity: .5;\r\n  }", ""]);
+exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}", ""]);
 
 // exports
 
