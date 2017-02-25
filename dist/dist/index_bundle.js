@@ -22685,7 +22685,7 @@ var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'average' }],
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
       statType: 'average',
       stats: [],
       height: '',
@@ -22780,11 +22780,13 @@ var D3ScatterCompare = React.createClass({
           return yScale(+d[stat]);
         }).attr('r', 4);
       } else if (statIndex === 1) {
-        obj.append('rect').classed('solidRect', true).attr('x', function (d, i) {
-          return xScale(i + Math.random() * 2 / 40);
+        obj.append('svg').attr('x', function (d, i) {
+          return xScale(i) - 5;
         }).attr('y', function (d) {
-          return yScale(+d[stat]);
-        }).attr('height', 8).attr('width', 8);
+          return yScale(+d[stat]) - 5;
+        }).attr('height', 10).attr('width', 10).append('polygon').classed('solidTriangle', true).attr('points', function (d, i) {
+          return '0,0 10,0 5,10';
+        });
       } else {
         obj.append('circle').classed('transCircle', true).attr('cx', function (d, i) {
           return xScale(i + Math.random() * 2 / 40);
@@ -22807,7 +22809,7 @@ var D3ScatterCompare = React.createClass({
         var statName;
         if (d3.select(this).attr('class') === 'solidCircle') {
           statName = stats[0];
-        } else if (d3.select(this).attr('class') === 'solidRect') {
+        } else if (d3.select(this).attr('class') === 'solidTriangle') {
           statName = stats[1];
         } else {
           statName = stats[2];
@@ -22851,12 +22853,26 @@ var D3ScatterCompare = React.createClass({
     });
   },
   showCounting: function showCounting() {
-    this.setState({ stats: ['HR', 'H', 'RBI'] });
-    this.renderChart(this.props.data, ['HR', 'H', 'RBI']);
+    this.setState({ statType: 'counting', stats: [] });
+    this.clearChart();
   },
   showAverages: function showAverages() {
-    this.setState({ stats: ['SLG', 'OPS', 'OBP'] });
-    this.renderChart(this.props.data, ['SLG', 'OPS', 'OBP']);
+    this.setState({ statType: 'average', stats: [] });
+    this.clearChart();
+  },
+  clearChart: function clearChart() {
+    d3.select('.d3SVG').selectAll('*').remove();
+  },
+  handleCheckClick: function handleCheckClick(e) {
+    var index = this.state.stats.indexOf(e.target.value);
+    var stats = this.state.stats;
+    if (index >= 0) {
+      stats.splice(index, 1);
+    } else {
+      stats.push(e.target.value);
+    }
+    this.setState({ stats: stats });
+    this.renderChart(this.props.data, this.state.stats);
   },
   componentDidMount: function componentDidMount() {
     this.compileChart();
@@ -22865,7 +22881,8 @@ var D3ScatterCompare = React.createClass({
     var _this2 = this;
 
     var statsKey;
-    if (this.state.stats) {
+    if (this.state.stats.length > 0) {
+      console.log(this.state.stats);
       statsKey = this.state.stats.map(function (s, i) {
         if (i === 0) {
           return React.createElement(
@@ -22898,11 +22915,7 @@ var D3ScatterCompare = React.createClass({
             React.createElement(
               'td',
               null,
-              React.createElement(
-                'svg',
-                { className: 'keySVG' },
-                React.createElement('rect', { className: 'keyRect' })
-              )
+              React.createElement('div', { className: 'keyTriangle' })
             )
           );
         } else {
@@ -22927,7 +22940,7 @@ var D3ScatterCompare = React.createClass({
         }
       });
     } else {
-      statsKey = '';
+      statsKey = React.createElement('tr', null);
     }
     var playerKey = this.props.players.map(function (p, i) {
       return React.createElement(
@@ -22939,8 +22952,16 @@ var D3ScatterCompare = React.createClass({
 
     var statsSelector = this.state.allStats.filter(function (stat) {
       return stat.type === _this2.state.statType;
-    }).map(function (stat, i) {
-      return React.createElement('input', { key: i, type: 'checkbox', value: stat.name, text: stat.name });
+    }).map(function (stat) {
+      return React.createElement(
+        'label',
+        { key: stat.name },
+        React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
+            return _this2.handleCheckClick(e);
+          } }),
+        stat.name,
+        React.createElement('br', null)
+      );
     });
     return React.createElement(
       'div',
@@ -23351,7 +23372,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyRect {\r\n  height: 20px;\r\n  width: 20px;\r\n  fill: black;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n  .line {\r\n    fill: none;\r\n    stroke-width: .5px;\r\n    stroke-opacity: .5;\r\n  }", ""]);
+exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n  .line {\r\n    fill: none;\r\n    stroke-width: .5px;\r\n    stroke-opacity: .5;\r\n  }", ""]);
 
 // exports
 

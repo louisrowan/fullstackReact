@@ -27,10 +27,13 @@ text {
   cy: 10px;
 }
 
-.keyRect {
-  height: 20px;
-  width: 20px;
-  fill: black;
+.keyTriangle {
+  height: 0px;
+  width: 0px;
+  border: 10px solid transparent;
+  border-top: 20px solid black;
+  top: 5px;
+  position: relative;
 }
 
 .keyTransCircle {
@@ -76,12 +79,16 @@ text {
   margin: auto;
 }
 
+#d3LegendDiv td {
+  padding: 5px;
+}
+
 #d3LegendDiv button {
   padding: 10px;
 }
 
-  .line {
-    fill: none;
-    stroke-width: .5px;
-    stroke-opacity: .5;
-  }
+.line {
+  fill: none;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}

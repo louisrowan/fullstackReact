@@ -6,8 +6,12 @@ const D3ScatterCompare = React.createClass({
       allStats: [
         {name: 'OBP', type: 'average'},
         {name: 'SLG', type: 'average'},
+        {name: 'OPS', type: 'average'},
+        {name: 'AVG', type: 'average'},
         {name: 'HR', type: 'counting'},
-        {name: 'RBI', type: 'average'}
+        {name: 'RBI', type: 'counting'},
+        {name: 'H', type: 'counting'},
+        {name: 'SB', type: 'counting'}
       ],
       statType: 'average',
       stats: [],
@@ -136,12 +140,14 @@ const D3ScatterCompare = React.createClass({
           .attr('r', 4)
       } else if (statIndex === 1 ){
           obj
-            .append('rect')
-            .classed('solidRect', true)
-            .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
-            .attr('y', (d) => yScale(+d[stat])) 
-            .attr('height', 8)
-            .attr('width', 8)
+            .append('svg')
+              .attr('x', (d, i) => xScale(i) - 5)
+              .attr('y', (d) => yScale(+d[stat]) - 5)
+              .attr('height', 10)
+              .attr('width', 10)
+              .append('polygon')
+              .classed('solidTriangle', true)
+              .attr('points', (d, i) => '0,0 10,0 5,10' )
       } else {
         obj
         .append('circle')
@@ -167,7 +173,7 @@ const D3ScatterCompare = React.createClass({
         var statName;
         if (d3.select(this).attr('class') === 'solidCircle'){
           statName = stats[0]
-        } else if (d3.select(this).attr('class') === 'solidRect'){
+        } else if (d3.select(this).attr('class') === 'solidTriangle'){
           statName = stats[1]
         } else {
           statName = stats[2]
@@ -219,40 +225,52 @@ const D3ScatterCompare = React.createClass({
     })
   },
   showCounting(){
-    this.setState({ stats: ['HR', 'H', 'RBI']})
-    this.renderChart(this.props.data, ['HR', 'H', 'RBI'])
+    this.setState({ statType: 'counting', stats: [] })
+    this.clearChart()
   },
   showAverages(){
-    this.setState({ stats: ['SLG', 'OPS', 'OBP']})
-    this.renderChart(this.props.data, ['SLG', 'OPS', 'OBP'])
+    this.setState({ statType: 'average', stats: [] })
+    this.clearChart()
+  },
+  clearChart(){
+    d3.select('.d3SVG').selectAll('*').remove()
   },
   handleCheckClick(e){
-    console.log(e)
+    var index = this.state.stats.indexOf(e.target.value)
+    var stats = this.state.stats
+    if (index >= 0){
+      stats.splice(index, 1)
+    } else {
+      stats.push(e.target.value)
+    }
+    this.setState({ stats })
+    this.renderChart(this.props.data, this.state.stats)
   },
   componentDidMount(){
     this.compileChart()
   },
   render(){
     var statsKey;
-    if (this.state.stats){
+    if (this.state.stats.length > 0){
+      console.log(this.state.stats)
       statsKey = this.state.stats.map((s, i) => {
         if (i === 0){
           return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td></tr>
         } else if (i === 1){
-          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><rect className='keyRect'></rect></svg></td></tr>
+          return <tr key={i}><td>{s}</td><td><div className='keyTriangle'></div></td></tr>
         } else {
           return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td></tr>
         }
       })
     } else {
-      statsKey = ''
+      statsKey = <tr></tr>
     }
     var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
 
     var statsSelector = this.state.allStats.filter((stat) => {
       return stat.type === this.state.statType
-    }).map((stat, i) => {
-      return <label key={i}><input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />{stat.name}</label>
+    }).map((stat) => {
+      return <label key={stat.name}><input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />{stat.name}<br /></label>
     })
     return (
       <div id='container'>
