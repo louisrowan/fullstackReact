@@ -73,21 +73,31 @@ const ScatterCompareForm = React.createClass({
 
     return (
       <div>
-        <ul>
-          {playerList}
-        </ul>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-        <input disabled={formDisabled} id='inputNew'
-          value={this.state.newPlayer}
-          onChange={(e)=>this.handleInputChange(e)} />
-          
-        <input disabled={formDisabled} type='submit' value='Add player'  />
-        {max}
+        <div id='formContainer'>
+          <div>
+            <ul>
+              <li key='header'>Currently on your list...</li>
+              {playerList}
+            </ul>
+          </div>
+          <div>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
+            <input disabled={formDisabled} id='inputNew'
+              value={this.state.newPlayer}
+              onChange={(e)=>this.handleInputChange(e)} />
+              
+            <input disabled={formDisabled} type='submit' value='Add player'  />
+            {max}
 
-        </form>
-        <ul>{predictiveText}</ul>
-
-        <button onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)}>Show chart</button>
+            </form>
+          </div>
+          <div>
+            <ul><li key='header'>Are you looking for...</li>{predictiveText}</ul>
+          </div>
+        </div>
+          <div id='showChartButton'>
+            <button onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)}>Show chart</button>
+          </div>
       </div>
     )
   }

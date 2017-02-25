@@ -92,3 +92,32 @@ text {
   stroke-width: .5px;
   stroke-opacity: .5;
 }
+
+#formContainer div {
+  margin: 0;
+  width: 33%;
+  float: left;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+#formContainer ul {
+  list-style-type: none;
+  color: black;
+  margin: 0;
+}
+
+#formContainer li {
+  font-size: 16px;
+}
+
+#showChartButton {
+  margin: auto;
+  text-align: center;
+  padding: 50px;
+  clear: both;
+}
+
+#formContainer button {
+  padding: 5px;
+}
