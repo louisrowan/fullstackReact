@@ -22877,9 +22877,6 @@ var D3ScatterCompare = React.createClass({
   componentDidMount: function componentDidMount() {
     this.compileChart();
   },
-  componentWillUnmount: function componentWillUnmount() {
-    console.log('un mount');
-  },
   render: function render() {
     var _this2 = this;
 
@@ -23080,6 +23077,16 @@ var ScatterCompareForm = React.createClass({
 
         that.setState({ data: newData, players: players, newPlayer: '' });
       }
+    });
+  },
+  componentDidMount: function componentDidMount() {
+    var that = this;
+    $.ajax({
+      url: '/api/baseball'
+    }).done(function (data) {
+      console.log(data);
+    }).fail(function (fail) {
+      console.log('fail', fail);
     });
   },
   render: function render() {

@@ -17,8 +17,15 @@ router.route('/baseball')
     new Promise(function(resolve, reject){
       resolve(test.baseball(req.body.player))
     }).then(function(p){
-
       res.send(p)
+      if (p.length > 0) {
+        test.addPlayertoDB(req.body.player)
+      } 
+    })
+  })
+  .get(function(req, res, next) {
+    db.collection('players').find().toArray(function(err, items){
+      res.send(items)
     })
   })
 

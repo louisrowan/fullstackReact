@@ -79,3 +79,15 @@ exports.baseball = function(player){
     return p
   })
 }
+
+exports.addPlayertoDB = function(name){
+  db.collection('players').find({ name: name }).toArray(function(err, result){
+    if (err) return console.log('error: ', err)
+    if (result.length === 0){
+      db.collection('players').save({ name: name}, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to DB: ', result)
+      })
+    }
+  })
+}

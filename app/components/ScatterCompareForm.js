@@ -33,7 +33,16 @@ const ScatterCompareForm = React.createClass({
       }
     })
   },
-
+  componentDidMount(){
+      var that = this
+      $.ajax({
+        url: '/api/baseball',
+      }).done((data) => {
+        console.log(data)
+      }).fail((fail) => {
+        console.log('fail', fail)
+      })
+  },
   render(){
     var playerList;
     if (this.state.players.length > 0){
