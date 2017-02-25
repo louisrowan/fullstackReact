@@ -15,8 +15,9 @@ const D3ScatterCompare = React.createClass({
       .insert('svg', ":first-child")
       .attr('height', height)
       .attr('width', width)
-      .style('border', '1px solid yellow')
       .style('overflow', 'visible')
+      .style('padding', '40px')
+      .classed('d3SVG', true)
 
       const radius = 20
       const padding = 30
@@ -232,11 +233,11 @@ const D3ScatterCompare = React.createClass({
     if (this.state.stats){
       statsKey = this.state.stats.map((s, i) => {
         if (i === 0){
-          return <li key={i}>{s} = <svg className='keySVG'><circle className='keyFullCircle'></circle></svg></li>
+          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td></tr>
         } else if (i === 1){
-          return <li key={i}>{s} = <svg className='keySVG'><rect className='keyRect'></rect></svg></li>
+          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><rect className='keyRect'></rect></svg></td></tr>
         } else {
-          return <li key={i}>{s} = <svg className='keySVG'><circle className='keyTransCircle'></circle></svg></li>
+          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td></tr>
         }
       })
     } else {
@@ -246,12 +247,19 @@ const D3ScatterCompare = React.createClass({
     return (
       <div id='container'>
         <br />
-        <ul>{statsKey}</ul>
-        <ul>{playerKey}</ul>
-        
-        <div id='svgButtons'>
-          <button id='hr'>HR, H, RBI</button>
-          <button id='slg'>OBP, SLG and OPS</button>
+
+        <div id='d3LegendDiv'>
+          <div>
+            <table><tbody>{statsKey}</tbody></table>
+          </div>
+          <div>
+            <ul>{playerKey}</ul>
+          </div>
+          
+          <div>
+            <button id='hr'>HR, H, RBI</button><br />
+            <button id='slg'>OBP, SLG and OPS</button>
+          </div>
         </div>
       </div>
     )

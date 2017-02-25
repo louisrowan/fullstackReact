@@ -22693,7 +22693,7 @@ var D3ScatterCompare = React.createClass({
     var height = 500;
     var width = 1000;
 
-    var svg = d3.select('#container').insert('svg', ":first-child").attr('height', height).attr('width', width).style('border', '1px solid yellow').style('overflow', 'visible');
+    var svg = d3.select('#container').insert('svg', ":first-child").attr('height', height).attr('width', width).style('overflow', 'visible').style('padding', '40px').classed('d3SVG', true);
 
     var radius = 20;
     var padding = 30;
@@ -22862,36 +22862,59 @@ var D3ScatterCompare = React.createClass({
       statsKey = this.state.stats.map(function (s, i) {
         if (i === 0) {
           return React.createElement(
-            'li',
+            'tr',
             { key: i },
-            s,
-            ' = ',
             React.createElement(
-              'svg',
-              { className: 'keySVG' },
-              React.createElement('circle', { className: 'keyFullCircle' })
+              'td',
+              null,
+              s
+            ),
+            React.createElement(
+              'td',
+              null,
+              React.createElement(
+                'svg',
+                { className: 'keySVG' },
+                React.createElement('circle', { className: 'keyFullCircle' })
+              )
             )
           );
         } else if (i === 1) {
           return React.createElement(
-            'li',
+            'tr',
             { key: i },
             React.createElement(
-              'svg',
-              { className: 'keySVG' },
-              React.createElement('rect', { className: 'keyRect' })
+              'td',
+              null,
+              s
+            ),
+            React.createElement(
+              'td',
+              null,
+              React.createElement(
+                'svg',
+                { className: 'keySVG' },
+                React.createElement('rect', { className: 'keyRect' })
+              )
             )
           );
         } else {
           return React.createElement(
-            'li',
+            'tr',
             { key: i },
-            s,
-            ' = ',
             React.createElement(
-              'svg',
-              { className: 'keySVG' },
-              React.createElement('circle', { className: 'keyTransCircle' })
+              'td',
+              null,
+              s
+            ),
+            React.createElement(
+              'td',
+              null,
+              React.createElement(
+                'svg',
+                { className: 'keySVG' },
+                React.createElement('circle', { className: 'keyTransCircle' })
+              )
             )
           );
         }
@@ -22911,27 +22934,44 @@ var D3ScatterCompare = React.createClass({
       { id: 'container' },
       React.createElement('br', null),
       React.createElement(
-        'ul',
-        null,
-        statsKey
-      ),
-      React.createElement(
-        'ul',
-        null,
-        playerKey
-      ),
-      React.createElement(
         'div',
-        { id: 'svgButtons' },
+        { id: 'd3LegendDiv' },
         React.createElement(
-          'button',
-          { id: 'hr' },
-          'HR, H, RBI'
+          'div',
+          null,
+          React.createElement(
+            'table',
+            null,
+            React.createElement(
+              'tbody',
+              null,
+              statsKey
+            )
+          )
         ),
         React.createElement(
-          'button',
-          { id: 'slg' },
-          'OBP, SLG and OPS'
+          'div',
+          null,
+          React.createElement(
+            'ul',
+            null,
+            playerKey
+          )
+        ),
+        React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'button',
+            { id: 'hr' },
+            'HR, H, RBI'
+          ),
+          React.createElement('br', null),
+          React.createElement(
+            'button',
+            { id: 'slg' },
+            'OBP, SLG and OPS'
+          )
         )
       )
     );
@@ -23287,7 +23327,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, ".playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 5px;\r\n  fill: black;\r\n  cx: 5px;\r\n  cy: 5px;\r\n}\r\n\r\n.keyRect {\r\n  height: 10px;\r\n  width: 10px;\r\n  fill: black;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 5px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 5px;\r\n  xy: 5px;\r\n}\r\n\r\n.keySVG {\r\n  height: 10px;\r\n  width: 10px;\r\n  border: 1px solid purple;\r\n}", ""]);
+exports.push([module.i, "body {\r\n  background: black;\r\n  color: white;\r\n}\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n  fill: white;\r\n  stroke: white;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: white;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyRect {\r\n  height: 20px;\r\n  width: 20px;\r\n  fill: white;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: white;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 33.3%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}", ""]);
 
 // exports
 

@@ -1,3 +1,18 @@
+body {
+  background: black;
+  color: white;
+}
+
+.d3Axis {
+  /*fill: white;*/
+}
+
+text {
+  font-size: 20px;
+  fill: white;
+  stroke: white;
+}
+
 .playerKey0 {
  color: rgb(22, 97, 247);
 }
@@ -11,27 +26,61 @@
 }
 
 .keyFullCircle {
-  r: 8px;
-  fill: black;
-  cx: 8px;
-  cy: 8px;
+  r: 10px;
+  fill: white;
+  cx: 10px;
+  cy: 10px;
 }
 
 .keyRect {
-  height: 16px;
-  width: 16px;
-  fill: black;
+  height: 20px;
+  width: 20px;
+  fill: white;
 }
 
 .keyTransCircle {
-  r: 8px;
+  r: 10px;
   fill: transparent;
-  stroke: black;
-  cx: 8px;
-  cy: 8px;
+  stroke: white;
+  cx: 10px;
+  cy: 10px;
 }
 
 .keySVG {
-  height: 16px;
-  width: 16px;
+  height: 20px;
+  width: 20px;
+}
+
+.d3SVG {
+  display: block;
+  margin: auto;
+}
+
+#d3LegendDiv {
+  margin: auto;
+  font-size: 30px;
+}
+
+#d3LegendDiv div {
+  float: left;
+  width: 33.3%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#d3LegendDiv ul {
+  list-style-type: none;
+  width: 100%;
+}
+
+#d3LegendDiv li {
+  text-align: center;
+}
+
+#d3LegendDiv table {
+  margin: auto;
+}
+
+#d3LegendDiv button {
+  padding: 10px;
 }
