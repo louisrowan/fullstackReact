@@ -22685,6 +22685,8 @@ var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   getInitialState: function getInitialState() {
     return {
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'average' }],
+      statType: 'average',
       stats: [],
       height: '',
       width: '',
@@ -22934,6 +22936,12 @@ var D3ScatterCompare = React.createClass({
         p
       );
     });
+
+    var statsSelector = this.state.allStats.filter(function (stat) {
+      return stat.type === _this2.state.statType;
+    }).map(function (stat, i) {
+      return React.createElement('input', { key: i, type: 'checkbox', value: stat.name, text: stat.name });
+    });
     return React.createElement(
       'div',
       { id: 'container' },
@@ -22941,6 +22949,15 @@ var D3ScatterCompare = React.createClass({
       React.createElement(
         'div',
         { id: 'd3LegendDiv' },
+        React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'form',
+            null,
+            statsSelector
+          )
+        ),
         React.createElement(
           'div',
           null,
@@ -23334,7 +23351,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyRect {\r\n  height: 20px;\r\n  width: 20px;\r\n  fill: black;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 33.3%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n  .line {\r\n    fill: none;\r\n    stroke-width: .5px;\r\n    stroke-opacity: .5;\r\n  }", ""]);
+exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyRect {\r\n  height: 20px;\r\n  width: 20px;\r\n  fill: black;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n  .line {\r\n    fill: none;\r\n    stroke-width: .5px;\r\n    stroke-opacity: .5;\r\n  }", ""]);
 
 // exports
 

@@ -3,6 +3,13 @@ const React = require('react')
 const D3ScatterCompare = React.createClass({
   getInitialState(){
     return {
+      allStats: [
+        {name: 'OBP', type: 'average'},
+        {name: 'SLG', type: 'average'},
+        {name: 'HR', type: 'counting'},
+        {name: 'RBI', type: 'average'}
+      ],
+      statType: 'average',
       stats: [],
       height: '',
       width: '',
@@ -219,6 +226,9 @@ const D3ScatterCompare = React.createClass({
     this.setState({ stats: ['SLG', 'OPS', 'OBP']})
     this.renderChart(this.props.data, ['SLG', 'OPS', 'OBP'])
   },
+  handleCheckClick(e){
+    console.log(e)
+  },
   componentDidMount(){
     this.compileChart()
   },
@@ -238,11 +248,20 @@ const D3ScatterCompare = React.createClass({
       statsKey = ''
     }
     var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
+
+    var statsSelector = this.state.allStats.filter((stat) => {
+      return stat.type === this.state.statType
+    }).map((stat, i) => {
+      return <label key={i}><input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />{stat.name}</label>
+    })
     return (
       <div id='container'>
         <br />
 
         <div id='d3LegendDiv'>
+          <div>
+            <form>{statsSelector}</form>
+          </div>
           <div>
             <table><tbody>{statsKey}</tbody></table>
           </div>

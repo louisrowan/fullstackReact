@@ -58,7 +58,7 @@ text {
 
 #d3LegendDiv div {
   float: left;
-  width: 33.3%;
+  width: 25%;
   text-align: center;
   box-sizing: border-box;
 }
