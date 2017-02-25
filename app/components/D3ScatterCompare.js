@@ -4,12 +4,20 @@ const $ = require('jquery')
 const D3ScatterCompare = React.createClass({
   getInitialState(){
     return {
-      stats: []
+      stats: [],
+      height: '',
+      width: '',
+      padding: ''
     }
   },
   compileChart(){
     const height = 500
     const width = 1000
+    const padding = 30
+    this.setState({ height })
+    this.setState({ width })
+    this.setState({ padding })
+
 
     var svg = d3.select('#container')
       .insert('svg', ":first-child")
@@ -20,15 +28,114 @@ const D3ScatterCompare = React.createClass({
       .classed('d3SVG', true)
 
       const radius = 20
-      const padding = 30
+      
 
       var data = this.props.data
 
-      function renderData(data, index, xScale, yScale, stats){
+    var that = this
+    $('#hr').on('click', function(){
+      that.setState({ stats: ['HR', 'H', 'RBI']})
+      that.renderChart(data, ['HR', 'H', 'RBI'])
+    })
+
+    $('#slg').on('click', function(){
+      that.setState({ stats: ['SLG', 'OPS', 'OBP']})
+      that.renderChart(data, ['SLG', 'OPS', 'OBP'])
+    })
+
+  },
+
+  renderChart(data, stats) {
+      var height = this.state.height
+      var width = this.state.width
+      var padding = this.state.padding
+
+        d3.select('svg').selectAll('*').remove()
+
+        var min = d3.min(data.map((d) => {
+          return d3.min(d.map((e) => {
+            return d3.min(stats.map((stat) => {
+              return +e[stat] }))
+          }))
+        }))
+
+        var max = d3.max(data.map((d) => {
+          return d3.max(d.map((e) => {
+            return d3.max(stats.map((stat) => +e[stat]))
+          }))
+        }))
+
+        var xScale = d3.scaleLinear()
+          .domain([0, d3.max(data.map((d) => d.length))])
+          .range([padding, width - padding])
+
+        var yScale = d3.scaleLinear()
+          .domain([min, max])
+          .range([height - padding, padding])
+
+        var yAxisScale = d3.scaleLinear()
+          .domain([min, max])
+          .range([height, height - padding])
+
+        var xAxisScale = d3.scaleLinear()
+          .domain([1, d3.max(data.map((d) => d.length)) + 1])
+          .range([padding, width - padding])
+
+
+        var xAxis = d3.axisBottom()
+          .scale(xAxisScale)
+          .ticks(d3.max(data.map((d) => d.length)) + 1)
+
+        var yAxis = d3.axisLeft()
+          .scale(yScale)
+
+
+        d3.select('svg')
+          .append('g')
+          .classed('d3Axis', true)
+          .attr('transform', 'translate(0,' + height + ')')
+          .call(xAxis)
+
+        d3.select('svg')
+          .append('g')
+          .classed('d3Axis', true)
+          .call(yAxis)
+
+        var rect = d3.select('svg')
+          .append('g')
+
+        rect.append('rect')
+          .classed('moveableRect', true)
+          .attr('x', 0)
+          .attr('y', height)
+          .style('fill', 'none')
+          .style('stroke', 'yellow')
+
+        d3.select('#container')
+          .append('div')
+          .classed('toolTipText', true)
+          .classed('toolTipYear', true)
+          .text('')
+
+        d3.select('#container')
+          .append('div')
+          .classed('toolTipText', true)
+          .classed('toolTipNum', true)
+          .text()
+
+
+    
+        data.forEach((d, index) => this.renderData(d, index, xScale, yScale, stats))
+      },
+
+
+  renderData(data, index, xScale, yScale, stats){
+      var height = this.state.height
+      var width = this.state.width
     
         stats.forEach((stat, statIndex) => {
 
-          svg.selectAll('.d3BubbleG' + index)
+          d3.select('.d3SVG').selectAll('.d3BubbleG' + index)
             .data(data)
             .enter()
             .append('g')
@@ -121,125 +228,30 @@ const D3ScatterCompare = React.createClass({
                 .style('opacity', 0)
             })
 
-                    var valueline = d3.line()
-      .x(function(d) { console.log(d.year - 1); return xScale(d.year - 1)})
-      .y(function(d) { console.log(d[stat]); return yScale(d[stat])})
+            var valueline = d3.line()
+              .x(function(d) { return xScale(d.year - 1)})
+              .y(function(d) { return yScale(d[stat])})
 
-       
-
-    svg.append('path')
-      .data([data])
-      .attr('class', 'line')
-      .style('stroke', () => {
-        if (index === 0) {
-          return 'blue' 
-        } else if (index === 1) {
-          return 'red'
-        } else {
-          return 'yellow'
-        }
-      })
-      .attr('d', valueline)
+            d3.select('.d3SVG').append('path')
+              .data([data])
+              .attr('class', 'line')
+              .style('stroke', () => {
+                if (index === 0) {
+                  return 'blue' 
+                } else if (index === 1) {
+                  return 'red'
+                } else {
+                  return 'yellow'
+                }
+              })
+              .attr('d', valueline)
 
 
         })
        // end of looping through all stats
 
-      }
+      },
       // end of renderData
-
-      function renderChart(data, stats) {
-
-        d3.select('svg').selectAll('*').remove()
-
-        var min = d3.min(data.map((d) => {
-          return d3.min(d.map((e) => {
-            return d3.min(stats.map((stat) => {
-              return +e[stat] }))
-          }))
-        }))
-
-        var max = d3.max(data.map((d) => {
-          return d3.max(d.map((e) => {
-            return d3.max(stats.map((stat) => +e[stat]))
-          }))
-        }))
-
-        var xScale = d3.scaleLinear()
-          .domain([0, d3.max(data.map((d) => d.length))])
-          .range([padding, width - padding])
-
-        var yScale = d3.scaleLinear()
-          .domain([min, max])
-          .range([height - padding, padding])
-
-        var yAxisScale = d3.scaleLinear()
-          .domain([min, max])
-          .range([height, height - padding])
-
-        var xAxisScale = d3.scaleLinear()
-          .domain([1, d3.max(data.map((d) => d.length)) + 1])
-          .range([padding, width - padding])
-
-
-        var xAxis = d3.axisBottom()
-          .scale(xAxisScale)
-          .ticks(d3.max(data.map((d) => d.length)) + 1)
-
-        var yAxis = d3.axisLeft()
-          .scale(yScale)
-
-
-        d3.select('svg')
-          .append('g')
-          .classed('d3Axis', true)
-          .attr('transform', 'translate(0,' + height + ')')
-          .call(xAxis)
-
-        d3.select('svg')
-          .append('g')
-          .classed('d3Axis', true)
-          .call(yAxis)
-
-        var rect = d3.select('svg')
-          .append('g')
-
-        rect.append('rect')
-          .classed('moveableRect', true)
-          .attr('x', 0)
-          .attr('y', height)
-          .style('fill', 'none')
-          .style('stroke', 'yellow')
-
-        d3.select('#container')
-          .append('div')
-          .classed('toolTipText', true)
-          .classed('toolTipYear', true)
-          .text('')
-
-        d3.select('#container')
-          .append('div')
-          .classed('toolTipText', true)
-          .classed('toolTipNum', true)
-          .text()
-
-
-    
-        data.forEach((d, index) => renderData(d, index, xScale, yScale, stats))
-      }
-
-    var that = this
-    $('#hr').on('click', function(){
-      that.setState({ stats: ['HR', 'H', 'RBI']})
-      renderChart(data, ['HR', 'H', 'RBI'])
-    })
-
-    $('#slg').on('click', function(){
-      that.setState({ stats: ['SLG', 'OPS', 'OBP']})
-      renderChart(data, ['SLG', 'OPS', 'OBP'])
-    })
-
-  },
   componentDidMount(){
     this.compileChart()
   },
