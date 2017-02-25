@@ -79,3 +79,9 @@ text {
 #d3LegendDiv button {
   padding: 10px;
 }
+
+  .line {
+    fill: none;
+    stroke-width: .5px;
+    stroke-opacity: .5;
+  }

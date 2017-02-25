@@ -14,6 +14,11 @@
     fill: black;
   }
 
+  .line {
+    fill: none;
+    stroke-width: 1px;
+  }
+
   #container {
     height: 500px;
     width: 1000px;
@@ -36,7 +41,7 @@
   }
 
   body {
-    background: black;
+    background: white;
   }
 
   .d3Axis {
@@ -109,9 +114,29 @@ var svg = d3.select('#container')
   var data = [data1, data2, data3]
 
   function renderData(data, index, xScale, yScale, stats){
+
+    var valueline;
     
     
     stats.forEach((stat, statIndex) => {
+
+    valueline = d3.line()
+      .x(function(d) { return xScale(d.year - 1)})
+      .y(function(d) { return yScale(d[stat])})
+
+    svg.append('path')
+      .data([data])
+      .attr('class', 'line')
+      .style('stroke', () => {
+        if (index === 0) {
+          return 'blue' 
+        } else if (index === 1) {
+          return 'red'
+        } else {
+          return 'yellow'
+        }
+      })
+      .attr('d', valueline)
 
     svg.selectAll('.d3BubbleG' + index)
       .data(data)
