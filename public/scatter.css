@@ -1,7 +1,4 @@
-body {
-  background: black;
-  color: white;
-}
+
 
 .d3Axis {
   /*fill: white;*/
@@ -9,8 +6,6 @@ body {
 
 text {
   font-size: 20px;
-  fill: white;
-  stroke: white;
 }
 
 .playerKey0 {
@@ -27,7 +22,7 @@ text {
 
 .keyFullCircle {
   r: 10px;
-  fill: white;
+  fill: black;
   cx: 10px;
   cy: 10px;
 }
@@ -35,13 +30,13 @@ text {
 .keyRect {
   height: 20px;
   width: 20px;
-  fill: white;
+  fill: black;
 }
 
 .keyTransCircle {
   r: 10px;
   fill: transparent;
-  stroke: white;
+  stroke: black;
   cx: 10px;
   cy: 10px;
 }
