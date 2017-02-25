@@ -12,7 +12,7 @@ const D3ScatterCompare = React.createClass({
     const width = 1000
 
     var svg = d3.select('#container')
-      .append('svg')
+      .insert('svg', ":first-child")
       .attr('height', height)
       .attr('width', width)
       .style('border', '1px solid yellow')
@@ -228,10 +228,31 @@ const D3ScatterCompare = React.createClass({
     this.compileChart()
   },
   render(){
+    var statsKey;
+    if (this.state.stats){
+      statsKey = this.state.stats.map((s, i) => {
+        if (i === 0){
+          return <li key={i}>{s} = <svg className='keySVG'><circle className='keyFullCircle'></circle></svg></li>
+        } else if (i === 1){
+          return <li key={i}>{s} = <svg className='keySVG'><rect className='keyRect'></rect></svg></li>
+        } else {
+          return <li key={i}>{s} = <svg className='keySVG'><circle className='keyTransCircle'></circle></svg></li>
+        }
+      })
+    } else {
+      statsKey = ''
+    }
+    var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
     return (
       <div id='container'>
-        <button id='hr'>HR, H, RBI</button>
-        <button id='slg'>OBP, SLG and OPS</button>
+        <br />
+        <ul>{statsKey}</ul>
+        <ul>{playerKey}</ul>
+        
+        <div id='svgButtons'>
+          <button id='hr'>HR, H, RBI</button>
+          <button id='slg'>OBP, SLG and OPS</button>
+        </div>
       </div>
     )
   }

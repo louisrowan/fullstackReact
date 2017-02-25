@@ -6,6 +6,7 @@ const App = require('./components/App')
 const BaseballContainer = require('./containers/BaseballContainer')
 const ScatterContainer = require('./containers/ScatterContainer')
 require('../public/styles.css')
+require('../public/scatter.css')
 
 const Routes = React.createClass({
   render() {

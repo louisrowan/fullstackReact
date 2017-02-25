@@ -41,13 +41,23 @@ const ScatterCompareForm = React.createClass({
     if (this.state.players.length > 0){
       playerList = this.state.players.map((p, i) => <li key={i}>{p}</li>)
     }
+    var formDisabled;
+    var max
+    if (this.state.players.length >= 3) {
+      formDisabled = true
+      max = 'Max players reached'
+    } else {
+      formDisabled = false
+      max = ''
+    }
     return (
       <div>
         <form onSubmit={() => this.handleSubmit()}>
-        <input id='inputNew'
+        <input disabled={formDisabled} id='inputNew'
           value={this.state.newPlayer}
           onChange={(e)=>this.handleInputChange(e)} />
-        <input type='submit' value='Add player' />
+        <input disabled={formDisabled} type='submit' value='Add player' />
+        {max}
         </form>
         <ul>
           {playerList}
