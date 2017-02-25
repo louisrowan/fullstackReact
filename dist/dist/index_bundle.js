@@ -23052,13 +23052,14 @@ var ScatterCompareForm = React.createClass({
     return {
       players: [],
       data: [],
+      databaseResults: [],
       newPlayer: ''
     };
   },
   handleInputChange: function handleInputChange(e) {
     this.setState({ newPlayer: e.target.value });
   },
-  handleSubmit: function handleSubmit() {
+  handleSubmit: function handleSubmit(e) {
     var that = this;
     $.ajax({
       url: '/api/baseball',
@@ -23084,7 +23085,11 @@ var ScatterCompareForm = React.createClass({
     $.ajax({
       url: '/api/baseball'
     }).done(function (data) {
-      console.log(data);
+      var databaseResults = data.map(function (d) {
+        return d.name;
+      });
+      console.log(databaseResults);
+      that.setState({ databaseResults: databaseResults });
     }).fail(function (fail) {
       console.log('fail', fail);
     });
@@ -23111,13 +23116,35 @@ var ScatterCompareForm = React.createClass({
       formDisabled = false;
       max = '';
     }
+
+    var predictiveText;
+    if (this.state.databaseResults.length > 1 && this.state.newPlayer.length > 0) {
+      predictiveText = this.state.databaseResults.filter(function (name) {
+        for (var z = 0; z < _this.state.newPlayer.length; z++) {
+          if (name[z] != _this.state.newPlayer[z]) return;
+        }
+        return name;
+      }).map(function (name, i) {
+        return React.createElement(
+          'li',
+          { key: i },
+          name
+        );
+      });
+    }
+
     return React.createElement(
       'div',
       null,
       React.createElement(
+        'ul',
+        null,
+        playerList
+      ),
+      React.createElement(
         'form',
-        { onSubmit: function onSubmit() {
-            return _this.handleSubmit();
+        { onSubmit: function onSubmit(e) {
+            return _this.handleSubmit(e);
           } },
         React.createElement('input', { disabled: formDisabled, id: 'inputNew',
           value: this.state.newPlayer,
@@ -23130,7 +23157,7 @@ var ScatterCompareForm = React.createClass({
       React.createElement(
         'ul',
         null,
-        playerList
+        predictiveText
       ),
       React.createElement(
         'button',

@@ -6,13 +6,14 @@ const ScatterCompareForm = React.createClass({
     return {
       players: [],
       data: [],
+      databaseResults: [],
       newPlayer: ''
     }
   },
   handleInputChange(e){
     this.setState({ newPlayer: e.target.value})
   },
-  handleSubmit(){
+  handleSubmit(e){
     var that = this
     $.ajax({
       url: '/api/baseball',
@@ -38,7 +39,9 @@ const ScatterCompareForm = React.createClass({
       $.ajax({
         url: '/api/baseball',
       }).done((data) => {
-        console.log(data)
+        var databaseResults = data.map((d) => d.name)
+        console.log(databaseResults)
+        that.setState({ databaseResults })
       }).fail((fail) => {
         console.log('fail', fail)
       })
@@ -57,18 +60,33 @@ const ScatterCompareForm = React.createClass({
       formDisabled = false
       max = ''
     }
+
+    var predictiveText;
+    if (this.state.databaseResults.length > 1 && this.state.newPlayer.length > 0) {
+      predictiveText = this.state.databaseResults.filter((name) => {
+        for (let z = 0; z < this.state.newPlayer.length; z++) {
+          if (name[z] != this.state.newPlayer[z]) return
+        }
+        return name
+      }).map((name, i) => <li key={i}>{name}</li>)
+    }
+
     return (
       <div>
-        <form onSubmit={() => this.handleSubmit()}>
-        <input disabled={formDisabled} id='inputNew'
-          value={this.state.newPlayer}
-          onChange={(e)=>this.handleInputChange(e)} />
-        <input disabled={formDisabled} type='submit' value='Add player' />
-        {max}
-        </form>
         <ul>
           {playerList}
         </ul>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <input disabled={formDisabled} id='inputNew'
+          value={this.state.newPlayer}
+          onChange={(e)=>this.handleInputChange(e)} />
+          
+        <input disabled={formDisabled} type='submit' value='Add player'  />
+        {max}
+
+        </form>
+        <ul>{predictiveText}</ul>
+
         <button onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)}>Show chart</button>
       </div>
     )
