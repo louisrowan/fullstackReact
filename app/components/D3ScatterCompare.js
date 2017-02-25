@@ -14,10 +14,7 @@ const D3ScatterCompare = React.createClass({
     const height = 500
     const width = 1000
     const padding = 30
-    this.setState({ height })
-    this.setState({ width })
-    this.setState({ padding })
-
+    this.setState({ height, width, padding })
 
     var svg = d3.select('#container')
       .insert('svg', ":first-child")
@@ -26,232 +23,203 @@ const D3ScatterCompare = React.createClass({
       .style('overflow', 'visible')
       .style('padding', '40px')
       .classed('d3SVG', true)
-
-      const radius = 20
-      
-
-      var data = this.props.data
-
-    var that = this
-    $('#hr').on('click', function(){
-      that.setState({ stats: ['HR', 'H', 'RBI']})
-      that.renderChart(data, ['HR', 'H', 'RBI'])
-    })
-
-    $('#slg').on('click', function(){
-      that.setState({ stats: ['SLG', 'OPS', 'OBP']})
-      that.renderChart(data, ['SLG', 'OPS', 'OBP'])
-    })
-
   },
-
   renderChart(data, stats) {
-      var height = this.state.height
-      var width = this.state.width
-      var padding = this.state.padding
+    var height = this.state.height
+    var width = this.state.width
+    var padding = this.state.padding
 
-        d3.select('svg').selectAll('*').remove()
+    d3.select('svg').selectAll('*').remove()
 
-        var min = d3.min(data.map((d) => {
-          return d3.min(d.map((e) => {
-            return d3.min(stats.map((stat) => {
-              return +e[stat] }))
-          }))
-        }))
-
-        var max = d3.max(data.map((d) => {
-          return d3.max(d.map((e) => {
-            return d3.max(stats.map((stat) => +e[stat]))
-          }))
-        }))
-
-        var xScale = d3.scaleLinear()
-          .domain([0, d3.max(data.map((d) => d.length))])
-          .range([padding, width - padding])
-
-        var yScale = d3.scaleLinear()
-          .domain([min, max])
-          .range([height - padding, padding])
-
-        var yAxisScale = d3.scaleLinear()
-          .domain([min, max])
-          .range([height, height - padding])
-
-        var xAxisScale = d3.scaleLinear()
-          .domain([1, d3.max(data.map((d) => d.length)) + 1])
-          .range([padding, width - padding])
-
-
-        var xAxis = d3.axisBottom()
-          .scale(xAxisScale)
-          .ticks(d3.max(data.map((d) => d.length)) + 1)
-
-        var yAxis = d3.axisLeft()
-          .scale(yScale)
+    var min = d3.min(data.map((d) => {
+      return d3.min(d.map((e) => {
+        return d3.min(stats.map((stat) => +e[stat] ))
+      }))
+    }))
+    var max = d3.max(data.map((d) => {
+      return d3.max(d.map((e) => {
+        return d3.max(stats.map((stat) => +e[stat] ))
+      }))
+    }))
+    var xScale = d3.scaleLinear()
+      .domain([0, d3.max(data.map((d) => d.length ))])
+      .range([padding, width - padding])
+    var yScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([height - padding, padding])
+    var yAxisScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([height, height - padding])
+    var xAxisScale = d3.scaleLinear()
+      .domain([1, d3.max(data.map((d) => d.length )) + 1])
+      .range([padding, width - padding])
+    var xAxis = d3.axisBottom()
+      .scale(xAxisScale)
+      .ticks(d3.max(data.map((d) => d.length )) + 1)
+    var yAxis = d3.axisLeft()
+      .scale(yScale)
 
 
-        d3.select('svg')
-          .append('g')
-          .classed('d3Axis', true)
-          .attr('transform', 'translate(0,' + height + ')')
-          .call(xAxis)
+    d3.select('svg')
+      .append('g')
+      .classed('d3Axis', true)
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
 
-        d3.select('svg')
-          .append('g')
-          .classed('d3Axis', true)
-          .call(yAxis)
+    d3.select('svg')
+      .append('g')
+      .classed('d3Axis', true)
+      .call(yAxis)
 
-        var rect = d3.select('svg')
-          .append('g')
+    var rect = d3.select('svg')
+      .append('g')
 
-        rect.append('rect')
-          .classed('moveableRect', true)
-          .attr('x', 0)
-          .attr('y', height)
-          .style('fill', 'none')
-          .style('stroke', 'yellow')
+    rect.append('rect')
+      .classed('moveableRect', true)
+      .attr('x', 0)
+      .attr('y', height)
+      .style('fill', 'none')
+      .style('stroke', 'yellow')
 
-        d3.select('#container')
-          .append('div')
-          .classed('toolTipText', true)
-          .classed('toolTipYear', true)
-          .text('')
+    d3.select('#container')
+      .append('div')
+      .classed('toolTipText', true)
+      .classed('toolTipYear', true)
+      .text('')
 
-        d3.select('#container')
-          .append('div')
-          .classed('toolTipText', true)
-          .classed('toolTipNum', true)
-          .text()
+    d3.select('#container')
+      .append('div')
+      .classed('toolTipText', true)
+      .classed('toolTipNum', true)
+      .text()
 
-
-    
-        data.forEach((d, index) => this.renderData(d, index, xScale, yScale, stats))
-      },
-
-
+    data.forEach((d, index) => this.renderData(d, index, xScale, yScale, stats))
+  },
   renderData(data, index, xScale, yScale, stats){
-      var height = this.state.height
-      var width = this.state.width
-    
-        stats.forEach((stat, statIndex) => {
+  var height = this.state.height
+  var width = this.state.width
 
-          d3.select('.d3SVG').selectAll('.d3BubbleG' + index)
-            .data(data)
-            .enter()
-            .append('g')
-            .classed('d3BubbleG' + index, true) 
+  stats.forEach((stat, statIndex) => {
 
-          var obj = d3.selectAll('.d3BubbleG' + index)
-            .style('fill', (d, i) => {
-              if (index === 0) {
-                return 'rgba(22, 97, 247, .8)'
-              } else if (index === 1) {
-             
-                return 'rgba(252, 30, 41, .8)'
-              } else {
-                return 'rgba(237, 252, 30, .8)'
-              }
-            })
+    d3.select('.d3SVG').selectAll('.d3BubbleG' + index)
+      .data(data)
+      .enter()
+      .append('g')
+      .classed('d3BubbleG' + index, true) 
 
+    var obj = d3.selectAll('.d3BubbleG' + index)
+      .style('fill', (d, i) => {
+        if (index === 0) {
+          return 'rgba(22, 97, 247, .8)'
+        } else if (index === 1) {
+       
+          return 'rgba(252, 30, 41, .8)'
+        } else {
+          return 'rgba(237, 252, 30, .8)'
+        }
+      })
 
-          if (statIndex === 0) {
-            obj
-              .append('circle')
-              .classed('solidCircle', true)
-              .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-              .attr('cy', (d, i) => {
-                d.year = i + 1
-                return yScale(+d[stat])}) 
-              .attr('r', 8)
-          } else if (statIndex === 1 ){
-              obj
-                .append('rect')
-                .classed('solidRect', true)
-                .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
-                .attr('y', (d) => yScale(+d[stat])) 
-                .attr('height', 12)
-                .attr('width', 12)
-          } else {
-            obj
-            .append('circle')
-            .classed('transCircle', true)
-            .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-            .attr('cy', (d) => yScale(+d[stat])) 
-            .attr('r', 8)
-            .style('stroke', (d) => {
-              if (index === 0) {
-                return 'rgba(22, 97, 247, .8)'
-              } else if (index === 1) {
-                return 'rgba(252, 30, 41, .8)'
-              } else {
-                return 'rgba(237, 252, 30, .8)'
-              }
-            })
-            .style('fill', 'transparent')
-          }
+    if (statIndex === 0) {
+      obj
+        .append('circle')
+        .classed('solidCircle', true)
+        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+        .attr('cy', (d, i) => {
+          d.year = i + 1
+          return yScale(+d[stat])}) 
+        .attr('r', 4)
+    } else if (statIndex === 1 ){
+        obj
+          .append('rect')
+          .classed('solidRect', true)
+          .attr('x', (d, i) => xScale(i + (Math.random()*2)/40))
+          .attr('y', (d) => yScale(+d[stat])) 
+          .attr('height', 8)
+          .attr('width', 8)
+    } else {
+      obj
+      .append('circle')
+      .classed('transCircle', true)
+      .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+      .attr('cy', (d) => yScale(+d[stat])) 
+      .attr('r', 4)
+      .style('stroke', (d) => {
+        if (index === 0) {
+          return 'rgba(22, 97, 247, .8)'
+        } else if (index === 1) {
+          return 'rgba(252, 30, 41, .8)'
+        } else {
+          return 'rgba(237, 252, 30, .8)'
+        }
+      })
+      .style('fill', 'transparent')
+    }
 
-          obj.selectAll('*').on('mouseover', function(){
-            d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
-            var selector = d3.select(this)._groups[0][0].__data__
-            var statName;
-            if (d3.select(this).attr('class') === 'solidCircle'){
-              statName = stats[0]
-            } else if (d3.select(this).attr('class') === 'solidRect'){
-              statName = stats[1]
-            } else {
-              statName = stats[2]
-            }
-            var statNum = selector[statName]
-            var statYear = selector.year
-            var tagName = this.tagName
-            var rWidth;
-            var rHeight;
-            if (tagName === 'circle'){
-              rWidth = d3.select(this).attr('cx')
-              rHeight = d3.select(this).attr('cy')
-            } else {
-              rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
-              rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
-            }
-            d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
-            d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
-            d3.select('.moveableRect')
-              .attr('height', height - rHeight)
-              .attr('width', rWidth)
-              .attr('y', rHeight)
-            }).on('mouseout', function(){
-              d3.select(this).style('transform', 'scale(1)').style('transform-origin', '50% 50%')
-              d3.select('.moveableRect')
-                .attr('height', 0)
-                .attr('width', 0)
-              d3.selectAll('.toolTipText')
-                .style('opacity', 0)
-            })
+    obj.selectAll('*').on('mouseover', function(){
+      d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
+      var selector = d3.select(this)._groups[0][0].__data__
+      var statName;
+      if (d3.select(this).attr('class') === 'solidCircle'){
+        statName = stats[0]
+      } else if (d3.select(this).attr('class') === 'solidRect'){
+        statName = stats[1]
+      } else {
+        statName = stats[2]
+      }
+      var statNum = selector[statName]
+      var statYear = selector.year
+      var tagName = this.tagName
+      var rWidth;
+      var rHeight;
+      if (tagName === 'circle'){
+        rWidth = d3.select(this).attr('cx')
+        rHeight = d3.select(this).attr('cy')
+      } else {
+        rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
+        rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
+      }
+      d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
+      d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
+      d3.select('.moveableRect')
+        .attr('height', height - rHeight)
+        .attr('width', rWidth)
+        .attr('y', rHeight)
+      }).on('mouseout', function(){
+        d3.select(this).style('transform', 'scale(1)').style('transform-origin', '50% 50%')
+        d3.select('.moveableRect')
+          .attr('height', 0)
+          .attr('width', 0)
+        d3.selectAll('.toolTipText')
+          .style('opacity', 0)
+      })
 
-            var valueline = d3.line()
-              .x(function(d) { return xScale(d.year - 1)})
-              .y(function(d) { return yScale(d[stat])})
+    var valueline = d3.line()
+      .x(function(d) { return xScale(d.year - 1)})
+      .y(function(d) { return yScale(d[stat])})
 
-            d3.select('.d3SVG').append('path')
-              .data([data])
-              .attr('class', 'line')
-              .style('stroke', () => {
-                if (index === 0) {
-                  return 'blue' 
-                } else if (index === 1) {
-                  return 'red'
-                } else {
-                  return 'yellow'
-                }
-              })
-              .attr('d', valueline)
-
-
-        })
-       // end of looping through all stats
-
-      },
-      // end of renderData
+    d3.select('.d3SVG').append('path')
+      .data([data])
+      .attr('class', 'line')
+      .style('stroke', () => {
+        if (index === 0) {
+          return 'blue' 
+        } else if (index === 1) {
+          return 'red'
+        } else {
+          return 'yellow'
+        }
+      })
+      .attr('d', valueline)
+    })
+  },
+  showCounting(){
+    this.setState({ stats: ['HR', 'H', 'RBI']})
+    this.renderChart(this.props.data, ['HR', 'H', 'RBI'])
+  },
+  showAverages(){
+    this.setState({ stats: ['SLG', 'OPS', 'OBP']})
+    this.renderChart(this.props.data, ['SLG', 'OPS', 'OBP'])
+  },
   componentDidMount(){
     this.compileChart()
   },
@@ -284,8 +252,8 @@ const D3ScatterCompare = React.createClass({
           </div>
           
           <div>
-            <button id='hr'>HR, H, RBI</button><br />
-            <button id='slg'>OBP, SLG and OPS</button>
+            <button onClick={()=> this.showCounting()}>HR, H, RBI</button><br />
+            <button onClick={()=> this.showAverages()}>OBP, SLG and OPS</button>
           </div>
         </div>
       </div>

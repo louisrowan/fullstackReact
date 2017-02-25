@@ -22696,26 +22696,9 @@ var D3ScatterCompare = React.createClass({
     var height = 500;
     var width = 1000;
     var padding = 30;
-    this.setState({ height: height });
-    this.setState({ width: width });
-    this.setState({ padding: padding });
+    this.setState({ height: height, width: width, padding: padding });
 
     var svg = d3.select('#container').insert('svg', ":first-child").attr('height', height).attr('width', width).style('overflow', 'visible').style('padding', '40px').classed('d3SVG', true);
-
-    var radius = 20;
-
-    var data = this.props.data;
-
-    var that = this;
-    $('#hr').on('click', function () {
-      that.setState({ stats: ['HR', 'H', 'RBI'] });
-      that.renderChart(data, ['HR', 'H', 'RBI']);
-    });
-
-    $('#slg').on('click', function () {
-      that.setState({ stats: ['SLG', 'OPS', 'OBP'] });
-      that.renderChart(data, ['SLG', 'OPS', 'OBP']);
-    });
   },
   renderChart: function renderChart(data, stats) {
     var _this = this;
@@ -22733,7 +22716,6 @@ var D3ScatterCompare = React.createClass({
         }));
       }));
     }));
-
     var max = d3.max(data.map(function (d) {
       return d3.max(d.map(function (e) {
         return d3.max(stats.map(function (stat) {
@@ -22741,23 +22723,17 @@ var D3ScatterCompare = React.createClass({
         }));
       }));
     }));
-
     var xScale = d3.scaleLinear().domain([0, d3.max(data.map(function (d) {
       return d.length;
     }))]).range([padding, width - padding]);
-
     var yScale = d3.scaleLinear().domain([min, max]).range([height - padding, padding]);
-
     var yAxisScale = d3.scaleLinear().domain([min, max]).range([height, height - padding]);
-
     var xAxisScale = d3.scaleLinear().domain([1, d3.max(data.map(function (d) {
       return d.length;
     })) + 1]).range([padding, width - padding]);
-
     var xAxis = d3.axisBottom().scale(xAxisScale).ticks(d3.max(data.map(function (d) {
       return d.length;
     })) + 1);
-
     var yAxis = d3.axisLeft().scale(yScale);
 
     d3.select('svg').append('g').classed('d3Axis', true).attr('transform', 'translate(0,' + height + ')').call(xAxis);
@@ -22801,19 +22777,19 @@ var D3ScatterCompare = React.createClass({
         }).attr('cy', function (d, i) {
           d.year = i + 1;
           return yScale(+d[stat]);
-        }).attr('r', 8);
+        }).attr('r', 4);
       } else if (statIndex === 1) {
         obj.append('rect').classed('solidRect', true).attr('x', function (d, i) {
           return xScale(i + Math.random() * 2 / 40);
         }).attr('y', function (d) {
           return yScale(+d[stat]);
-        }).attr('height', 12).attr('width', 12);
+        }).attr('height', 8).attr('width', 8);
       } else {
         obj.append('circle').classed('transCircle', true).attr('cx', function (d, i) {
           return xScale(i + Math.random() * 2 / 40);
         }).attr('cy', function (d) {
           return yScale(+d[stat]);
-        }).attr('r', 8).style('stroke', function (d) {
+        }).attr('r', 4).style('stroke', function (d) {
           if (index === 0) {
             return 'rgba(22, 97, 247, .8)';
           } else if (index === 1) {
@@ -22872,14 +22848,21 @@ var D3ScatterCompare = React.createClass({
         }
       }).attr('d', valueline);
     });
-    // end of looping through all stats
   },
-
-  // end of renderData
+  showCounting: function showCounting() {
+    this.setState({ stats: ['HR', 'H', 'RBI'] });
+    this.renderChart(this.props.data, ['HR', 'H', 'RBI']);
+  },
+  showAverages: function showAverages() {
+    this.setState({ stats: ['SLG', 'OPS', 'OBP'] });
+    this.renderChart(this.props.data, ['SLG', 'OPS', 'OBP']);
+  },
   componentDidMount: function componentDidMount() {
     this.compileChart();
   },
   render: function render() {
+    var _this2 = this;
+
     var statsKey;
     if (this.state.stats) {
       statsKey = this.state.stats.map(function (s, i) {
@@ -22986,13 +22969,17 @@ var D3ScatterCompare = React.createClass({
           null,
           React.createElement(
             'button',
-            { id: 'hr' },
+            { onClick: function onClick() {
+                return _this2.showCounting();
+              } },
             'HR, H, RBI'
           ),
           React.createElement('br', null),
           React.createElement(
             'button',
-            { id: 'slg' },
+            { onClick: function onClick() {
+                return _this2.showAverages();
+              } },
             'OBP, SLG and OPS'
           )
         )
