@@ -23,11 +23,9 @@ const ScatterCompareForm = React.createClass({
         that.setState({ newPlayer: ''})
       } else {
         data.name = that.state.newPlayer
-        console.log(data)
         data = data.filter((d) => {
           return d.Level === 'MLB'
         })
-        console.log(data)
         let newData = [...that.state.data, data]
         let players = [...that.state.players, that.state.newPlayer]
   

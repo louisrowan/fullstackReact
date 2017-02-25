@@ -22704,22 +22704,6 @@ var D3ScatterCompare = React.createClass({
 
       stats.forEach(function (stat, statIndex) {
 
-        var valueline = d3.line().x(function (d) {
-          return xScale(d.year - 1);
-        }).y(function (d) {
-          return yScale(d[stat]);
-        });
-
-        svg.append('path').data([data]).attr('class', 'line').style('stroke', function () {
-          if (index === 0) {
-            return 'blue';
-          } else if (index === 1) {
-            return 'red';
-          } else {
-            return 'yellow';
-          }
-        }).attr('d', valueline);
-
         svg.selectAll('.d3BubbleG' + index).data(data).enter().append('g').classed('d3BubbleG' + index, true);
 
         var obj = d3.selectAll('.d3BubbleG' + index).style('fill', function (d, i) {
@@ -22793,21 +22777,34 @@ var D3ScatterCompare = React.createClass({
           d3.select('.moveableRect').attr('height', 0).attr('width', 0);
           d3.selectAll('.toolTipText').style('opacity', 0);
         });
+
+        var valueline = d3.line().x(function (d) {
+          console.log(d.year - 1);return xScale(d.year - 1);
+        }).y(function (d) {
+          console.log(d[stat]);return yScale(d[stat]);
+        });
+
+        svg.append('path').data([data]).attr('class', 'line').style('stroke', function () {
+          if (index === 0) {
+            return 'blue';
+          } else if (index === 1) {
+            return 'red';
+          } else {
+            return 'yellow';
+          }
+        }).attr('d', valueline);
       });
       // end of looping through all stats
     }
     // end of renderData
 
     function renderChart(data, stats) {
-      console.log('in render chart d3', data, stats);
-      d3.select('svg').selectAll('*').remove();
 
-      console.log('gonna check min');
+      d3.select('svg').selectAll('*').remove();
 
       var min = d3.min(data.map(function (d) {
         return d3.min(d.map(function (e) {
           return d3.min(stats.map(function (stat) {
-            console.log(e, stat);
             return +e[stat];
           }));
         }));
@@ -22820,8 +22817,6 @@ var D3ScatterCompare = React.createClass({
           }));
         }));
       }));
-
-      console.log(min, max, 'gonna do scales');
 
       var xScale = d3.scaleLinear().domain([0, d3.max(data.map(function (d) {
         return d.length;
@@ -23031,11 +23026,9 @@ var ScatterCompareForm = React.createClass({
         that.setState({ newPlayer: '' });
       } else {
         data.name = that.state.newPlayer;
-        console.log(data);
         data = data.filter(function (d) {
           return d.Level === 'MLB';
         });
-        console.log(data);
         var newData = [].concat(_toConsumableArray(that.state.data), [data]);
         var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
 

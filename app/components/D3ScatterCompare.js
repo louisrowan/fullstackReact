@@ -28,24 +28,6 @@ const D3ScatterCompare = React.createClass({
     
         stats.forEach((stat, statIndex) => {
 
-          var valueline = d3.line()
-      .x(function(d) { return xScale(d.year - 1)})
-      .y(function(d) { return yScale(d[stat])})
-
-    svg.append('path')
-      .data([data])
-      .attr('class', 'line')
-      .style('stroke', () => {
-        if (index === 0) {
-          return 'blue' 
-        } else if (index === 1) {
-          return 'red'
-        } else {
-          return 'yellow'
-        }
-      })
-      .attr('d', valueline)
-
           svg.selectAll('.d3BubbleG' + index)
             .data(data)
             .enter()
@@ -139,6 +121,26 @@ const D3ScatterCompare = React.createClass({
                 .style('opacity', 0)
             })
 
+                    var valueline = d3.line()
+      .x(function(d) { console.log(d.year - 1); return xScale(d.year - 1)})
+      .y(function(d) { console.log(d[stat]); return yScale(d[stat])})
+
+       
+
+    svg.append('path')
+      .data([data])
+      .attr('class', 'line')
+      .style('stroke', () => {
+        if (index === 0) {
+          return 'blue' 
+        } else if (index === 1) {
+          return 'red'
+        } else {
+          return 'yellow'
+        }
+      })
+      .attr('d', valueline)
+
 
         })
        // end of looping through all stats
@@ -147,15 +149,12 @@ const D3ScatterCompare = React.createClass({
       // end of renderData
 
       function renderChart(data, stats) {
-        console.log('in render chart d3', data, stats)
-        d3.select('svg').selectAll('*').remove()
 
-        console.log('gonna check min')
+        d3.select('svg').selectAll('*').remove()
 
         var min = d3.min(data.map((d) => {
           return d3.min(d.map((e) => {
             return d3.min(stats.map((stat) => {
-              console.log(e, stat)
               return +e[stat] }))
           }))
         }))
@@ -165,8 +164,6 @@ const D3ScatterCompare = React.createClass({
             return d3.max(stats.map((stat) => +e[stat]))
           }))
         }))
-
-        console.log(min, max, 'gonna do scales')
 
         var xScale = d3.scaleLinear()
           .domain([0, d3.max(data.map((d) => d.length))])

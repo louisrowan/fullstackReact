@@ -124,6 +124,8 @@ var svg = d3.select('#container')
       .x(function(d) { return xScale(d.year - 1)})
       .y(function(d) { return yScale(d[stat])})
 
+    console.log(valueline, stat)
+
     svg.append('path')
       .data([data])
       .attr('class', 'line')
