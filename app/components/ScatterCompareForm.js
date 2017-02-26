@@ -10,10 +10,17 @@ const ScatterCompareForm = React.createClass({
       newPlayer: ''
     }
   },
+  handlePredictiveClick(name){
+    console.log(name)
+    this.setState({ newPlayer: name }, function(){
+      this.handleSubmit()
+    }.bind(this))
+  },
   handleInputChange(e){
     this.setState({ newPlayer: e.target.value})
   },
   handleSubmit(e){
+    console.log(this.state.newPlayer)
     var that = this
     $.ajax({
       url: '/api/baseball',
@@ -68,7 +75,7 @@ const ScatterCompareForm = React.createClass({
           if (name[z] != this.state.newPlayer[z]) return
         }
         return name
-      }).map((name, i) => <li key={i}>{name}</li>)
+      }).map((name, i) => <li key={name} onClick={() => this.handlePredictiveClick(name)}>{name}</li>)
     }
 
     return (

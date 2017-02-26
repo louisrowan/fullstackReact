@@ -98,6 +98,7 @@ text {
   width: 33%;
   float: left;
   padding: 50px;
+  text-align: center;
   box-sizing: border-box;
 }
 
