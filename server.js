@@ -1,4 +1,5 @@
 const express = require('express')
+const port = process.env.PORT || 8080
 const path = require('path')
 const todos = require('./server/controllers/todos')
 const api = require('./server/api')
@@ -32,7 +33,7 @@ var url = 'mongodb://louisrowan:' + process.env.DBPASSWORD + '@ds011873.mlab.com
 MongoClient.connect(url, (err, database) => {
   if (err) return console.log(err)
   db = database
-  app.listen(5000)
+  app.listen(port)
 })
 
 
