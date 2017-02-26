@@ -1,20 +1,9 @@
 const React = require('react')
+const ScatterLegend = require('./ScatterLegend')
 
 const D3ScatterCompare = React.createClass({
   getInitialState(){
     return {
-      allStats: [
-        {name: 'OBP', type: 'average'},
-        {name: 'SLG', type: 'average'},
-        {name: 'OPS', type: 'average'},
-        {name: 'AVG', type: 'average'},
-        {name: 'HR', type: 'counting'},
-        {name: 'RBI', type: 'counting'},
-        {name: 'H', type: 'counting'},
-        {name: 'SB', type: 'counting'}
-      ],
-      statType: 'average',
-      stats: [],
       height: '',
       width: '',
       padding: ''
@@ -224,94 +213,22 @@ const D3ScatterCompare = React.createClass({
         .attr('d', valueline)
     })
   },
-  showCounting(){
-    this.setState({ statType: 'counting', stats: [] })
-    this.clearChart()
-  },
-  showAverages(){
-    this.setState({ statType: 'average', stats: [] })
-    this.clearChart()
-  },
+
   clearChart(){
     d3.select('.d3SVG').selectAll('*').remove()
   },
-  handleCheckClick(e){
-    var index = this.state.stats.indexOf(e.target.value)
-    var stats = this.state.stats
-    if (index >= 0){
-      stats.splice(index, 1)
-    } else {
-      stats.push(e.target.value)
-    }
-    this.setState({ stats })
-    this.renderChart(this.props.data, this.state.stats)
-  },
+
   componentDidMount(){
     this.compileChart()
   },
   render(){
 
-    var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{p}</td></tr>)
-
-    var statsSelector = this.state.allStats.filter((stat) => {
-      return stat.type === this.state.statType
-    }).map((stat) => {
-      var index = this.state.stats.indexOf(stat.name)
-      var icon;
-        if (index === 0){
-          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td>
-        } else if (index === 1){
-          icon = <td key={stat.name}><div className='keyTriangle'></div></td>
-        } else  if (index === 2){
-          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td>
-        } else {
-          icon = <td></td>
-        }
-      return (
-        <tr key={stat.name}>
-          <td>
-            <input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />
-          </td>
-          <td>
-            {stat.name}
-          </td>
-          {icon}
-        </tr>
-      )
-    })
     return (
       <div id='container'>
         <br />
 
-        <div id='d3LegendDiv'>
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    <button onClick={()=> this.showCounting()}>Counting</button>
-                  </th>
-                  <th>
-                    <button onClick={()=> this.showAverages()}>Averages</button>
-                  </th>
-                </tr>
-                {statsSelector}
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <th>Legend</th>
-                </tr>
-                {playerKey}
-              </tbody>
-            </table>
-          </div>
-          
-        </div>
+        <ScatterLegend data={this.props.data} players={this.props.players} renderChart={this.renderChart} clearChart={this.clearChart} />
+        
         <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
       </div>
     )

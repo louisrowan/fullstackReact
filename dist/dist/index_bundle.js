@@ -22680,14 +22680,12 @@ module.exports = App;
 
 
 var React = __webpack_require__(5);
+var ScatterLegend = __webpack_require__(247);
 
 var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
-      statType: 'average',
-      stats: [],
       height: '',
       width: '',
       padding: ''
@@ -22852,27 +22850,8 @@ var D3ScatterCompare = React.createClass({
       }).attr('d', valueline);
     });
   },
-  showCounting: function showCounting() {
-    this.setState({ statType: 'counting', stats: [] });
-    this.clearChart();
-  },
-  showAverages: function showAverages() {
-    this.setState({ statType: 'average', stats: [] });
-    this.clearChart();
-  },
   clearChart: function clearChart() {
     d3.select('.d3SVG').selectAll('*').remove();
-  },
-  handleCheckClick: function handleCheckClick(e) {
-    var index = this.state.stats.indexOf(e.target.value);
-    var stats = this.state.stats;
-    if (index >= 0) {
-      stats.splice(index, 1);
-    } else {
-      stats.push(e.target.value);
-    }
-    this.setState({ stats: stats });
-    this.renderChart(this.props.data, this.state.stats);
   },
   componentDidMount: function componentDidMount() {
     this.compileChart();
@@ -22880,139 +22859,11 @@ var D3ScatterCompare = React.createClass({
   render: function render() {
     var _this2 = this;
 
-    var playerKey = this.props.players.map(function (p, i) {
-      return React.createElement(
-        'tr',
-        { className: 'playerKey' + i, key: i },
-        React.createElement(
-          'td',
-          null,
-          p
-        )
-      );
-    });
-
-    var statsSelector = this.state.allStats.filter(function (stat) {
-      return stat.type === _this2.state.statType;
-    }).map(function (stat) {
-      var index = _this2.state.stats.indexOf(stat.name);
-      var icon;
-      if (index === 0) {
-        icon = React.createElement(
-          'td',
-          { key: stat.name },
-          React.createElement(
-            'svg',
-            { className: 'keySVG' },
-            React.createElement('circle', { className: 'keyFullCircle' })
-          )
-        );
-      } else if (index === 1) {
-        icon = React.createElement(
-          'td',
-          { key: stat.name },
-          React.createElement('div', { className: 'keyTriangle' })
-        );
-      } else if (index === 2) {
-        icon = React.createElement(
-          'td',
-          { key: stat.name },
-          React.createElement(
-            'svg',
-            { className: 'keySVG' },
-            React.createElement('circle', { className: 'keyTransCircle' })
-          )
-        );
-      } else {
-        icon = React.createElement('td', null);
-      }
-      return React.createElement(
-        'tr',
-        { key: stat.name },
-        React.createElement(
-          'td',
-          null,
-          React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
-              return _this2.handleCheckClick(e);
-            } })
-        ),
-        React.createElement(
-          'td',
-          null,
-          stat.name
-        ),
-        icon
-      );
-    });
     return React.createElement(
       'div',
       { id: 'container' },
       React.createElement('br', null),
-      React.createElement(
-        'div',
-        { id: 'd3LegendDiv' },
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'table',
-            null,
-            React.createElement(
-              'tbody',
-              null,
-              React.createElement(
-                'tr',
-                null,
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement(
-                    'button',
-                    { onClick: function onClick() {
-                        return _this2.showCounting();
-                      } },
-                    'Counting'
-                  )
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement(
-                    'button',
-                    { onClick: function onClick() {
-                        return _this2.showAverages();
-                      } },
-                    'Averages'
-                  )
-                )
-              ),
-              statsSelector
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'table',
-            null,
-            React.createElement(
-              'tbody',
-              null,
-              React.createElement(
-                'tr',
-                null,
-                React.createElement(
-                  'th',
-                  null,
-                  'Legend'
-                )
-              ),
-              playerKey
-            )
-          )
-        )
-      ),
+      React.createElement(ScatterLegend, { data: this.props.data, players: this.props.players, renderChart: this.renderChart, clearChart: this.clearChart }),
       React.createElement(
         'button',
         { onClick: function onClick() {
@@ -38104,6 +37955,180 @@ if(false) {
 
 module.exports = __webpack_require__(112);
 
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+
+var ScatterLegend = React.createClass({
+  displayName: 'ScatterLegend',
+  getInitialState: function getInitialState() {
+    return {
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
+      statType: 'average',
+      stats: []
+    };
+  },
+  showCounting: function showCounting() {
+    this.setState({ statType: 'counting', stats: [] });
+    this.props.clearChart();
+  },
+  showAverages: function showAverages() {
+    this.setState({ statType: 'average', stats: [] });
+    this.props.clearChart();
+  },
+  handleCheckClick: function handleCheckClick(e) {
+    var index = this.state.stats.indexOf(e.target.value);
+    var stats = this.state.stats;
+    if (index >= 0) {
+      stats.splice(index, 1);
+    } else {
+      stats.push(e.target.value);
+    }
+    this.setState({ stats: stats });
+    this.props.renderChart(this.props.data, this.state.stats);
+  },
+  render: function render() {
+    var _this = this;
+
+    var playerKey = this.props.players.map(function (p, i) {
+      return React.createElement(
+        'tr',
+        { className: 'playerKey' + i, key: i },
+        React.createElement(
+          'td',
+          null,
+          p
+        )
+      );
+    });
+
+    var statsSelector = this.state.allStats.filter(function (stat) {
+      return stat.type === _this.state.statType;
+    }).map(function (stat) {
+      var index = _this.state.stats.indexOf(stat.name);
+      var icon;
+      if (index === 0) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyFullCircle' })
+          )
+        );
+      } else if (index === 1) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement('div', { className: 'keyTriangle' })
+        );
+      } else if (index === 2) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyTransCircle' })
+          )
+        );
+      } else {
+        icon = React.createElement('td', null);
+      }
+      return React.createElement(
+        'tr',
+        { key: stat.name },
+        React.createElement(
+          'td',
+          null,
+          React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
+              return _this.handleCheckClick(e);
+            } })
+        ),
+        React.createElement(
+          'td',
+          null,
+          stat.name
+        ),
+        icon
+      );
+    });
+    return React.createElement(
+      'div',
+      { id: 'd3LegendDiv' },
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+              'tr',
+              null,
+              React.createElement(
+                'th',
+                null,
+                React.createElement(
+                  'button',
+                  { onClick: function onClick() {
+                      return _this.showCounting();
+                    } },
+                  'Counting'
+                )
+              ),
+              React.createElement(
+                'th',
+                null,
+                React.createElement(
+                  'button',
+                  { onClick: function onClick() {
+                      return _this.showAverages();
+                    } },
+                  'Averages'
+                )
+              )
+            ),
+            statsSelector
+          )
+        )
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+              'tr',
+              null,
+              React.createElement(
+                'th',
+                null,
+                'Legend'
+              )
+            ),
+            playerKey
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = ScatterLegend;
 
 /***/ })
 /******/ ]);
