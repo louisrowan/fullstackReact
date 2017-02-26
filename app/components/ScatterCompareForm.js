@@ -7,11 +7,11 @@ const ScatterCompareForm = React.createClass({
       players: [],
       data: [],
       databaseResults: [],
-      newPlayer: ''
+      newPlayer: '',
+      error: false
     }
   },
   handlePredictiveClick(name){
-    console.log(name)
     this.setState({ newPlayer: name }, function(){
       this.handleSubmit()
     }.bind(this))
@@ -20,7 +20,6 @@ const ScatterCompareForm = React.createClass({
     this.setState({ newPlayer: e.target.value})
   },
   handleSubmit(e){
-    console.log(this.state.newPlayer)
     var that = this
     $.ajax({
       url: '/api/baseball',
@@ -28,7 +27,7 @@ const ScatterCompareForm = React.createClass({
       data: { player: that.state.newPlayer}
     }).done((data) => {
       if (data.length === 0) {
-        that.setState({ newPlayer: ''})
+        that.setState({ error: that.state.newPlayer, newPlayer: ''})
       } else {
         data.name = that.state.newPlayer
         data = data.filter((d) => {
@@ -37,7 +36,7 @@ const ScatterCompareForm = React.createClass({
         let newData = [...that.state.data, data]
         let players = [...that.state.players, that.state.newPlayer]
   
-        that.setState({ data: newData, players, newPlayer: '' })
+        that.setState({ data: newData, players, newPlayer: '', error: false })
       }
     })
   },
@@ -78,6 +77,15 @@ const ScatterCompareForm = React.createClass({
       }).map((name, i) => <li key={name} onClick={() => this.handlePredictiveClick(name)}>{name}</li>)
     }
 
+
+
+    var error;
+    if (this.state.error){
+      error = <p>No results found for {this.state.error}</p>
+    } else {
+      error = ''
+    }
+
     return (
       <div>
         <div id='formContainer'>
@@ -94,9 +102,11 @@ const ScatterCompareForm = React.createClass({
               onChange={(e)=>this.handleInputChange(e)} />
               
             <input disabled={formDisabled} type='submit' value='Add player'  />
-            {max}
+            
 
             </form>
+            {max}
+            {error}
           </div>
           <div>
             <ul><li key='header'>Are you looking for...</li>{predictiveText}</ul>

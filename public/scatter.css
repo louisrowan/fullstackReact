@@ -97,7 +97,7 @@ text {
   margin: 0;
   width: 33%;
   float: left;
-  padding: 50px;
+  padding: 50px 10px;
   text-align: center;
   box-sizing: border-box;
 }

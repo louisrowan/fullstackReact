@@ -23053,11 +23053,11 @@ var ScatterCompareForm = React.createClass({
       players: [],
       data: [],
       databaseResults: [],
-      newPlayer: ''
+      newPlayer: '',
+      error: false
     };
   },
   handlePredictiveClick: function handlePredictiveClick(name) {
-    console.log(name);
     this.setState({ newPlayer: name }, function () {
       this.handleSubmit();
     }.bind(this));
@@ -23066,7 +23066,6 @@ var ScatterCompareForm = React.createClass({
     this.setState({ newPlayer: e.target.value });
   },
   handleSubmit: function handleSubmit(e) {
-    console.log(this.state.newPlayer);
     var that = this;
     $.ajax({
       url: '/api/baseball',
@@ -23074,7 +23073,7 @@ var ScatterCompareForm = React.createClass({
       data: { player: that.state.newPlayer }
     }).done(function (data) {
       if (data.length === 0) {
-        that.setState({ newPlayer: '' });
+        that.setState({ error: that.state.newPlayer, newPlayer: '' });
       } else {
         data.name = that.state.newPlayer;
         data = data.filter(function (d) {
@@ -23083,7 +23082,7 @@ var ScatterCompareForm = React.createClass({
         var newData = [].concat(_toConsumableArray(that.state.data), [data]);
         var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
 
-        that.setState({ data: newData, players: players, newPlayer: '' });
+        that.setState({ data: newData, players: players, newPlayer: '', error: false });
       }
     });
   },
@@ -23142,6 +23141,18 @@ var ScatterCompareForm = React.createClass({
       });
     }
 
+    var error;
+    if (this.state.error) {
+      error = React.createElement(
+        'p',
+        null,
+        'No results found for ',
+        this.state.error
+      );
+    } else {
+      error = '';
+    }
+
     return React.createElement(
       'div',
       null,
@@ -23175,9 +23186,10 @@ var ScatterCompareForm = React.createClass({
               onChange: function onChange(e) {
                 return _this.handleInputChange(e);
               } }),
-            React.createElement('input', { disabled: formDisabled, type: 'submit', value: 'Add player' }),
-            max
-          )
+            React.createElement('input', { disabled: formDisabled, type: 'submit', value: 'Add player' })
+          ),
+          max,
+          error
         ),
         React.createElement(
           'div',
@@ -23458,7 +23470,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 16px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n}", ""]);
+exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 16px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n}", ""]);
 
 // exports
 
