@@ -251,7 +251,7 @@ const D3ScatterCompare = React.createClass({
   },
   render(){
 
-    var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
+    var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{p}</td></tr>)
 
     var statsSelector = this.state.allStats.filter((stat) => {
       return stat.type === this.state.statType
@@ -295,15 +295,20 @@ const D3ScatterCompare = React.createClass({
                     <button onClick={()=> this.showAverages()}>Averages</button>
                   </th>
                 </tr>
-                
                 {statsSelector}
-                
               </tbody>
             </table>
           </div>
 
           <div>
-            <ul>{playerKey}</ul>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Legend</th>
+                </tr>
+                {playerKey}
+              </tbody>
+            </table>
           </div>
           
         </div>

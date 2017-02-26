@@ -60,8 +60,9 @@ text {
 }
 
 #d3LegendDiv div {
-  float: left;
-  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
   text-align: center;
   box-sizing: border-box;
 }
