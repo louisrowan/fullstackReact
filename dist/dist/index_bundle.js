@@ -22880,68 +22880,6 @@ var D3ScatterCompare = React.createClass({
   render: function render() {
     var _this2 = this;
 
-    var statsKey;
-    if (this.state.stats.length > 0) {
-      console.log(this.state.stats);
-      statsKey = this.state.stats.map(function (s, i) {
-        if (i === 0) {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement(
-                'svg',
-                { className: 'keySVG' },
-                React.createElement('circle', { className: 'keyFullCircle' })
-              )
-            )
-          );
-        } else if (i === 1) {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement('div', { className: 'keyTriangle' })
-            )
-          );
-        } else {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement(
-                'svg',
-                { className: 'keySVG' },
-                React.createElement('circle', { className: 'keyTransCircle' })
-              )
-            )
-          );
-        }
-      });
-    } else {
-      statsKey = React.createElement('tr', null);
-    }
     var playerKey = this.props.players.map(function (p, i) {
       return React.createElement(
         'li',
@@ -22953,14 +22891,53 @@ var D3ScatterCompare = React.createClass({
     var statsSelector = this.state.allStats.filter(function (stat) {
       return stat.type === _this2.state.statType;
     }).map(function (stat) {
+      var index = _this2.state.stats.indexOf(stat.name);
+      var icon;
+      if (index === 0) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyFullCircle' })
+          )
+        );
+      } else if (index === 1) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement('div', { className: 'keyTriangle' })
+        );
+      } else if (index === 2) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyTransCircle' })
+          )
+        );
+      } else {
+        icon = React.createElement('td', null);
+      }
       return React.createElement(
-        'label',
+        'tr',
         { key: stat.name },
-        React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
-            return _this2.handleCheckClick(e);
-          } }),
-        stat.name,
-        React.createElement('br', null)
+        React.createElement(
+          'td',
+          null,
+          React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
+              return _this2.handleCheckClick(e);
+            } })
+        ),
+        React.createElement(
+          'td',
+          null,
+          stat.name
+        ),
+        icon
       );
     });
     return React.createElement(
@@ -22974,21 +22951,38 @@ var D3ScatterCompare = React.createClass({
           'div',
           null,
           React.createElement(
-            'form',
-            null,
-            statsSelector
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
             'table',
             null,
             React.createElement(
               'tbody',
               null,
-              statsKey
+              React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                  'th',
+                  null,
+                  React.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                        return _this2.showCounting();
+                      } },
+                    'Counting'
+                  )
+                ),
+                React.createElement(
+                  'th',
+                  null,
+                  React.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                        return _this2.showAverages();
+                      } },
+                    'Averages'
+                  )
+                )
+              ),
+              statsSelector
             )
           )
         ),
@@ -22999,25 +22993,6 @@ var D3ScatterCompare = React.createClass({
             'ul',
             null,
             playerKey
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.showCounting();
-              } },
-            'HR, H, RBI'
-          ),
-          React.createElement('br', null),
-          React.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.showAverages();
-              } },
-            'OBP, SLG and OPS'
           )
         )
       ),
@@ -23094,7 +23069,6 @@ var ScatterCompareForm = React.createClass({
       var databaseResults = data.map(function (d) {
         return d.name;
       });
-      console.log(databaseResults);
       that.setState({ databaseResults: databaseResults });
     }).fail(function (fail) {
       console.log('fail', fail);

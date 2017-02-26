@@ -250,27 +250,34 @@ const D3ScatterCompare = React.createClass({
     this.compileChart()
   },
   render(){
-    var statsKey;
-    if (this.state.stats.length > 0){
-      console.log(this.state.stats)
-      statsKey = this.state.stats.map((s, i) => {
-        if (i === 0){
-          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td></tr>
-        } else if (i === 1){
-          return <tr key={i}><td>{s}</td><td><div className='keyTriangle'></div></td></tr>
-        } else {
-          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td></tr>
-        }
-      })
-    } else {
-      statsKey = <tr></tr>
-    }
+
     var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
 
     var statsSelector = this.state.allStats.filter((stat) => {
       return stat.type === this.state.statType
     }).map((stat) => {
-      return <label key={stat.name}><input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />{stat.name}<br /></label>
+      var index = this.state.stats.indexOf(stat.name)
+      var icon;
+        if (index === 0){
+          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td>
+        } else if (index === 1){
+          icon = <td key={stat.name}><div className='keyTriangle'></div></td>
+        } else  if (index === 2){
+          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td>
+        } else {
+          icon = <td></td>
+        }
+      return (
+        <tr key={stat.name}>
+          <td>
+            <input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />
+          </td>
+          <td>
+            {stat.name}
+          </td>
+          {icon}
+        </tr>
+      )
     })
     return (
       <div id='container'>
@@ -278,19 +285,27 @@ const D3ScatterCompare = React.createClass({
 
         <div id='d3LegendDiv'>
           <div>
-            <form>{statsSelector}</form>
+            <table>
+              <tbody>
+                <tr>
+                  <th>
+                    <button onClick={()=> this.showCounting()}>Counting</button>
+                  </th>
+                  <th>
+                    <button onClick={()=> this.showAverages()}>Averages</button>
+                  </th>
+                </tr>
+                
+                {statsSelector}
+                
+              </tbody>
+            </table>
           </div>
-          <div>
-            <table><tbody>{statsKey}</tbody></table>
-          </div>
+
           <div>
             <ul>{playerKey}</ul>
           </div>
           
-          <div>
-            <button onClick={()=> this.showCounting()}>HR, H, RBI</button><br />
-            <button onClick={()=> this.showAverages()}>OBP, SLG and OPS</button>
-          </div>
         </div>
         <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
       </div>

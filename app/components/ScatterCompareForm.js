@@ -46,7 +46,6 @@ const ScatterCompareForm = React.createClass({
         url: '/api/baseball',
       }).done((data) => {
         var databaseResults = data.map((d) => d.name)
-        console.log(databaseResults)
         that.setState({ databaseResults })
       }).fail((fail) => {
         console.log('fail', fail)
