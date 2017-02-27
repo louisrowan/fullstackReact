@@ -19,8 +19,6 @@ const D3ScatterCompare = React.createClass({
       .insert('svg', ":first-child")
       .attr('height', height)
       .attr('width', width)
-      .style('overflow', 'visible')
-      .style('padding', '40px')
       .classed('d3SVG', true)
   },
   renderChart(data, stats) {
@@ -143,32 +141,32 @@ const D3ScatterCompare = React.createClass({
             return yScale(+d[stat])}) 
           .attr('r', 4)
       } else if (statIndex === 1 ){
-          obj
-            .append('svg')
-              .attr('x', (d, i) => xScale(i) - 5)
-              .attr('y', (d) => yScale(+d[stat]) - 5)
-              .attr('height', 10)
-              .attr('width', 10)
-              .append('polygon')
-              .classed('solidTriangle', true)
-              .attr('points', (d, i) => '0,0 10,0 5,10' )
+        obj
+          .append('circle')
+          .classed('transCircle', true)
+          .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+          .attr('cy', (d) => yScale(+d[stat])) 
+          .attr('r', 4)
+          .style('stroke', (d) => {
+            if (index === 0) {
+              return 'rgba(22, 97, 247, .8)'
+            } else if (index === 1) {
+              return 'rgba(252, 30, 41, .8)'
+            } else {
+              return 'rgba(237, 252, 30, .8)'
+            }
+          })
+          .style('fill', 'transparent')
       } else {
         obj
-        .append('circle')
-        .classed('transCircle', true)
-        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-        .attr('cy', (d) => yScale(+d[stat])) 
-        .attr('r', 4)
-        .style('stroke', (d) => {
-          if (index === 0) {
-            return 'rgba(22, 97, 247, .8)'
-          } else if (index === 1) {
-            return 'rgba(252, 30, 41, .8)'
-          } else {
-            return 'rgba(237, 252, 30, .8)'
-          }
-        })
-        .style('fill', 'transparent')
+          .append('svg')
+          .attr('x', (d, i) => xScale(i) - 5)
+          .attr('y', (d) => yScale(+d[stat]) - 5)
+          .attr('height', 10)
+          .attr('width', 10)
+          .append('polygon')
+          .classed('solidTriangle', true)
+          .attr('points', (d, i) => '0,0 10,0 5,10' )
       }
 
       obj.selectAll('*').on('mouseover', function(){

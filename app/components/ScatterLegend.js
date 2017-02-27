@@ -37,6 +37,13 @@ const ScatterLegend = React.createClass({
     this.setState({ stats })
     this.props.renderChart(this.props.data, this.state.stats)
   },
+  handleDisabled(e){
+    if (this.state.stats.length >= 3 && this.state.stats.indexOf(e) < 0) {
+      return true
+    } else {
+      return false
+    }
+  },
   render(){
     var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{Util.capitalize(p)}</td></tr>)
 
@@ -48,16 +55,16 @@ const ScatterLegend = React.createClass({
         if (index === 0){
           icon = <td key={stat.name}><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td>
         } else if (index === 1){
-          icon = <td key={stat.name}><div className='keyTriangle'></div></td>
-        } else  if (index === 2){
           icon = <td key={stat.name}><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td>
+        } else  if (index === 2){
+          icon = <td key={stat.name}><div className='keyTriangle'></div></td>
         } else {
           icon = <td></td>
         }
       return (
         <tr key={stat.name}>
           <td>
-            <input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />
+            <input disabled={this.handleDisabled(stat.name)} type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />
           </td>
           <td>
             {stat.name}
