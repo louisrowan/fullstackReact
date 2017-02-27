@@ -1,4 +1,4 @@
-
+/*scatter chart -----------------------------*/
 
 .d3Axis {
   /*fill: white;*/
@@ -54,9 +54,15 @@ text {
   margin: auto;
 }
 
+.line {
+  fill: none;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
 
+/*end scatter chart -------------------*/
 
-
+/*start scatter legend --------------------*/
 
 
 #d3LegendDiv {
@@ -101,11 +107,9 @@ text {
   font-weight: none;
 }
 
-.line {
-  fill: none;
-  stroke-width: .5px;
-  stroke-opacity: .5;
-}
+/*end scatter legend ---------------------------*/
+
+/*start player selection --------------------*/
 
 #formContainer div {
   margin: 0;
@@ -116,6 +120,11 @@ text {
   box-sizing: border-box;
 }
 
+#formContainer h3 {
+  padding: 0;
+  margin: 0;
+}
+
 #formContainer ul {
   list-style-type: none;
   color: black;
@@ -123,7 +132,8 @@ text {
 }
 
 #formContainer li {
-  font-size: 16px;
+  font-size: 18px;
+  padding: 5px;
 }
 
 #showChartButton {
@@ -133,6 +143,19 @@ text {
   clear: both;
 }
 
+#showChartButton button {
+  padding: 10px;
+  font-size: 20px;
+}
+
+#formContainer input {
+  padding: 10px;
+  font-size: 20px;
+}
+
 #formContainer button {
   padding: 5px;
+  font-size: 20px;
 }
+
+/*end player selection ---------------------------*/

@@ -90,7 +90,7 @@ const ScatterCompareForm = React.createClass({
         <div id='formContainer'>
           <div>
             <ul>
-              <li key='header'>Currently on your list...</li>
+              <li key='header'><h3>Currently on your list...</h3></li>
               {playerList}
             </ul>
           </div>
@@ -108,7 +108,7 @@ const ScatterCompareForm = React.createClass({
             {error}
           </div>
           <div>
-            <ul><li key='header'>Are you looking for...</li>{predictiveText}</ul>
+            <ul><li key='header'><h3>Are you looking for...</h3></li>{predictiveText}</ul>
           </div>
         </div>
           <div id='showChartButton'>
