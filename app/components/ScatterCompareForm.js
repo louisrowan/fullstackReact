@@ -1,4 +1,5 @@
 const React = require('react')
+const Util = require('../../util/Util')
 const $ = require('jquery')
 
 const ScatterCompareForm = React.createClass({
@@ -64,7 +65,7 @@ const ScatterCompareForm = React.createClass({
   render(){
     var playerList;
     if (this.state.players.length > 0){
-      playerList = this.state.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.handleRemovePlayer(p)}>&#8259;</td><td>{p}</td></tr>)
+      playerList = this.state.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.handleRemovePlayer(p)}>&#8259;</td><td>{Util.capitalize(p)}</td></tr>)
     }
     var formDisabled;
     var max
@@ -83,7 +84,7 @@ const ScatterCompareForm = React.createClass({
           if (name[z] != this.state.newPlayer[z]) return
         }
         return name
-      }).map((name, i) => <tr key={name}><td onClick={() => this.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{name}</td></tr>)
+      }).map((name, i) => <tr key={name}><td onClick={() => this.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
     }
 
 

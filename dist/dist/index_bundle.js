@@ -22890,6 +22890,7 @@ module.exports = D3ScatterCompare;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var React = __webpack_require__(5);
+var Util = __webpack_require__(249);
 var $ = __webpack_require__(36);
 
 var ScatterCompareForm = React.createClass({
@@ -22974,7 +22975,7 @@ var ScatterCompareForm = React.createClass({
           React.createElement(
             'td',
             null,
-            p
+            Util.capitalize(p)
           )
         );
       });
@@ -23010,7 +23011,7 @@ var ScatterCompareForm = React.createClass({
           React.createElement(
             'td',
             null,
-            name
+            Util.capitalize(name)
           )
         );
       });
@@ -38166,6 +38167,27 @@ if(false) {
 
 module.exports = __webpack_require__(112);
 
+
+/***/ }),
+/* 248 */,
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+
+  capitalize: function capitalize(input) {
+    input = input.split(' ');
+    return input.map(function (word) {
+      return word.split('').map(function (char, i) {
+        return i === 0 ? char.toUpperCase() : char;
+      }).join('');
+    }).join(' ');
+  }
+
+};
 
 /***/ })
 /******/ ]);
