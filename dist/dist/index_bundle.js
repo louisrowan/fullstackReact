@@ -23108,8 +23108,7 @@ var ScatterCompareForm = React.createClass({
 module.exports = ScatterCompareForm;
 
 /***/ }),
-/* 116 */,
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
