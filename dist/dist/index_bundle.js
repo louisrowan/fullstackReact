@@ -22739,6 +22739,10 @@ var D3ScatterCompare = React.createClass({
 
     d3.select('svg').append('g').classed('d3Axis', true).call(yAxis);
 
+    d3.select('svg').append("text").attr("transform", "translate(" + width / 2 + " ," + (height + 60) + ")").style("text-anchor", "middle").text("Year");
+
+    d3.select('svg').append("text").attr("transform", "rotate(-90)").attr("y", -100).attr("x", 0 - height / 2).attr("dy", "1em").style("text-anchor", "middle").text("Performance");
+
     var rect = d3.select('svg').append('g');
 
     rect.append('rect').classed('moveableRect', true).attr('x', 0).attr('y', height).style('fill', 'none').style('stroke', 'yellow');
@@ -23095,7 +23099,7 @@ var ScatterCompareForm = React.createClass({
         { id: 'showChartButton' },
         React.createElement('input', { type: 'submit', onClick: function onClick() {
             return _this.props.handleShowChart(_this.state.data, _this.state.players);
-          }, disabled: !this.state.chartReady, value: 'Show Chart' })
+          }, disabled: !this.state.chartReady || this.state.players.length < 1, value: 'Show Chart' })
       )
     );
   }
@@ -23111,6 +23115,7 @@ module.exports = ScatterCompareForm;
 
 
 var React = __webpack_require__(5);
+var Util = __webpack_require__(249);
 
 var ScatterLegend = React.createClass({
   displayName: 'ScatterLegend',
@@ -23150,7 +23155,7 @@ var ScatterLegend = React.createClass({
         React.createElement(
           'td',
           null,
-          p
+          Util.capitalize(p)
         )
       );
     });

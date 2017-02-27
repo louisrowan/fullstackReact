@@ -1,4 +1,5 @@
 const React = require('react')
+const Util = require('../../util/Util')
 
 const ScatterLegend = React.createClass({
   getInitialState(){
@@ -37,7 +38,7 @@ const ScatterLegend = React.createClass({
     this.props.renderChart(this.props.data, this.state.stats)
   },
   render(){
-    var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{p}</td></tr>)
+    var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{Util.capitalize(p)}</td></tr>)
 
     var statsSelector = this.state.allStats.filter((stat) => {
       return stat.type === this.state.statType

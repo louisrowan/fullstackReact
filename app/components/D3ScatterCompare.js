@@ -70,6 +70,21 @@ const D3ScatterCompare = React.createClass({
       .classed('d3Axis', true)
       .call(yAxis)
 
+    d3.select('svg').append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + 60) + ")")
+      .style("text-anchor", "middle")
+      .text("Year")
+
+    d3.select('svg').append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -100)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Performance")
+
     var rect = d3.select('svg')
       .append('g')
 

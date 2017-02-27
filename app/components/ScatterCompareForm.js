@@ -130,7 +130,7 @@ const ScatterCompareForm = React.createClass({
           </div>
         </div>
           <div id='showChartButton'>
-            <input type='submit' onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)} disabled={!this.state.chartReady} value='Show Chart' />
+            <input type='submit' onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)} disabled={!this.state.chartReady || this.state.players.length < 1} value='Show Chart' />
           </div>
       </div>
     )
