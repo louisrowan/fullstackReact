@@ -22680,14 +22680,12 @@ module.exports = App;
 
 
 var React = __webpack_require__(5);
+var ScatterLegend = __webpack_require__(116);
 
 var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
-      statType: 'average',
-      stats: [],
       height: '',
       width: '',
       padding: ''
@@ -22740,6 +22738,10 @@ var D3ScatterCompare = React.createClass({
     d3.select('svg').append('g').classed('d3Axis', true).attr('transform', 'translate(0,' + height + ')').call(xAxis);
 
     d3.select('svg').append('g').classed('d3Axis', true).call(yAxis);
+
+    d3.select('svg').append("text").attr("transform", "translate(" + width / 2 + " ," + (height + 60) + ")").style("text-anchor", "middle").text("Year");
+
+    d3.select('svg').append("text").attr("transform", "rotate(-90)").attr("y", -100).attr("x", 0 - height / 2).attr("dy", "1em").style("text-anchor", "middle").text("Performance");
 
     var rect = d3.select('svg').append('g');
 
@@ -22852,27 +22854,8 @@ var D3ScatterCompare = React.createClass({
       }).attr('d', valueline);
     });
   },
-  showCounting: function showCounting() {
-    this.setState({ statType: 'counting', stats: [] });
-    this.clearChart();
-  },
-  showAverages: function showAverages() {
-    this.setState({ statType: 'average', stats: [] });
-    this.clearChart();
-  },
   clearChart: function clearChart() {
     d3.select('.d3SVG').selectAll('*').remove();
-  },
-  handleCheckClick: function handleCheckClick(e) {
-    var index = this.state.stats.indexOf(e.target.value);
-    var stats = this.state.stats;
-    if (index >= 0) {
-      stats.splice(index, 1);
-    } else {
-      stats.push(e.target.value);
-    }
-    this.setState({ stats: stats });
-    this.renderChart(this.props.data, this.state.stats);
   },
   componentDidMount: function componentDidMount() {
     this.compileChart();
@@ -22880,147 +22863,14 @@ var D3ScatterCompare = React.createClass({
   render: function render() {
     var _this2 = this;
 
-    var statsKey;
-    if (this.state.stats.length > 0) {
-      console.log(this.state.stats);
-      statsKey = this.state.stats.map(function (s, i) {
-        if (i === 0) {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement(
-                'svg',
-                { className: 'keySVG' },
-                React.createElement('circle', { className: 'keyFullCircle' })
-              )
-            )
-          );
-        } else if (i === 1) {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement('div', { className: 'keyTriangle' })
-            )
-          );
-        } else {
-          return React.createElement(
-            'tr',
-            { key: i },
-            React.createElement(
-              'td',
-              null,
-              s
-            ),
-            React.createElement(
-              'td',
-              null,
-              React.createElement(
-                'svg',
-                { className: 'keySVG' },
-                React.createElement('circle', { className: 'keyTransCircle' })
-              )
-            )
-          );
-        }
-      });
-    } else {
-      statsKey = React.createElement('tr', null);
-    }
-    var playerKey = this.props.players.map(function (p, i) {
-      return React.createElement(
-        'li',
-        { className: 'playerKey' + i, key: i },
-        p
-      );
-    });
-
-    var statsSelector = this.state.allStats.filter(function (stat) {
-      return stat.type === _this2.state.statType;
-    }).map(function (stat) {
-      return React.createElement(
-        'label',
-        { key: stat.name },
-        React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
-            return _this2.handleCheckClick(e);
-          } }),
-        stat.name,
-        React.createElement('br', null)
-      );
-    });
     return React.createElement(
       'div',
       { id: 'container' },
       React.createElement('br', null),
-      React.createElement(
-        'div',
-        { id: 'd3LegendDiv' },
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'form',
-            null,
-            statsSelector
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'table',
-            null,
-            React.createElement(
-              'tbody',
-              null,
-              statsKey
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'ul',
-            null,
-            playerKey
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.showCounting();
-              } },
-            'HR, H, RBI'
-          ),
-          React.createElement('br', null),
-          React.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.showAverages();
-              } },
-            'OBP, SLG and OPS'
-          )
-        )
-      ),
+      React.createElement(ScatterLegend, {
+        data: this.props.data,
+        players: this.props.players,
+        renderChart: this.renderChart, clearChart: this.clearChart }),
       React.createElement(
         'button',
         { onClick: function onClick() {
@@ -23044,6 +22894,7 @@ module.exports = D3ScatterCompare;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var React = __webpack_require__(5);
+var Util = __webpack_require__(249);
 var $ = __webpack_require__(36);
 
 var ScatterCompareForm = React.createClass({
@@ -23053,13 +22904,21 @@ var ScatterCompareForm = React.createClass({
       players: [],
       data: [],
       databaseResults: [],
-      newPlayer: ''
+      newPlayer: '',
+      error: false,
+      chartReady: false
     };
+  },
+  handlePredictiveClick: function handlePredictiveClick(name) {
+    this.setState({ newPlayer: name }, function () {
+      this.handleSubmit();
+    }.bind(this));
   },
   handleInputChange: function handleInputChange(e) {
     this.setState({ newPlayer: e.target.value });
   },
   handleSubmit: function handleSubmit(e) {
+    this.setState({ chartReady: false });
     var that = this;
     $.ajax({
       url: '/api/baseball',
@@ -23067,7 +22926,7 @@ var ScatterCompareForm = React.createClass({
       data: { player: that.state.newPlayer }
     }).done(function (data) {
       if (data.length === 0) {
-        that.setState({ newPlayer: '' });
+        that.setState({ error: that.state.newPlayer, newPlayer: '' });
       } else {
         data.name = that.state.newPlayer;
         data = data.filter(function (d) {
@@ -23076,9 +22935,17 @@ var ScatterCompareForm = React.createClass({
         var newData = [].concat(_toConsumableArray(that.state.data), [data]);
         var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
 
-        that.setState({ data: newData, players: players, newPlayer: '' });
+        that.setState({ data: newData, players: players, newPlayer: '', error: false, chartReady: true });
       }
     });
+  },
+  handleRemovePlayer: function handleRemovePlayer(name) {
+    var index = this.state.players.indexOf(name);
+    var players = this.state.players;
+    var data = this.state.data;
+    players.splice(index, 1);
+    data.splice(index, 1);
+    this.setState({ players: players, data: data });
   },
   componentDidMount: function componentDidMount() {
     var that = this;
@@ -23088,7 +22955,6 @@ var ScatterCompareForm = React.createClass({
       var databaseResults = data.map(function (d) {
         return d.name;
       });
-      console.log(databaseResults);
       that.setState({ databaseResults: databaseResults });
     }).fail(function (fail) {
       console.log('fail', fail);
@@ -23101,9 +22967,20 @@ var ScatterCompareForm = React.createClass({
     if (this.state.players.length > 0) {
       playerList = this.state.players.map(function (p, i) {
         return React.createElement(
-          'li',
+          'tr',
           { key: i },
-          p
+          React.createElement(
+            'td',
+            { className: 'tableIcon minus', onClick: function onClick() {
+                return _this.handleRemovePlayer(p);
+              } },
+            '\u2043'
+          ),
+          React.createElement(
+            'td',
+            null,
+            Util.capitalize(p)
+          )
         );
       });
     }
@@ -23126,11 +23003,34 @@ var ScatterCompareForm = React.createClass({
         return name;
       }).map(function (name, i) {
         return React.createElement(
-          'li',
-          { key: i },
-          name
+          'tr',
+          { key: name },
+          React.createElement(
+            'td',
+            { onClick: function onClick() {
+                return _this.handlePredictiveClick(name);
+              }, className: 'tableIcon plus' },
+            '+'
+          ),
+          React.createElement(
+            'td',
+            null,
+            Util.capitalize(name)
+          )
         );
       });
+    }
+
+    var error;
+    if (this.state.error) {
+      error = React.createElement(
+        'p',
+        null,
+        'No results found for ',
+        this.state.error
+      );
+    } else {
+      error = '';
     }
 
     return React.createElement(
@@ -23143,14 +23043,18 @@ var ScatterCompareForm = React.createClass({
           'div',
           null,
           React.createElement(
-            'ul',
+            'h3',
+            null,
+            'Currently on your list...'
+          ),
+          React.createElement(
+            'table',
             null,
             React.createElement(
-              'li',
-              { key: 'header' },
-              'Currently on your list...'
-            ),
-            playerList
+              'tbody',
+              null,
+              playerList
+            )
           )
         ),
         React.createElement(
@@ -23166,35 +23070,36 @@ var ScatterCompareForm = React.createClass({
               onChange: function onChange(e) {
                 return _this.handleInputChange(e);
               } }),
-            React.createElement('input', { disabled: formDisabled, type: 'submit', value: 'Add player' }),
-            max
-          )
+            React.createElement('input', { disabled: formDisabled, type: 'submit', value: 'Add player' })
+          ),
+          max,
+          error
         ),
         React.createElement(
           'div',
           null,
           React.createElement(
-            'ul',
+            'h3',
+            null,
+            'Are you looking for...'
+          ),
+          React.createElement(
+            'table',
             null,
             React.createElement(
-              'li',
-              { key: 'header' },
-              'Are you looking for...'
-            ),
-            predictiveText
+              'tbody',
+              null,
+              predictiveText
+            )
           )
         )
       ),
       React.createElement(
         'div',
         { id: 'showChartButton' },
-        React.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this.props.handleShowChart(_this.state.data, _this.state.players);
-            } },
-          'Show chart'
-        )
+        React.createElement('input', { type: 'submit', onClick: function onClick() {
+            return _this.props.handleShowChart(_this.state.data, _this.state.players);
+          }, disabled: !this.state.chartReady || this.state.players.length < 1, value: 'Show Chart' })
       )
     );
   }
@@ -23204,6 +23109,181 @@ module.exports = ScatterCompareForm;
 
 /***/ }),
 /* 116 */,
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+var Util = __webpack_require__(249);
+
+var ScatterLegend = React.createClass({
+  displayName: 'ScatterLegend',
+  getInitialState: function getInitialState() {
+    return {
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
+      statType: 'average',
+      stats: []
+    };
+  },
+  showCounting: function showCounting() {
+    this.setState({ statType: 'counting', stats: [] });
+    this.props.clearChart();
+  },
+  showAverages: function showAverages() {
+    this.setState({ statType: 'average', stats: [] });
+    this.props.clearChart();
+  },
+  handleCheckClick: function handleCheckClick(e) {
+    var index = this.state.stats.indexOf(e.target.value);
+    var stats = this.state.stats;
+    if (index >= 0) {
+      stats.splice(index, 1);
+    } else {
+      stats.push(e.target.value);
+    }
+    this.setState({ stats: stats });
+    this.props.renderChart(this.props.data, this.state.stats);
+  },
+  render: function render() {
+    var _this = this;
+
+    var playerKey = this.props.players.map(function (p, i) {
+      return React.createElement(
+        'tr',
+        { className: 'playerKey' + i, key: i },
+        React.createElement(
+          'td',
+          null,
+          Util.capitalize(p)
+        )
+      );
+    });
+
+    var statsSelector = this.state.allStats.filter(function (stat) {
+      return stat.type === _this.state.statType;
+    }).map(function (stat) {
+      var index = _this.state.stats.indexOf(stat.name);
+      var icon;
+      if (index === 0) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyFullCircle' })
+          )
+        );
+      } else if (index === 1) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement('div', { className: 'keyTriangle' })
+        );
+      } else if (index === 2) {
+        icon = React.createElement(
+          'td',
+          { key: stat.name },
+          React.createElement(
+            'svg',
+            { className: 'keySVG' },
+            React.createElement('circle', { className: 'keyTransCircle' })
+          )
+        );
+      } else {
+        icon = React.createElement('td', null);
+      }
+      return React.createElement(
+        'tr',
+        { key: stat.name },
+        React.createElement(
+          'td',
+          null,
+          React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
+              return _this.handleCheckClick(e);
+            } })
+        ),
+        React.createElement(
+          'td',
+          null,
+          stat.name
+        ),
+        icon
+      );
+    });
+    return React.createElement(
+      'div',
+      { id: 'd3LegendDiv' },
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+              'tr',
+              null,
+              React.createElement(
+                'th',
+                null,
+                React.createElement(
+                  'button',
+                  { className: this.state.statType === 'average' ? 'inactiveButton' : 'activeButton', onClick: function onClick() {
+                      return _this.showCounting();
+                    } },
+                  'Counting'
+                )
+              ),
+              React.createElement(
+                'th',
+                null,
+                React.createElement(
+                  'button',
+                  { className: this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton', onClick: function onClick() {
+                      return _this.showAverages();
+                    } },
+                  'Averages'
+                )
+              )
+            ),
+            statsSelector
+          )
+        )
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+              'tr',
+              null,
+              React.createElement(
+                'th',
+                null,
+                'Legend'
+              )
+            ),
+            playerKey
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = ScatterLegend;
+
+/***/ }),
 /* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23450,7 +23530,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  float: left;\r\n  width: 25%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 16px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n}", ""]);
+exports.push([module.i, "/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  width: 50%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  font-weight: bold;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  font-weight: none;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#showChartButton input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n  font-size: 20px;\r\n}\r\n\r\n/*end player selection ---------------------------*/", ""]);
 
 // exports
 
@@ -23464,7 +23544,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 500px;\r\n  min-width: 500px;\r\n  background: white;\r\n  margin: 0;\r\n  padding: 0;\r\n  color: darkblue;\r\n  font-weight: bold;\r\n  font-size: 1.1em;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 500px;\r\n  min-width: 800px;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -38093,6 +38173,27 @@ if(false) {
 
 module.exports = __webpack_require__(112);
 
+
+/***/ }),
+/* 248 */,
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+
+  capitalize: function capitalize(input) {
+    input = input.split(' ');
+    return input.map(function (word) {
+      return word.split('').map(function (char, i) {
+        return i === 0 ? char.toUpperCase() : char;
+      }).join('');
+    }).join(' ');
+  }
+
+};
 
 /***/ })
 /******/ ]);

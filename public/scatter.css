@@ -1,4 +1,4 @@
-
+/*scatter chart -----------------------------*/
 
 .d3Axis {
   /*fill: white;*/
@@ -54,14 +54,26 @@ text {
   margin: auto;
 }
 
+.line {
+  fill: none;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+/*end scatter chart -------------------*/
+
+/*start scatter legend --------------------*/
+
+
 #d3LegendDiv {
   margin: auto;
   font-size: 30px;
 }
 
 #d3LegendDiv div {
-  float: left;
-  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
   text-align: center;
   box-sizing: border-box;
 }
@@ -87,18 +99,30 @@ text {
   padding: 10px;
 }
 
-.line {
-  fill: none;
-  stroke-width: .5px;
-  stroke-opacity: .5;
+#d3LegendDiv .activeButton {
+  font-weight: bold;
 }
+
+#d3LegendDiv .inactiveButton {
+  font-weight: none;
+}
+
+/*end scatter legend ---------------------------*/
+
+/*start player selection --------------------*/
 
 #formContainer div {
   margin: 0;
   width: 33%;
   float: left;
-  padding: 50px;
+  padding: 50px 10px;
+  text-align: center;
   box-sizing: border-box;
+}
+
+#formContainer h3 {
+  padding: 0;
+  margin: 0;
 }
 
 #formContainer ul {
@@ -107,8 +131,39 @@ text {
   margin: 0;
 }
 
+#formContainer table {
+  margin: auto;
+}
+
+#formContainer h3 {
+  font-size: 24px;
+  margin: auto;
+}
+
+#formContainer td {
+  font-size: 24px;
+  padding: 5px;
+}
+
+#formContainer .tableIcon {
+  font-weight: bold;
+}
+
+#formContainer .tableIcon:hover {
+  cursor: pointer;
+}
+
+#formContainer .minus {
+  color: red;
+}
+
+#formContainer .plus {
+  color: green;
+}
+
 #formContainer li {
-  font-size: 16px;
+  font-size: 20px;
+  padding: 5px;
 }
 
 #showChartButton {
@@ -118,6 +173,19 @@ text {
   clear: both;
 }
 
+#showChartButton input {
+  padding: 10px;
+  font-size: 20px;
+}
+
+#formContainer input {
+  padding: 10px;
+  font-size: 20px;
+}
+
 #formContainer button {
   padding: 5px;
+  font-size: 20px;
 }
+
+/*end player selection ---------------------------*/

@@ -1,4 +1,5 @@
 const React = require('react')
+const Util = require('../../util/Util')
 const $ = require('jquery')
 
 const ScatterCompareForm = React.createClass({
@@ -7,13 +8,21 @@ const ScatterCompareForm = React.createClass({
       players: [],
       data: [],
       databaseResults: [],
-      newPlayer: ''
+      newPlayer: '',
+      error: false,
+      chartReady: false
     }
+  },
+  handlePredictiveClick(name){
+    this.setState({ newPlayer: name }, function(){
+      this.handleSubmit()
+    }.bind(this))
   },
   handleInputChange(e){
     this.setState({ newPlayer: e.target.value})
   },
   handleSubmit(e){
+    this.setState({ chartReady: false })
     var that = this
     $.ajax({
       url: '/api/baseball',
@@ -21,7 +30,7 @@ const ScatterCompareForm = React.createClass({
       data: { player: that.state.newPlayer}
     }).done((data) => {
       if (data.length === 0) {
-        that.setState({ newPlayer: ''})
+        that.setState({ error: that.state.newPlayer, newPlayer: ''})
       } else {
         data.name = that.state.newPlayer
         data = data.filter((d) => {
@@ -30,9 +39,17 @@ const ScatterCompareForm = React.createClass({
         let newData = [...that.state.data, data]
         let players = [...that.state.players, that.state.newPlayer]
   
-        that.setState({ data: newData, players, newPlayer: '' })
+        that.setState({ data: newData, players, newPlayer: '', error: false, chartReady: true })
       }
     })
+  },
+  handleRemovePlayer(name) {
+    var index = this.state.players.indexOf(name)
+    var players = this.state.players
+    var data = this.state.data
+    players.splice(index, 1)
+    data.splice(index, 1)
+    this.setState({ players, data })
   },
   componentDidMount(){
       var that = this
@@ -40,7 +57,6 @@ const ScatterCompareForm = React.createClass({
         url: '/api/baseball',
       }).done((data) => {
         var databaseResults = data.map((d) => d.name)
-        console.log(databaseResults)
         that.setState({ databaseResults })
       }).fail((fail) => {
         console.log('fail', fail)
@@ -49,7 +65,7 @@ const ScatterCompareForm = React.createClass({
   render(){
     var playerList;
     if (this.state.players.length > 0){
-      playerList = this.state.players.map((p, i) => <li key={i}>{p}</li>)
+      playerList = this.state.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.handleRemovePlayer(p)}>&#8259;</td><td>{Util.capitalize(p)}</td></tr>)
     }
     var formDisabled;
     var max
@@ -68,17 +84,28 @@ const ScatterCompareForm = React.createClass({
           if (name[z] != this.state.newPlayer[z]) return
         }
         return name
-      }).map((name, i) => <li key={i}>{name}</li>)
+      }).map((name, i) => <tr key={name}><td onClick={() => this.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
+    }
+
+
+
+    var error;
+    if (this.state.error){
+      error = <p>No results found for {this.state.error}</p>
+    } else {
+      error = ''
     }
 
     return (
       <div>
         <div id='formContainer'>
           <div>
-            <ul>
-              <li key='header'>Currently on your list...</li>
-              {playerList}
-            </ul>
+            <h3>Currently on your list...</h3>
+            <table>
+              <tbody>
+                {playerList}
+              </tbody>
+            </table>
           </div>
           <div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -87,16 +114,23 @@ const ScatterCompareForm = React.createClass({
               onChange={(e)=>this.handleInputChange(e)} />
               
             <input disabled={formDisabled} type='submit' value='Add player'  />
-            {max}
+            
 
             </form>
+            {max}
+            {error}
           </div>
           <div>
-            <ul><li key='header'>Are you looking for...</li>{predictiveText}</ul>
+            <h3>Are you looking for...</h3>
+            <table>
+              <tbody>
+                {predictiveText}
+              </tbody>
+            </table>
           </div>
         </div>
           <div id='showChartButton'>
-            <button onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)}>Show chart</button>
+            <input type='submit' onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)} disabled={!this.state.chartReady || this.state.players.length < 1} value='Show Chart' />
           </div>
       </div>
     )

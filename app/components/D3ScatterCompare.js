@@ -1,20 +1,9 @@
 const React = require('react')
+const ScatterLegend = require('./ScatterLegend')
 
 const D3ScatterCompare = React.createClass({
   getInitialState(){
     return {
-      allStats: [
-        {name: 'OBP', type: 'average'},
-        {name: 'SLG', type: 'average'},
-        {name: 'OPS', type: 'average'},
-        {name: 'AVG', type: 'average'},
-        {name: 'HR', type: 'counting'},
-        {name: 'RBI', type: 'counting'},
-        {name: 'H', type: 'counting'},
-        {name: 'SB', type: 'counting'}
-      ],
-      statType: 'average',
-      stats: [],
       height: '',
       width: '',
       padding: ''
@@ -80,6 +69,21 @@ const D3ScatterCompare = React.createClass({
       .append('g')
       .classed('d3Axis', true)
       .call(yAxis)
+
+    d3.select('svg').append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + 60) + ")")
+      .style("text-anchor", "middle")
+      .text("Year")
+
+    d3.select('svg').append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -100)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Performance")
 
     var rect = d3.select('svg')
       .append('g')
@@ -224,74 +228,20 @@ const D3ScatterCompare = React.createClass({
         .attr('d', valueline)
     })
   },
-  showCounting(){
-    this.setState({ statType: 'counting', stats: [] })
-    this.clearChart()
-  },
-  showAverages(){
-    this.setState({ statType: 'average', stats: [] })
-    this.clearChart()
-  },
   clearChart(){
     d3.select('.d3SVG').selectAll('*').remove()
-  },
-  handleCheckClick(e){
-    var index = this.state.stats.indexOf(e.target.value)
-    var stats = this.state.stats
-    if (index >= 0){
-      stats.splice(index, 1)
-    } else {
-      stats.push(e.target.value)
-    }
-    this.setState({ stats })
-    this.renderChart(this.props.data, this.state.stats)
   },
   componentDidMount(){
     this.compileChart()
   },
   render(){
-    var statsKey;
-    if (this.state.stats.length > 0){
-      console.log(this.state.stats)
-      statsKey = this.state.stats.map((s, i) => {
-        if (i === 0){
-          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td></tr>
-        } else if (i === 1){
-          return <tr key={i}><td>{s}</td><td><div className='keyTriangle'></div></td></tr>
-        } else {
-          return <tr key={i}><td>{s}</td><td><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td></tr>
-        }
-      })
-    } else {
-      statsKey = <tr></tr>
-    }
-    var playerKey = this.props.players.map((p, i) => <li className={'playerKey' + i} key={i}>{p}</li>)
-
-    var statsSelector = this.state.allStats.filter((stat) => {
-      return stat.type === this.state.statType
-    }).map((stat) => {
-      return <label key={stat.name}><input type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />{stat.name}<br /></label>
-    })
     return (
       <div id='container'>
         <br />
-
-        <div id='d3LegendDiv'>
-          <div>
-            <form>{statsSelector}</form>
-          </div>
-          <div>
-            <table><tbody>{statsKey}</tbody></table>
-          </div>
-          <div>
-            <ul>{playerKey}</ul>
-          </div>
-          
-          <div>
-            <button onClick={()=> this.showCounting()}>HR, H, RBI</button><br />
-            <button onClick={()=> this.showAverages()}>OBP, SLG and OPS</button>
-          </div>
-        </div>
+        <ScatterLegend
+          data={this.props.data}
+          players={this.props.players}
+          renderChart={this.renderChart} clearChart={this.clearChart}/>
         <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
       </div>
     )
