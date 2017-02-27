@@ -110,6 +110,10 @@ text {
   font-weight: none;
 }
 
+#d3LegendDiv #maxMetricsTd {
+  font-size: 14px;
+}
+
 /*end scatter legend ---------------------------*/
 
 /*start player selection --------------------*/

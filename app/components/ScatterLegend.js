@@ -73,6 +73,15 @@ const ScatterLegend = React.createClass({
         </tr>
       )
     })
+
+
+    var maxStats;
+    if (this.state.stats.length >= 3) {
+      maxStats = <tr><td colSpan='3' id='maxMetricsTd'>Max of 3 metrics at a time</td></tr>
+    } else {
+      maxStats = <tr></tr>
+    }
+
     return (
         <div id='d3LegendDiv'>
           <div>
@@ -87,6 +96,7 @@ const ScatterLegend = React.createClass({
                   </th>
                 </tr>
                 {statsSelector}
+                {maxStats}
               </tbody>
             </table>
           </div>
