@@ -61,7 +61,7 @@ const ScatterLegend = React.createClass({
         } else  if (index === 2){
           icon = <td key={stat.name}><div className='keyTriangle'></div></td>
         } else {
-          icon = <td></td>
+          icon = <td><div className='keyEmpty'></div></td>
         }
       return (
         <tr key={stat.name}>
@@ -90,11 +90,13 @@ const ScatterLegend = React.createClass({
             <table>
               <tbody>
                 <tr>
-                  <th>
+                  <th colSpan='3'>
+                    <div className='legendHeaderDiv'>
                     <button className={ this.state.statType === 'average' ? 'inactiveButton' : 'activeButton' } onClick={()=> this.showCounting()}>Counting</button>
-                  </th>
-                  <th>
+                    </div>
+                    <div className='legendHeaderDiv'>
                     <button className={ this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton' }onClick={()=> this.showAverages()}>Averages</button>
+                    </div>
                   </th>
                 </tr>
                 {statsSelector}

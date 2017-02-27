@@ -8,46 +8,7 @@ text {
   font-size: 20px;
 }
 
-.playerKey0 {
- color: rgb(22, 97, 247);
-}
 
-.playerKey1 {
-  color: rgb(252, 30, 41);
-}
-
-.playerKey2 {
-  color: rgb(237, 252, 30);
-}
-
-.keyFullCircle {
-  r: 10px;
-  fill: black;
-  cx: 10px;
-  cy: 10px;
-}
-
-.keyTriangle {
-  height: 0px;
-  width: 0px;
-  border: 10px solid transparent;
-  border-top: 20px solid black;
-  top: 5px;
-  position: relative;
-}
-
-.keyTransCircle {
-  r: 10px;
-  fill: transparent;
-  stroke: black;
-  cx: 10px;
-  cy: 10px;
-}
-
-.keySVG {
-  height: 20px;
-  width: 20px;
-}
 
 .d3SVG {
   display: block;
@@ -92,14 +53,27 @@ text {
 
 #d3LegendDiv table {
   margin: auto;
+  border: 1px solid black;
+  background: lightblue;
+}
+
+#d3LegendDiv .legendHeaderDiv {
+  float: left;
+  width: 50%;
+}
+
+#d3LegendDiv th {
+  padding:0 px;
 }
 
 #d3LegendDiv td {
-  padding: 5px;
+  padding: 10px;
 }
 
 #d3LegendDiv button {
   padding: 10px;
+  background: transparent;
+  border: none;
 }
 
 #d3LegendDiv .activeButton {
@@ -108,10 +82,57 @@ text {
 
 #d3LegendDiv .inactiveButton {
   font-weight: none;
+  background: white;
 }
 
 #d3LegendDiv #maxMetricsTd {
   font-size: 14px;
+}
+
+#d3LegendDiv .playerKey0 {
+ color: rgb(22, 97, 247);
+}
+
+#d3LegendDiv .playerKey1 {
+  color: rgb(252, 30, 41);
+}
+
+#d3LegendDiv .playerKey2 {
+  color: rgb(237, 252, 30);
+}
+
+#d3LegendDiv .keyFullCircle {
+  r: 10px;
+  fill: black;
+  cx: 10px;
+  cy: 10px;
+}
+
+#d3LegendDiv .keyTriangle {
+  height: 0px;
+  width: 0px;
+  border: 10px solid transparent;
+  border-top: 20px solid black;
+  top: 5px;
+  position: relative;
+}
+
+#d3LegendDiv .keyEmpty {
+  height: 20px;
+  width: 20px;
+}
+
+#d3LegendDiv .keyTransCircle {
+  r: 10px;
+  fill: transparent;
+  stroke: black;
+  cx: 10px;
+  cy: 10px;
+}
+
+#d3LegendDiv .keySVG {
+  height: 20px;
+  width: 20px;
 }
 
 /*end scatter legend ---------------------------*/
