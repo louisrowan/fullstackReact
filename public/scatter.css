@@ -173,7 +173,7 @@ text {
   clear: both;
 }
 
-#showChartButton button {
+#showChartButton input {
   padding: 10px;
   font-size: 20px;
 }

@@ -22900,7 +22900,8 @@ var ScatterCompareForm = React.createClass({
       data: [],
       databaseResults: [],
       newPlayer: '',
-      error: false
+      error: false,
+      chartReady: false
     };
   },
   handlePredictiveClick: function handlePredictiveClick(name) {
@@ -22912,6 +22913,7 @@ var ScatterCompareForm = React.createClass({
     this.setState({ newPlayer: e.target.value });
   },
   handleSubmit: function handleSubmit(e) {
+    this.setState({ chartReady: false });
     var that = this;
     $.ajax({
       url: '/api/baseball',
@@ -22928,7 +22930,7 @@ var ScatterCompareForm = React.createClass({
         var newData = [].concat(_toConsumableArray(that.state.data), [data]);
         var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
 
-        that.setState({ data: newData, players: players, newPlayer: '', error: false });
+        that.setState({ data: newData, players: players, newPlayer: '', error: false, chartReady: true });
       }
     });
   },
@@ -23090,13 +23092,9 @@ var ScatterCompareForm = React.createClass({
       React.createElement(
         'div',
         { id: 'showChartButton' },
-        React.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this.props.handleShowChart(_this.state.data, _this.state.players);
-            } },
-          'Show chart'
-        )
+        React.createElement('input', { type: 'submit', onClick: function onClick() {
+            return _this.props.handleShowChart(_this.state.data, _this.state.players);
+          }, disabled: !this.state.chartReady, value: 'Show Chart' })
       )
     );
   }
@@ -23525,7 +23523,7 @@ exports = module.exports = __webpack_require__(72)();
 
 
 // module
-exports.push([module.i, "/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  width: 50%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  font-weight: bold;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  font-weight: none;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#showChartButton button {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n  font-size: 20px;\r\n}\r\n\r\n/*end player selection ---------------------------*/", ""]);
+exports.push([module.i, "/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  width: 50%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  font-weight: bold;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  font-weight: none;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#showChartButton input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n  font-size: 20px;\r\n}\r\n\r\n/*end player selection ---------------------------*/", ""]);
 
 // exports
 

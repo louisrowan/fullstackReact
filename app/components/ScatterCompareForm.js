@@ -8,7 +8,8 @@ const ScatterCompareForm = React.createClass({
       data: [],
       databaseResults: [],
       newPlayer: '',
-      error: false
+      error: false,
+      chartReady: false
     }
   },
   handlePredictiveClick(name){
@@ -20,6 +21,7 @@ const ScatterCompareForm = React.createClass({
     this.setState({ newPlayer: e.target.value})
   },
   handleSubmit(e){
+    this.setState({ chartReady: false })
     var that = this
     $.ajax({
       url: '/api/baseball',
@@ -36,7 +38,7 @@ const ScatterCompareForm = React.createClass({
         let newData = [...that.state.data, data]
         let players = [...that.state.players, that.state.newPlayer]
   
-        that.setState({ data: newData, players, newPlayer: '', error: false })
+        that.setState({ data: newData, players, newPlayer: '', error: false, chartReady: true })
       }
     })
   },
@@ -127,7 +129,7 @@ const ScatterCompareForm = React.createClass({
           </div>
         </div>
           <div id='showChartButton'>
-            <button onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)}>Show chart</button>
+            <input type='submit' onClick={()=> this.props.handleShowChart(this.state.data, this.state.players)} disabled={!this.state.chartReady} value='Show Chart' />
           </div>
       </div>
     )
