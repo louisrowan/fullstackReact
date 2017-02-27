@@ -54,6 +54,11 @@ text {
   margin: auto;
 }
 
+
+
+
+
+
 #d3LegendDiv {
   margin: auto;
   font-size: 30px;
@@ -86,6 +91,14 @@ text {
 
 #d3LegendDiv button {
   padding: 10px;
+}
+
+#d3LegendDiv .activeButton {
+  font-weight: bold;
+}
+
+#d3LegendDiv .inactiveButton {
+  font-weight: none;
 }
 
 .line {

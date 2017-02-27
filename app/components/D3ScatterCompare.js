@@ -213,22 +213,20 @@ const D3ScatterCompare = React.createClass({
         .attr('d', valueline)
     })
   },
-
   clearChart(){
     d3.select('.d3SVG').selectAll('*').remove()
   },
-
   componentDidMount(){
     this.compileChart()
   },
   render(){
-
     return (
       <div id='container'>
         <br />
-
-        <ScatterLegend data={this.props.data} players={this.props.players} renderChart={this.renderChart} clearChart={this.clearChart} />
-        
+        <ScatterLegend
+          data={this.props.data}
+          players={this.props.players}
+          renderChart={this.renderChart} clearChart={this.clearChart}/>
         <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
       </div>
     )
