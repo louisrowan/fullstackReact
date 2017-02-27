@@ -131,8 +131,34 @@ text {
   margin: 0;
 }
 
+#formContainer table {
+  margin: auto;
+}
+
+#formContainer h3 {
+  font-size: 24px;
+  margin: auto;
+}
+
+#formContainer td {
+  font-size: 24px;
+  padding: 5px;
+}
+
+#formContainer .tableIcon {
+  font-weight: bold;
+}
+
+#formContainer .tableIcon:hover {
+  cursor: pointer;
+}
+
+#formContainer .minus {
+  color: red;
+}
+
 #formContainer li {
-  font-size: 18px;
+  font-size: 20px;
   padding: 5px;
 }
 

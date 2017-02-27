@@ -40,6 +40,14 @@ const ScatterCompareForm = React.createClass({
       }
     })
   },
+  handleRemovePlayer(name) {
+    var index = this.state.players.indexOf(name)
+    var players = this.state.players
+    var data = this.state.data
+    players.splice(index, 1)
+    data.splice(index, 1)
+    this.setState({ players, data })
+  },
   componentDidMount(){
       var that = this
       $.ajax({
@@ -54,7 +62,7 @@ const ScatterCompareForm = React.createClass({
   render(){
     var playerList;
     if (this.state.players.length > 0){
-      playerList = this.state.players.map((p, i) => <li key={i}>{p}</li>)
+      playerList = this.state.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.handleRemovePlayer(p)}>&#8259;</td><td>{p}</td></tr>)
     }
     var formDisabled;
     var max
@@ -89,10 +97,12 @@ const ScatterCompareForm = React.createClass({
       <div>
         <div id='formContainer'>
           <div>
-            <ul>
-              <li key='header'><h3>Currently on your list...</h3></li>
-              {playerList}
-            </ul>
+            <h3>Currently on your list...</h3>
+            <table>
+              <tbody>
+                {playerList}
+              </tbody>
+            </table>
           </div>
           <div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
