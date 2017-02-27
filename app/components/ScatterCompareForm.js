@@ -81,7 +81,7 @@ const ScatterCompareForm = React.createClass({
           if (name[z] != this.state.newPlayer[z]) return
         }
         return name
-      }).map((name, i) => <li key={name} onClick={() => this.handlePredictiveClick(name)}>{name}</li>)
+      }).map((name, i) => <tr key={name}><td onClick={() => this.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{name}</td></tr>)
     }
 
 
@@ -118,7 +118,12 @@ const ScatterCompareForm = React.createClass({
             {error}
           </div>
           <div>
-            <ul><li key='header'><h3>Are you looking for...</h3></li>{predictiveText}</ul>
+            <h3>Are you looking for...</h3>
+            <table>
+              <tbody>
+                {predictiveText}
+              </tbody>
+            </table>
           </div>
         </div>
           <div id='showChartButton'>

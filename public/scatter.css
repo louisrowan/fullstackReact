@@ -157,6 +157,10 @@ text {
   color: red;
 }
 
+#formContainer .plus {
+  color: green;
+}
+
 #formContainer li {
   font-size: 20px;
   padding: 5px;
