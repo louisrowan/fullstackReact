@@ -297,7 +297,7 @@ text {
   transition: all 500ms;
 }
 
-#formContainer #inputNew:focus + #mainInputPlaceholder {
+#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {
   font-size: 12px;
   left: 5px;
   bottom: 30px;
