@@ -1,5 +1,7 @@
 const React = require('react')
 const ScatterLegend = require('./ScatterLegend')
+const Util = require('../../util/Util')
+
 
 const D3ScatterCompare = React.createClass({
   getInitialState(){
@@ -15,11 +17,9 @@ const D3ScatterCompare = React.createClass({
     const padding = 10
     this.setState({ height, width, padding })
 
-    var svg = d3.select('#container')
-      .insert('svg', ":first-child")
+    var svg = d3.select('svg')
       .attr('height', height)
       .attr('width', width)
-      .classed('d3SVG', true)
   },
   renderChart(data, stats) {
     var height = this.state.height
@@ -91,25 +91,20 @@ const D3ScatterCompare = React.createClass({
       .attr('x', 0)
       .attr('y', height)
       .style('fill', 'none')
-      .style('stroke', 'rgb(5, 183, 35)')
+      .style('stroke', 'black')
 
     d3.select('#container')
       .append('div')
-      .classed('toolTipText', true)
-      .classed('toolTipYear', true)
+      .classed('toolTipDiv', true)
       .text('')
 
-    d3.select('#container')
-      .append('div')
-      .classed('toolTipText', true)
-      .classed('toolTipNum', true)
-      .text()
 
     data.forEach((d, index) => this.renderData(d, index, xScale, yScale, stats))
   },
   renderData(data, index, xScale, yScale, stats){
     var height = this.state.height
     var width = this.state.width
+    var players = this.props.players
 
     stats.forEach((stat, statIndex) => {
 
@@ -170,12 +165,13 @@ const D3ScatterCompare = React.createClass({
       }
 
       obj.selectAll('*').on('mouseover', function(){
-        d3.select(this).style('transform', 'scale(1.5)').style('transform-origin', '50% 50%')
+        var player = players[index]
+        d3.select(this).style('transform', 'scale(2)').style('transform-origin', '50% 50%')
         var selector = d3.select(this)._groups[0][0].__data__
         var statName;
         if (d3.select(this).attr('class') === 'solidCircle'){
           statName = stats[0]
-        } else if (d3.select(this).attr('class') === 'solidTriangle'){
+        } else if (d3.select(this).attr('class') === 'transCircle'){
           statName = stats[1]
         } else {
           statName = stats[2]
@@ -192,8 +188,13 @@ const D3ScatterCompare = React.createClass({
           rWidth = (+d3.select(this).attr('x') + (+d3.select(this).attr('width')/2))
           rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
         }
-        d3.selectAll('.toolTipYear').style('left', rWidth + 'px').style('top', height + 'px').text('Year ' + statYear).style('opacity', 1)
-        d3.selectAll('.toolTipNum').style('left', '0px').style('top', rHeight + 'px').text(statNum + ' ' + statName).style('opacity', 1)
+        d3.selectAll('.toolTipDiv')
+          .style('left', +rWidth + 88 + 'px')
+          .style('top', +rHeight - 50 + 'px')
+          .html(`<p>${Util.capitalize(player)}:</p><p>${statNum} ${statName} in year ${statYear}</p>`)
+          .style('opacity', 1)
+          .style('z-index', 10)
+       
         d3.select('.moveableRect')
           .attr('height', height - rHeight)
           .attr('width', rWidth)
@@ -203,7 +204,8 @@ const D3ScatterCompare = React.createClass({
           d3.select('.moveableRect')
             .attr('height', 0)
             .attr('width', 0)
-          d3.selectAll('.toolTipText')
+          d3.selectAll('.toolTipDiv')
+            .style('z-index', -1)
             .style('opacity', 0)
         })
 
@@ -244,7 +246,10 @@ const D3ScatterCompare = React.createClass({
   },
   render(){
     return (
-      <div id='container'>
+      <div>
+        <div id='container'>
+          <svg className='d3SVG'></svg>
+        </div>
         <ScatterLegend
           data={this.props.data}
           players={this.props.players}
