@@ -297,10 +297,18 @@ text {
   transition: all 500ms;
 }
 
+#formContainer #inputNew:invalid {
+  box-shadow: none;
+}
+
 #formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {
   font-size: 12px;
   left: 5px;
   bottom: 30px;
   transition: all 500ms;
+}
+
+#formContainer #inputNew:disabled + #mainInputPlaceholder {
+  opacity: 0;
 }
 /*end player selection ---------------------------*/
