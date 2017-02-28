@@ -22876,9 +22876,17 @@ var D3ScatterCompare = React.createClass({
   },
   clearChart: function clearChart() {
     d3.select('.d3SVG').selectAll('*').remove();
+    this.renderChart(this.props.data, []);
   },
   componentDidMount: function componentDidMount() {
-    this.compileChart();
+    var preload = function () {
+      return new Promise(function (resolve, reject) {
+        resolve(this.compileChart());
+      }.bind(this));
+    }.bind(this);
+    preload().then(function () {
+      this.renderChart(this.props.data, []);
+    }.bind(this));
   },
   render: function render() {
     var _this2 = this;

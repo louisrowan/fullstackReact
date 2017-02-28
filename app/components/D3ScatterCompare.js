@@ -228,9 +228,18 @@ const D3ScatterCompare = React.createClass({
   },
   clearChart(){
     d3.select('.d3SVG').selectAll('*').remove()
+    this.renderChart(this.props.data, [])
   },
   componentDidMount(){
-    this.compileChart()
+    var preload = function(){
+      return new Promise(function(resolve, reject){
+        resolve(this.compileChart())
+      }.bind(this))
+    }.bind(this)
+    preload()
+      .then(function(){
+        this.renderChart(this.props.data, [])
+      }.bind(this))
   },
   render(){
     return (
