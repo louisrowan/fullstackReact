@@ -12620,10 +12620,12 @@ var ScatterCompareForm = React.createClass({
 
     var predictiveText;
     if (this.state.databaseResults.length > 1 && this.state.newPlayer.length > 0) {
+      var count = 0;
       predictiveText = this.state.databaseResults.filter(function (name) {
         for (var z = 0; z < _this.state.newPlayer.length; z++) {
-          if (name[z] != _this.state.newPlayer[z]) return;
+          if (name[z] != _this.state.newPlayer[z] || count >= 5) return;
         }
+        count += 1;
         return name;
       }).map(function (name, i) {
         return React.createElement(

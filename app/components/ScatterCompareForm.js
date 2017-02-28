@@ -79,10 +79,12 @@ const ScatterCompareForm = React.createClass({
 
     var predictiveText;
     if (this.state.databaseResults.length > 1 && this.state.newPlayer.length > 0) {
+      var count = 0
       predictiveText = this.state.databaseResults.filter((name) => {
         for (let z = 0; z < this.state.newPlayer.length; z++) {
-          if (name[z] != this.state.newPlayer[z]) return
+          if (name[z] != this.state.newPlayer[z] || count >= 5) return
         }
+        count += 1
         return name
       }).map((name, i) => <tr key={name}><td onClick={() => this.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
     }
