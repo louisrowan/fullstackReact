@@ -263,4 +263,44 @@ text {
   font-size: 20px;
 }
 
+#formContainer #inputNew {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+#formContainer .inputPlus {
+  position: absolute;
+  color: green;
+  font-size: 30px;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+#formContainer .inputPlus:hover {
+  cursor: pointer;
+}
+
+#formContainer #mainInputSpan {
+  position: relative;
+}
+
+#formContainer #mainInputSpan #mainInputPlaceholder {
+  position: absolute;
+  left: 37%;
+  bottom: 0px;
+  pointer-events: none;
+  transition: all 500ms;
+}
+
+#formContainer #inputNew:focus + #mainInputPlaceholder {
+  font-size: 12px;
+  left: 5px;
+  bottom: 30px;
+  transition: all 500ms;
+}
 /*end player selection ---------------------------*/
