@@ -59,7 +59,7 @@ const ScatterLegend = React.createClass({
         } else if (index === 1){
           icon = <td key={stat.name}><div className='keySymbolDiv'><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></div></td>
         } else  if (index === 2){
-          icon = <td key={stat.name}><div className='keySymbolDiv keyTriangle'></div></td>
+          icon = <td key={stat.name}><div className='keySymbolDiv'><div className='keyTriangle'></div></div></td>
         } else {
           icon = <td><div className='keySymbolDiv'></div></td>
         }
@@ -115,6 +115,9 @@ const ScatterLegend = React.createClass({
             </table>
           </div>
           <br />
+          <div>
+            <button id='backButton' onClick={()=> this.props.backToForm()}>Back to player selection</button>
+          </div>
         </div>
     )
   }

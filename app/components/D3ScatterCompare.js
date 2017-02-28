@@ -236,6 +236,7 @@ const D3ScatterCompare = React.createClass({
         resolve(this.compileChart())
       }.bind(this))
     }.bind(this)
+
     preload()
       .then(function(){
         this.renderChart(this.props.data, [])
@@ -247,10 +248,9 @@ const D3ScatterCompare = React.createClass({
         <ScatterLegend
           data={this.props.data}
           players={this.props.players}
-          renderChart={this.renderChart} clearChart={this.clearChart}/>
-        <div id='backButtonDiv'>
-          <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
-        </div>
+          renderChart={this.renderChart}
+          clearChart={this.clearChart}
+          backToForm={this.props.backToForm} />
       </div>
     )
   }
