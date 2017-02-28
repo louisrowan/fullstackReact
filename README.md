@@ -1,13 +1,13 @@
 # fullstackReact
-Experimenting w/ a React crud app
+Fullstack React/Node/D3 Application
 
 ## Technologies used:
 * Node
-* React
-* D3
 * MongoDB
 
-## JavaScript Frameworks:
+## JavaScript Libraries:
+* React
+* D3
 * Express
 * Request
 * JQuery and Cheerio
