@@ -71,8 +71,8 @@ text {
   float: left;
   width: 50%;
   height: 100%;
-  padding: 10px;
   box-sizing: border-box;
+  padding: 10px;
 }
 
 #d3LegendDiv .legendHeaderDiv:hover {
@@ -80,10 +80,8 @@ text {
 }
 
 #d3LegendDiv th {
-  padding: 0px;
   border: none;
   font-size: 16px;
-  height: 20px;
 }
 
 #d3LegendDiv td {
@@ -117,7 +115,7 @@ text {
 }
 
 #d3LegendDiv .playerKey2 {
-  color: rgb(237, 252, 30);
+  color: rgb(5, 183, 35);
 }
 
 #d3LegendDiv .keyFullCircle {

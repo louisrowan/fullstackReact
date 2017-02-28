@@ -10,7 +10,7 @@ const D3ScatterCompare = React.createClass({
     }
   },
   compileChart(){
-    const height = 500
+    const height = 600
     const width = 1000
     const padding = 10
     this.setState({ height, width, padding })
@@ -91,7 +91,7 @@ const D3ScatterCompare = React.createClass({
       .attr('x', 0)
       .attr('y', height)
       .style('fill', 'none')
-      .style('stroke', 'yellow')
+      .style('stroke', 'rgb(5, 183, 35)')
 
     d3.select('#container')
       .append('div')
@@ -127,7 +127,7 @@ const D3ScatterCompare = React.createClass({
          
             return 'rgba(252, 30, 41, .8)'
           } else {
-            return 'rgba(237, 252, 30, .8)'
+            return 'rgba(5, 183, 35, .8)'
           }
         })
 
@@ -153,7 +153,7 @@ const D3ScatterCompare = React.createClass({
             } else if (index === 1) {
               return 'rgba(252, 30, 41, .8)'
             } else {
-              return 'rgba(237, 252, 30, .8)'
+              return 'rgba(5, 183, 35, .8)'
             }
           })
           .style('fill', 'transparent')
@@ -220,7 +220,7 @@ const D3ScatterCompare = React.createClass({
           } else if (index === 1) {
             return 'red'
           } else {
-            return 'yellow'
+            return 'rgb(5, 183, 35)'
           }
         })
         .attr('d', valueline)
