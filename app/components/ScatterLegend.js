@@ -103,6 +103,7 @@ const ScatterLegend = React.createClass({
               </tbody>
             </table>
           </div>
+          <br />
           <div>
             <table>
               <tbody>
@@ -113,6 +114,7 @@ const ScatterLegend = React.createClass({
               </tbody>
             </table>
           </div>
+          <br />
         </div>
     )
   }

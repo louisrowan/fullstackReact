@@ -12,7 +12,7 @@ const D3ScatterCompare = React.createClass({
   compileChart(){
     const height = 500
     const width = 1000
-    const padding = 30
+    const padding = 10
     this.setState({ height, width, padding })
 
     var svg = d3.select('#container')
@@ -235,12 +235,13 @@ const D3ScatterCompare = React.createClass({
   render(){
     return (
       <div id='container'>
-        <br />
         <ScatterLegend
           data={this.props.data}
           players={this.props.players}
           renderChart={this.renderChart} clearChart={this.clearChart}/>
-        <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
+        <div id='backButtonDiv'>
+          <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
+        </div>
       </div>
     )
   }

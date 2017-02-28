@@ -12,8 +12,9 @@ text {
 
 .d3SVG {
   display: block;
-  margin: auto;
+  float: left;
   padding: 20px 0px 60px 100px;
+  margin: 0px -30px 0px 0px;
   overflow: visible;
   min-width: 1100px;
 }
@@ -24,22 +25,33 @@ text {
   stroke-opacity: .5;
 }
 
+#backButtonDiv {
+  text-align: center;
+  min-width: 200px;
+  float: left;
+}
+
+#backButtonDiv button {
+  padding: 10px;
+  width: 100%;
+}
+
 /*end scatter chart -------------------*/
 
 /*start scatter legend --------------------*/
 
 
 #d3LegendDiv {
-  margin: auto;
+  float: left;
   font-size: 30px;
+  pointer-events: all;
 }
 
 #d3LegendDiv div {
-  display: inline-block;
-  vertical-align: top;
-  width: 50%;
+  float: left;
   text-align: center;
   box-sizing: border-box;
+  margin: 10px 0px 10px;
 }
 
 #d3LegendDiv ul {
