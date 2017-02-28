@@ -141,7 +141,7 @@ text {
   position: relative;
 }
 
-#d3LegendDiv .keyEmpty {
+#d3LegendDiv .keySymbolDiv {
   height: 20px;
   width: 20px;
 }

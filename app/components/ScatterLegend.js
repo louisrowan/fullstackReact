@@ -55,13 +55,13 @@ const ScatterLegend = React.createClass({
       var index = this.state.stats.indexOf(stat.name)
       var icon;
         if (index === 0){
-          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></td>
+          icon = <td key={stat.name}><div className='keySymbolDiv'><svg className='keySVG'><circle className='keyFullCircle'></circle></svg></div></td>
         } else if (index === 1){
-          icon = <td key={stat.name}><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></td>
+          icon = <td key={stat.name}><div className='keySymbolDiv'><svg className='keySVG'><circle className='keyTransCircle'></circle></svg></div></td>
         } else  if (index === 2){
-          icon = <td key={stat.name}><div className='keyTriangle'></div></td>
+          icon = <td key={stat.name}><div className='keySymbolDiv keyTriangle'></div></td>
         } else {
-          icon = <td><div className='keyEmpty'></div></td>
+          icon = <td><div className='keySymbolDiv'></div></td>
         }
       return (
         <tr key={stat.name}>
