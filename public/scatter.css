@@ -13,7 +13,7 @@ text {
 .d3SVG {
   display: block;
   margin: auto;
-  padding: 50px 0px 100px 100px;
+  padding: 20px 0px 60px 100px;
   overflow: visible;
   min-width: 1100px;
 }
@@ -52,36 +52,48 @@ text {
 }
 
 #d3LegendDiv table {
+  min-width: 200px;
   margin: auto;
   border: 1px solid black;
-  background: lightblue;
+  padding: 0px;
+  background: whitesmoke;
+  overflow: hidden;
 }
 
 #d3LegendDiv .legendHeaderDiv {
   float: left;
   width: 50%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#d3LegendDiv .legendHeaderDiv:hover {
+  cursor: pointer;
 }
 
 #d3LegendDiv th {
-  padding:0 px;
+  padding: 0px;
+  border: none;
+  font-size: 16px;
+  height: 20px;
 }
 
 #d3LegendDiv td {
   padding: 10px;
+  font-size: 16px;
 }
 
-#d3LegendDiv button {
-  padding: 10px;
-  background: transparent;
-  border: none;
+#d3LegendDiv th span {
+  height: 100%;
+  width: 100%;
 }
 
 #d3LegendDiv .activeButton {
-  font-weight: bold;
+  background: whitesmoke;
 }
 
 #d3LegendDiv .inactiveButton {
-  font-weight: none;
   background: white;
 }
 

@@ -91,12 +91,11 @@ const ScatterLegend = React.createClass({
               <tbody>
                 <tr>
                   <th colSpan='3'>
-                    <div className='legendHeaderDiv'>
-                    <button className={ this.state.statType === 'average' ? 'inactiveButton' : 'activeButton' } onClick={()=> this.showCounting()}>Counting</button>
-                    </div>
-                    <div className='legendHeaderDiv'>
-                    <button className={ this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton' }onClick={()=> this.showAverages()}>Averages</button>
-                    </div>
+                    
+                    <span className={'legendHeaderDiv ' + (this.state.statType === 'average' ? 'inactiveButton' : 'activeButton') } onClick={()=> this.showCounting()}>Counting</span>
+                    
+                    <span className={'legendHeaderDiv ' + (this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton') }onClick={()=> this.showAverages()}>Averages</span>
+                   
                   </th>
                 </tr>
                 {statsSelector}
