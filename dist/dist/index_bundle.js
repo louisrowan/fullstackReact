@@ -22499,9 +22499,6 @@ var _require = __webpack_require__(229),
     hashHistory = _require.hashHistory,
     Route = _require.Route;
 
-var Show = __webpack_require__(118);
-var App = __webpack_require__(114);
-var BaseballContainer = __webpack_require__(119);
 var ScatterContainer = __webpack_require__(120);
 __webpack_require__(247);
 __webpack_require__(246);
@@ -22512,10 +22509,7 @@ var Routes = React.createClass({
     return React.createElement(
       Router,
       { history: hashHistory },
-      React.createElement(Route, { path: '/', component: App }),
-      React.createElement(Route, { path: '/parse', component: BaseballContainer }),
-      React.createElement(Route, { path: '/d3Scatter', component: ScatterContainer }),
-      React.createElement(Route, { path: '/:id', component: Show })
+      React.createElement(Route, { path: '/', component: ScatterContainer })
     );
   }
 });
@@ -22523,176 +22517,7 @@ var Routes = React.createClass({
 ReactDOM.render(React.createElement(Routes, null), document.getElementById('app'));
 
 /***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(5);
-var $ = __webpack_require__(36);
-
-var App = React.createClass({
-  displayName: 'App',
-  getInitialState: function getInitialState() {
-    return {
-      todos: ''
-    };
-  },
-  doSomething: function doSomething() {
-    var input = document.getElementById('newTodo');
-    var data = $(input).val();
-    $(input).val('');
-    var that = this;
-    $.ajax({
-      url: '/api/todos',
-      type: 'post',
-      data: { name: data, completed: false }
-    }).done(function (res) {
-      var todos = that.state.todos.concat([res]);
-
-      that.setState({ todos: todos });
-    });
-  },
-  componentDidMount: function componentDidMount() {
-    var that = this;
-    $.ajax({
-      url: '/api/todos'
-    }).done(function (res) {
-      that.setState({ todos: res });
-    });
-  },
-  handleChange: function handleChange(e, id, i) {
-    var newName = $('#' + 'input' + i.toString()).val();
-    var that = this;
-    $.ajax({
-      url: '/api/todos/' + id,
-      type: 'put',
-      data: { newName: newName }
-    }).done(function (res) {
-      var todos = Object.assign([], that.state.todos);
-      todos[i] = res.value;
-      // temporary fix to show updated list
-      that.componentDidMount();
-      $('#' + 'input' + i.toString()).val('');
-      $('#' + 'span' + i.toString()).text(res.value.name);
-    });
-  },
-  handleDelete: function handleDelete(e, id, i) {
-    var that = this;
-    $.ajax({
-      url: '/api/todos/' + id,
-      type: 'delete'
-    }).done(function (res) {
-      var todos = Object.assign([], that.state.todos);
-      todos.splice(i, 1);
-      that.setState({ todos: todos });
-    });
-  },
-  render: function render() {
-    var _this = this;
-
-    var todos;
-    var that = this;
-    if (this.state.todos != '') {
-      todos = this.state.todos.map(function (m, i) {
-
-        return React.createElement(
-          'tr',
-          { key: i },
-          React.createElement(
-            'td',
-            null,
-            React.createElement(
-              'span',
-              { id: 'span' + i },
-              m.name
-            )
-          ),
-          React.createElement(
-            'td',
-            null,
-            m.completed
-          ),
-          React.createElement(
-            'td',
-            null,
-            React.createElement(
-              'a',
-              { href: '/#/' + m._id.toString() },
-              'show'
-            )
-          ),
-          React.createElement(
-            'td',
-            null,
-            React.createElement('input', { type: 'text', id: 'input' + i })
-          ),
-          React.createElement(
-            'td',
-            null,
-            React.createElement(
-              'button',
-              { onClick: function onClick(e) {
-                  return that.handleChange(e, m._id, i);
-                } },
-              'Update'
-            )
-          ),
-          React.createElement(
-            'td',
-            null,
-            React.createElement(
-              'button',
-              { onClick: function onClick(e) {
-                  return that.handleDelete(e, m._id, i);
-                } },
-              'Delete'
-            )
-          )
-        );
-      });
-    } else {
-      todos = '';
-    }
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'a',
-        { href: '/#/parse' },
-        'CLICK'
-      ),
-      React.createElement(
-        'table',
-        null,
-        React.createElement(
-          'tbody',
-          null,
-          todos
-        )
-      ),
-      React.createElement(
-        'h4',
-        null,
-        'Add new:'
-      ),
-      React.createElement('input', { id: 'newTodo' }),
-      React.createElement('br', null),
-      React.createElement(
-        'button',
-        { onClick: function onClick() {
-            return _this.doSomething();
-          } },
-        'Add'
-      )
-    );
-  }
-});
-
-module.exports = App;
-
-/***/ }),
+/* 114 */,
 /* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22712,12 +22537,12 @@ var D3ScatterCompare = React.createClass({
     };
   },
   compileChart: function compileChart() {
-    var height = 500;
+    var height = 600;
     var width = 1000;
-    var padding = 30;
+    var padding = 10;
     this.setState({ height: height, width: width, padding: padding });
 
-    var svg = d3.select('#container').insert('svg', ":first-child").attr('height', height).attr('width', width).style('overflow', 'visible').style('padding', '40px').classed('d3SVG', true);
+    var svg = d3.select('#container').insert('svg', ":first-child").attr('height', height).attr('width', width).classed('d3SVG', true);
   },
   renderChart: function renderChart(data, stats) {
     var _this = this;
@@ -22765,7 +22590,7 @@ var D3ScatterCompare = React.createClass({
 
     var rect = d3.select('svg').append('g');
 
-    rect.append('rect').classed('moveableRect', true).attr('x', 0).attr('y', height).style('fill', 'none').style('stroke', 'yellow');
+    rect.append('rect').classed('moveableRect', true).attr('x', 0).attr('y', height).style('fill', 'none').style('stroke', 'rgb(5, 183, 35)');
 
     d3.select('#container').append('div').classed('toolTipText', true).classed('toolTipYear', true).text('');
 
@@ -22790,7 +22615,7 @@ var D3ScatterCompare = React.createClass({
 
           return 'rgba(252, 30, 41, .8)';
         } else {
-          return 'rgba(237, 252, 30, .8)';
+          return 'rgba(5, 183, 35, .8)';
         }
       });
 
@@ -22802,14 +22627,6 @@ var D3ScatterCompare = React.createClass({
           return yScale(+d[stat]);
         }).attr('r', 4);
       } else if (statIndex === 1) {
-        obj.append('svg').attr('x', function (d, i) {
-          return xScale(i) - 5;
-        }).attr('y', function (d) {
-          return yScale(+d[stat]) - 5;
-        }).attr('height', 10).attr('width', 10).append('polygon').classed('solidTriangle', true).attr('points', function (d, i) {
-          return '0,0 10,0 5,10';
-        });
-      } else {
         obj.append('circle').classed('transCircle', true).attr('cx', function (d, i) {
           return xScale(i + Math.random() * 2 / 40);
         }).attr('cy', function (d) {
@@ -22820,9 +22637,17 @@ var D3ScatterCompare = React.createClass({
           } else if (index === 1) {
             return 'rgba(252, 30, 41, .8)';
           } else {
-            return 'rgba(237, 252, 30, .8)';
+            return 'rgba(5, 183, 35, .8)';
           }
         }).style('fill', 'transparent');
+      } else {
+        obj.append('svg').attr('x', function (d, i) {
+          return xScale(i) - 5;
+        }).attr('y', function (d) {
+          return yScale(+d[stat]) - 5;
+        }).attr('height', 10).attr('width', 10).append('polygon').classed('solidTriangle', true).attr('points', function (d, i) {
+          return '0,0 10,0 5,10';
+        });
       }
 
       obj.selectAll('*').on('mouseover', function () {
@@ -22869,35 +22694,36 @@ var D3ScatterCompare = React.createClass({
         } else if (index === 1) {
           return 'red';
         } else {
-          return 'yellow';
+          return 'rgb(5, 183, 35)';
         }
       }).attr('d', valueline);
     });
   },
   clearChart: function clearChart() {
     d3.select('.d3SVG').selectAll('*').remove();
+    this.renderChart(this.props.data, []);
   },
   componentDidMount: function componentDidMount() {
-    this.compileChart();
+    var preload = function () {
+      return new Promise(function (resolve, reject) {
+        resolve(this.compileChart());
+      }.bind(this));
+    }.bind(this);
+
+    preload().then(function () {
+      this.renderChart(this.props.data, []);
+    }.bind(this));
   },
   render: function render() {
-    var _this2 = this;
-
     return React.createElement(
       'div',
       { id: 'container' },
-      React.createElement('br', null),
       React.createElement(ScatterLegend, {
         data: this.props.data,
         players: this.props.players,
-        renderChart: this.renderChart, clearChart: this.clearChart }),
-      React.createElement(
-        'button',
-        { onClick: function onClick() {
-            return _this2.props.backToForm();
-          } },
-        'Back to player selection'
-      )
+        renderChart: this.renderChart,
+        clearChart: this.clearChart,
+        backToForm: this.props.backToForm })
     );
   }
 });
@@ -23141,7 +22967,7 @@ var ScatterLegend = React.createClass({
   displayName: 'ScatterLegend',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }],
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'K/BB', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }, { name: 'CS', type: 'counting' }],
       statType: 'average',
       stats: []
     };
@@ -23164,6 +22990,13 @@ var ScatterLegend = React.createClass({
     }
     this.setState({ stats: stats });
     this.props.renderChart(this.props.data, this.state.stats);
+  },
+  handleDisabled: function handleDisabled(e) {
+    if (this.state.stats.length >= 3 && this.state.stats.indexOf(e) < 0) {
+      return true;
+    } else {
+      return false;
+    }
   },
   render: function render() {
     var _this = this;
@@ -23190,29 +23023,45 @@ var ScatterLegend = React.createClass({
           'td',
           { key: stat.name },
           React.createElement(
-            'svg',
-            { className: 'keySVG' },
-            React.createElement('circle', { className: 'keyFullCircle' })
+            'div',
+            { className: 'keySymbolDiv' },
+            React.createElement(
+              'svg',
+              { className: 'keySVG' },
+              React.createElement('circle', { className: 'keyFullCircle' })
+            )
           )
         );
       } else if (index === 1) {
         icon = React.createElement(
           'td',
           { key: stat.name },
-          React.createElement('div', { className: 'keyTriangle' })
+          React.createElement(
+            'div',
+            { className: 'keySymbolDiv' },
+            React.createElement(
+              'svg',
+              { className: 'keySVG' },
+              React.createElement('circle', { className: 'keyTransCircle' })
+            )
+          )
         );
       } else if (index === 2) {
         icon = React.createElement(
           'td',
           { key: stat.name },
           React.createElement(
-            'svg',
-            { className: 'keySVG' },
-            React.createElement('circle', { className: 'keyTransCircle' })
+            'div',
+            { className: 'keySymbolDiv' },
+            React.createElement('div', { className: 'keyTriangle' })
           )
         );
       } else {
-        icon = React.createElement('td', null);
+        icon = React.createElement(
+          'td',
+          null,
+          React.createElement('div', { className: 'keySymbolDiv' })
+        );
       }
       return React.createElement(
         'tr',
@@ -23220,7 +23069,7 @@ var ScatterLegend = React.createClass({
         React.createElement(
           'td',
           null,
-          React.createElement('input', { type: 'checkbox', value: stat.name, onClick: function onClick(e) {
+          React.createElement('input', { disabled: _this.handleDisabled(stat.name), type: 'checkbox', value: stat.name, onClick: function onClick(e) {
               return _this.handleCheckClick(e);
             } })
         ),
@@ -23232,6 +23081,22 @@ var ScatterLegend = React.createClass({
         icon
       );
     });
+
+    var maxStats;
+    if (this.state.stats.length >= 3) {
+      maxStats = React.createElement(
+        'tr',
+        null,
+        React.createElement(
+          'td',
+          { colSpan: '3', id: 'maxMetricsTd' },
+          'Max of 3 metrics at a time'
+        )
+      );
+    } else {
+      maxStats = React.createElement('tr', null);
+    }
+
     return React.createElement(
       'div',
       { id: 'd3LegendDiv' },
@@ -23249,31 +23114,29 @@ var ScatterLegend = React.createClass({
               null,
               React.createElement(
                 'th',
-                null,
+                { colSpan: '3' },
                 React.createElement(
-                  'button',
-                  { className: this.state.statType === 'average' ? 'inactiveButton' : 'activeButton', onClick: function onClick() {
+                  'span',
+                  { className: 'legendHeaderDiv ' + (this.state.statType === 'average' ? 'inactiveButton' : 'activeButton'), onClick: function onClick() {
                       return _this.showCounting();
                     } },
                   'Counting'
-                )
-              ),
-              React.createElement(
-                'th',
-                null,
+                ),
                 React.createElement(
-                  'button',
-                  { className: this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton', onClick: function onClick() {
+                  'span',
+                  { className: 'legendHeaderDiv ' + (this.state.statType === 'counting' ? 'inactiveButton' : 'activeButton'), onClick: function onClick() {
                       return _this.showAverages();
                     } },
                   'Averages'
                 )
               )
             ),
-            statsSelector
+            statsSelector,
+            maxStats
           )
         )
       ),
+      React.createElement('br', null),
       React.createElement(
         'div',
         null,
@@ -23295,6 +23158,18 @@ var ScatterLegend = React.createClass({
             playerKey
           )
         )
+      ),
+      React.createElement('br', null),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'button',
+          { id: 'backButton', onClick: function onClick() {
+              return _this.props.backToForm();
+            } },
+          'Back to player selection'
+        )
       )
     );
   }
@@ -23303,201 +23178,8 @@ var ScatterLegend = React.createClass({
 module.exports = ScatterLegend;
 
 /***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(5);
-var $ = __webpack_require__(36);
-
-var Show = React.createClass({
-  displayName: 'Show',
-  getInitialState: function getInitialState() {
-    return {
-      item: ''
-    };
-  },
-  componentDidMount: function componentDidMount() {
-    $.ajax({
-      url: '/api/todos/' + this.props.params.id,
-      type: 'get'
-    }).done(function (res) {
-      this.setState({ item: res.name });
-    }.bind(this));
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'h1',
-        null,
-        'in show'
-      ),
-      React.createElement(
-        'a',
-        { href: '/' },
-        'home'
-      ),
-      React.createElement(
-        'p',
-        null,
-        this.state.item
-      )
-    );
-  }
-});
-
-module.exports = Show;
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(5);
-var $ = __webpack_require__(36);
-
-var BaseballContainer = React.createClass({
-  displayName: 'BaseballContainer',
-  getInitialState: function getInitialState() {
-    return {
-      player: '',
-      parsedData: [],
-      mlbOnly: false,
-      headers: [],
-      found: ''
-    };
-  },
-  baseball: function baseball() {
-    var playerInput = document.getElementById('playerInput');
-    var player = $(playerInput).val();
-    $(playerInput).val('');
-    this.setState({ player: player, parsedData: [], found: '' });
-    var that = this;
-    $.ajax({
-      url: '/api/baseball',
-      type: 'post',
-      data: { player: player }
-    }).done(function (data) {
-      console.log(data);
-      if (data.length === 0) {
-        that.setState({ parsedData: [], headers: [], found: false });
-        return;
-      }
-      var headers = Object.keys(data[0]).map(function (k) {
-        return k;
-      });
-      that.setState({ parsedData: data, headers: headers, found: true });
-    });
-  },
-  dataFilter: function dataFilter() {
-    if (this.state.mlbOnly) {
-      return this.state.parsedData.filter(function (d) {
-        return d.Level === 'MLB';
-      });
-    } else {
-      return this.state.parsedData;
-    }
-  },
-  handleDataFilter: function handleDataFilter() {
-    this.setState({ mlbOnly: !this.state.mlbOnly });
-  },
-  render: function render() {
-    var _this = this;
-
-    var content;
-    var rows;
-    var headers;
-    if (this.state.headers) {
-      headers = React.createElement(
-        'tr',
-        null,
-        this.state.headers.map(function (h, i) {
-          return React.createElement(
-            'td',
-            { key: i },
-            h
-          );
-        })
-      );
-    }
-    if (this.state.shownData != '') {
-      var rows = [];
-      this.dataFilter().map(function (obj) {
-        rows.push(Object.keys(obj).map(function (k, i) {
-          return React.createElement(
-            'td',
-            { key: i },
-            obj[k]
-          );
-        }));
-      });
-      content = rows.map(function (r, i) {
-        return React.createElement(
-          'tr',
-          { key: i },
-          r
-        );
-      });
-    }
-
-    var notFound;
-    if (this.state.found === false) {
-      notFound = this.state.player + ' was not found, try again';
-    } else {
-      notFound = '';
-    }
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'h1',
-        null,
-        'Baseball Cube Parsing'
-      ),
-      React.createElement(
-        'form',
-        { onSubmit: function onSubmit() {
-            return _this.baseball();
-          } },
-        React.createElement('input', { id: 'playerInput', type: 'text' }),
-        React.createElement('input', { type: 'submit' })
-      ),
-      React.createElement(
-        'h1',
-        null,
-        this.state.player
-      ),
-      React.createElement(
-        'button',
-        { onClick: function onClick() {
-            return _this.handleDataFilter();
-          } },
-        'Toggle MLB Data Only'
-      ),
-      React.createElement(
-        'table',
-        null,
-        React.createElement(
-          'tbody',
-          null,
-          headers,
-          content
-        )
-      ),
-      notFound
-    );
-  }
-});
-
-module.exports = BaseballContainer;
-
-/***/ }),
+/* 118 */,
+/* 119 */,
 /* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23549,7 +23231,7 @@ exports = module.exports = __webpack_require__(73)();
 
 
 // module
-exports.push([module.i, "/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n.playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n.playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n.playerKey2 {\r\n  color: rgb(237, 252, 30);\r\n}\r\n\r\n.keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n.keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n.keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n.d3SVG {\r\n  display: block;\r\n  margin: auto;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  margin: auto;\r\n  font-size: 30px;\r\n}\r\n\r\n#d3LegendDiv div {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  width: 50%;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  margin: auto;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 5px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  font-weight: bold;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  font-weight: none;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#showChartButton input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n  font-size: 20px;\r\n}\r\n\r\n/*end player selection ---------------------------*/", ""]);
+exports.push([module.i, "/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n\r\n.d3SVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 100px;\r\n  margin: 0px -30px 0px 0px;\r\n  overflow: visible;\r\n  min-width: 1100px;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  float: left;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n}\r\n\r\n#d3LegendDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  min-width: 200px;\r\n}\r\n\r\n#d3LegendDiv #backButton {\r\n  padding: 10px;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  min-width: 200px;\r\n  margin: auto;\r\n  border: 1px solid black;\r\n  padding: 0px;\r\n  background: whitesmoke;\r\n  overflow: hidden;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv {\r\n  float: left;\r\n  width: 50%;\r\n  height: 100%;\r\n  box-sizing: border-box;\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv th {\r\n  border: none;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv th span {\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  background: whitesmoke;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  background: white;\r\n}\r\n\r\n#d3LegendDiv #maxMetricsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#d3LegendDiv .playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n#d3LegendDiv .playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n#d3LegendDiv .playerKey2 {\r\n  color: rgb(5, 183, 35);\r\n}\r\n\r\n#d3LegendDiv .keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n#d3LegendDiv .keySymbolDiv {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n#d3LegendDiv .keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n#showChartButton {\r\n  margin: auto;\r\n  text-align: center;\r\n  padding: 50px;\r\n  clear: both;\r\n}\r\n\r\n#showChartButton input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n#formContainer button {\r\n  padding: 5px;\r\n  font-size: 20px;\r\n}\r\n\r\n/*end player selection ---------------------------*/", ""]);
 
 // exports
 

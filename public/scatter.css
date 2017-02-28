@@ -8,50 +8,15 @@ text {
   font-size: 20px;
 }
 
-.playerKey0 {
- color: rgb(22, 97, 247);
-}
 
-.playerKey1 {
-  color: rgb(252, 30, 41);
-}
-
-.playerKey2 {
-  color: rgb(237, 252, 30);
-}
-
-.keyFullCircle {
-  r: 10px;
-  fill: black;
-  cx: 10px;
-  cy: 10px;
-}
-
-.keyTriangle {
-  height: 0px;
-  width: 0px;
-  border: 10px solid transparent;
-  border-top: 20px solid black;
-  top: 5px;
-  position: relative;
-}
-
-.keyTransCircle {
-  r: 10px;
-  fill: transparent;
-  stroke: black;
-  cx: 10px;
-  cy: 10px;
-}
-
-.keySVG {
-  height: 20px;
-  width: 20px;
-}
 
 .d3SVG {
   display: block;
-  margin: auto;
+  float: left;
+  padding: 20px 0px 60px 100px;
+  margin: 0px -30px 0px 0px;
+  overflow: visible;
+  min-width: 1100px;
 }
 
 .line {
@@ -66,16 +31,22 @@ text {
 
 
 #d3LegendDiv {
-  margin: auto;
+  float: left;
   font-size: 30px;
+  pointer-events: all;
 }
 
-#d3LegendDiv div {
-  display: inline-block;
-  vertical-align: top;
-  width: 50%;
+#d3LegendDiv > div {
+  float: left;
   text-align: center;
   box-sizing: border-box;
+  margin: 10px 0px 10px;
+  min-width: 200px;
+}
+
+#d3LegendDiv #backButton {
+  padding: 10px;
+  width: 100%;
 }
 
 #d3LegendDiv ul {
@@ -88,23 +59,97 @@ text {
 }
 
 #d3LegendDiv table {
+  min-width: 200px;
   margin: auto;
+  border: 1px solid black;
+  padding: 0px;
+  background: whitesmoke;
+  overflow: hidden;
 }
 
-#d3LegendDiv td {
-  padding: 5px;
-}
-
-#d3LegendDiv button {
+#d3LegendDiv .legendHeaderDiv {
+  float: left;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
   padding: 10px;
 }
 
+#d3LegendDiv .legendHeaderDiv:hover {
+  cursor: pointer;
+}
+
+#d3LegendDiv th {
+  border: none;
+  font-size: 16px;
+}
+
+#d3LegendDiv td {
+  padding: 10px;
+  font-size: 16px;
+}
+
+#d3LegendDiv th span {
+  height: 100%;
+  width: 100%;
+}
+
 #d3LegendDiv .activeButton {
-  font-weight: bold;
+  background: whitesmoke;
 }
 
 #d3LegendDiv .inactiveButton {
-  font-weight: none;
+  background: white;
+}
+
+#d3LegendDiv #maxMetricsTd {
+  font-size: 14px;
+}
+
+#d3LegendDiv .playerKey0 {
+ color: rgb(22, 97, 247);
+}
+
+#d3LegendDiv .playerKey1 {
+  color: rgb(252, 30, 41);
+}
+
+#d3LegendDiv .playerKey2 {
+  color: rgb(5, 183, 35);
+}
+
+#d3LegendDiv .keyFullCircle {
+  r: 10px;
+  fill: black;
+  cx: 10px;
+  cy: 10px;
+}
+
+#d3LegendDiv .keyTriangle {
+  height: 0px;
+  width: 0px;
+  border: 10px solid transparent;
+  border-top: 20px solid black;
+  top: 5px;
+  position: relative;
+}
+
+#d3LegendDiv .keySymbolDiv {
+  height: 20px;
+  width: 20px;
+}
+
+#d3LegendDiv .keyTransCircle {
+  r: 10px;
+  fill: transparent;
+  stroke: black;
+  cx: 10px;
+  cy: 10px;
+}
+
+#d3LegendDiv .keySVG {
+  height: 20px;
+  width: 20px;
 }
 
 /*end scatter legend ---------------------------*/

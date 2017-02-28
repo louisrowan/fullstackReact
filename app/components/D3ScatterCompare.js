@@ -10,17 +10,15 @@ const D3ScatterCompare = React.createClass({
     }
   },
   compileChart(){
-    const height = 500
+    const height = 600
     const width = 1000
-    const padding = 30
+    const padding = 10
     this.setState({ height, width, padding })
 
     var svg = d3.select('#container')
       .insert('svg', ":first-child")
       .attr('height', height)
       .attr('width', width)
-      .style('overflow', 'visible')
-      .style('padding', '40px')
       .classed('d3SVG', true)
   },
   renderChart(data, stats) {
@@ -93,7 +91,7 @@ const D3ScatterCompare = React.createClass({
       .attr('x', 0)
       .attr('y', height)
       .style('fill', 'none')
-      .style('stroke', 'yellow')
+      .style('stroke', 'rgb(5, 183, 35)')
 
     d3.select('#container')
       .append('div')
@@ -129,7 +127,7 @@ const D3ScatterCompare = React.createClass({
          
             return 'rgba(252, 30, 41, .8)'
           } else {
-            return 'rgba(237, 252, 30, .8)'
+            return 'rgba(5, 183, 35, .8)'
           }
         })
 
@@ -143,32 +141,32 @@ const D3ScatterCompare = React.createClass({
             return yScale(+d[stat])}) 
           .attr('r', 4)
       } else if (statIndex === 1 ){
-          obj
-            .append('svg')
-              .attr('x', (d, i) => xScale(i) - 5)
-              .attr('y', (d) => yScale(+d[stat]) - 5)
-              .attr('height', 10)
-              .attr('width', 10)
-              .append('polygon')
-              .classed('solidTriangle', true)
-              .attr('points', (d, i) => '0,0 10,0 5,10' )
+        obj
+          .append('circle')
+          .classed('transCircle', true)
+          .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
+          .attr('cy', (d) => yScale(+d[stat])) 
+          .attr('r', 4)
+          .style('stroke', (d) => {
+            if (index === 0) {
+              return 'rgba(22, 97, 247, .8)'
+            } else if (index === 1) {
+              return 'rgba(252, 30, 41, .8)'
+            } else {
+              return 'rgba(5, 183, 35, .8)'
+            }
+          })
+          .style('fill', 'transparent')
       } else {
         obj
-        .append('circle')
-        .classed('transCircle', true)
-        .attr('cx', (d, i) => xScale(i + (Math.random()*2)/40))
-        .attr('cy', (d) => yScale(+d[stat])) 
-        .attr('r', 4)
-        .style('stroke', (d) => {
-          if (index === 0) {
-            return 'rgba(22, 97, 247, .8)'
-          } else if (index === 1) {
-            return 'rgba(252, 30, 41, .8)'
-          } else {
-            return 'rgba(237, 252, 30, .8)'
-          }
-        })
-        .style('fill', 'transparent')
+          .append('svg')
+          .attr('x', (d, i) => xScale(i) - 5)
+          .attr('y', (d) => yScale(+d[stat]) - 5)
+          .attr('height', 10)
+          .attr('width', 10)
+          .append('polygon')
+          .classed('solidTriangle', true)
+          .attr('points', (d, i) => '0,0 10,0 5,10' )
       }
 
       obj.selectAll('*').on('mouseover', function(){
@@ -222,7 +220,7 @@ const D3ScatterCompare = React.createClass({
           } else if (index === 1) {
             return 'red'
           } else {
-            return 'yellow'
+            return 'rgb(5, 183, 35)'
           }
         })
         .attr('d', valueline)
@@ -230,19 +228,29 @@ const D3ScatterCompare = React.createClass({
   },
   clearChart(){
     d3.select('.d3SVG').selectAll('*').remove()
+    this.renderChart(this.props.data, [])
   },
   componentDidMount(){
-    this.compileChart()
+    var preload = function(){
+      return new Promise(function(resolve, reject){
+        resolve(this.compileChart())
+      }.bind(this))
+    }.bind(this)
+
+    preload()
+      .then(function(){
+        this.renderChart(this.props.data, [])
+      }.bind(this))
   },
   render(){
     return (
       <div id='container'>
-        <br />
         <ScatterLegend
           data={this.props.data}
           players={this.props.players}
-          renderChart={this.renderChart} clearChart={this.clearChart}/>
-        <button onClick={()=> this.props.backToForm()}>Back to player selection</button>
+          renderChart={this.renderChart}
+          clearChart={this.clearChart}
+          backToForm={this.props.backToForm} />
       </div>
     )
   }
