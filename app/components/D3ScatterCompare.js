@@ -22,7 +22,6 @@ const D3ScatterCompare = React.createClass({
       .attr('width', width)
   },
   renderChart(data, stats) {
-    console.log('in render chart, stats = ', stats)
     var height = this.state.height
     var width = this.state.width
     var padding = this.state.padding

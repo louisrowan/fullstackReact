@@ -121,10 +121,12 @@ const ScatterCompareForm = React.createClass({
           </div>
           <div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
+              <input type='hidden' value='something' />
               <span id='mainInputSpan'>
               <input disabled={formDisabled} id='inputNew'
               value={this.state.newPlayer}
               required
+              autoComplete='off'
               onChange={(e)=>this.handleInputChange(e)} />
               <span id='mainInputPlaceholder'>Add a Player</span>
               </span>

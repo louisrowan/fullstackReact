@@ -81,8 +81,8 @@ text {
   font-size: 30px;
   pointer-events: all;
   z-index: 1;
-  min-height: 600px;
-  background: black;
+  min-height: 700px;
+  background: whitesmoke;
   padding: 20px 10px;
 }
 
@@ -98,6 +98,10 @@ text {
 #d3LegendDiv #backButton {
   padding: 10px;
   width: 100%;
+}
+
+#d3LegendDiv #backButton:hover, #d3LegendDiv input:hover:enabled {
+  cursor: pointer;
 }
 
 #d3LegendDiv ul {
