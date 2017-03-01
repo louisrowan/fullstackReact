@@ -32,7 +32,7 @@ const ScatterCompareForm = React.createClass({
     $.ajax({
       url: '/api/baseball',
       type: 'post',
-      data: { player: that.state.newPlayer}
+      data: { player: that.state.newPlayer.toLowerCase()}
     }).done((data) => {
       if (data.length === 0) {
         that.setState({ error: that.state.newPlayer, newPlayer: ''})

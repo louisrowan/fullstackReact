@@ -5414,7 +5414,7 @@ module.exports = {
     input = input.split(' ');
     return input.map(function (word) {
       return word.split('').map(function (char, i) {
-        return i === 0 ? char.toUpperCase() : char;
+        return i === 0 ? char.toUpperCase() : char.toLowerCase();
       }).join('');
     }).join(' ');
   }
@@ -12552,7 +12552,7 @@ var ScatterCompareForm = React.createClass({
     $.ajax({
       url: '/api/baseball',
       type: 'post',
-      data: { player: that.state.newPlayer }
+      data: { player: that.state.newPlayer.toLowerCase() }
     }).done(function (data) {
       if (data.length === 0) {
         that.setState({ error: that.state.newPlayer, newPlayer: '' });
@@ -37925,11 +37925,12 @@ var LandingBackground = React.createClass({
   getInitialState: function getInitialState() {
     return {
       index: 0,
+      interval: '',
       urls: ['https://media-cdn.tripadvisor.com/media/photo-s/07/56/5f/16/love-ya-fenway-park.jpg', 'http://www.ballparksofbaseball.com/wp-content/uploads/2016/03/yank10954.jpg', 'http://thedailydeelight.com/wp-content/uploads/2016/06/camden-yards.jpg']
     };
   },
   componentDidMount: function componentDidMount() {
-    setInterval(function () {
+    var interval = setInterval(function () {
       var next;
       if (this.state.index === this.state.urls.length - 1) {
         next = 0;
@@ -37938,6 +37939,10 @@ var LandingBackground = React.createClass({
       }
       this.setState({ index: next });
     }.bind(this), 4000);
+    this.setState({ interval: interval });
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    clearInterval(this.state.interval);
   },
   render: function render() {
     var _state = this.state,

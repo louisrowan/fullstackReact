@@ -4,7 +4,7 @@ module.exports = {
     input = input.split(' ')
     return input.map((word) => {
       return word.split('').map((char, i) => {
-        return i === 0 ? char.toUpperCase() : char
+        return i === 0 ? char.toUpperCase() : char.toLowerCase()
       }).join('')
     }).join(' ')
   }
