@@ -189,10 +189,15 @@ text {
 #landingContainer {
   height: 100vh;
   width: 100vw;
+  min-height: 800px;
+  min-width: 800px;
+  position: relative;
 }
 
 #backgroundImage {
   position: absolute;
+  min-height: 800px;
+  min-width: 800px;
   height: 100vh;
   width: 100vw;
   z-index: -2;
@@ -201,6 +206,8 @@ text {
   position: absolute;
   height: 100vh;
   width: 100vw;
+    min-height: 800px;
+  min-width: 800px;
   opacity: .1;
 }
 
@@ -208,6 +215,8 @@ text {
   position: absolute;
   height: 100vh;
   width: 100vw;
+    min-height: 800px;
+  min-width: 800px;
   z-index: -1;
   background: rgba(0, 0, 0, .1)
 }
@@ -284,7 +293,7 @@ text {
 }
 
 #showChartButton {
-  position: fixed;
+  position: absolute;
   width: 100%;
   margin: auto;
   text-align: center;
@@ -313,6 +322,9 @@ text {
   border-bottom: 2px solid black;
   text-align: center;
   margin-bottom: 5px;
+  background: transparent;
+  color: green;
+  font-size: 22px;
 }
 
 #formContainer .inputPlus {
@@ -335,10 +347,11 @@ text {
 
 #formContainer #mainInputSpan #mainInputPlaceholder {
   position: absolute;
-  left: 37%;
+  left: 31%;
   bottom: 0px;
   pointer-events: none;
   transition: all 500ms;
+  color: green;
 }
 
 #formContainer #inputNew:invalid {
@@ -350,6 +363,12 @@ text {
   left: 5px;
   bottom: 30px;
   transition: all 500ms;
+  color: black;
+}
+
+#formContainer #inputNew:focus {
+  border-bottom: 4px solid black;
+  transition: border 400ms;
 }
 
 #formContainer #inputNew:disabled + #mainInputPlaceholder {
