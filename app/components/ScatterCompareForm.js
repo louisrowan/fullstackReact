@@ -83,7 +83,7 @@ const ScatterCompareForm = React.createClass({
       var count = 0
       predictiveText = this.state.databaseResults.filter((name) => {
         for (let z = 0; z < this.state.newPlayer.length; z++) {
-          if (name[z] != this.state.newPlayer[z] || count >= 5) return
+          if (name[z] != this.state.newPlayer[z].toLowerCase() || count >= 5) return
         }
         count += 1
         return name

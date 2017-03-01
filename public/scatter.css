@@ -54,6 +54,10 @@ text {
   margin: 3px;
 }
 
+.moveableRect {
+  pointer-events: none;
+}
+
 /*end scatter chart -------------------*/
 
 /*start scatter legend --------------------*/
