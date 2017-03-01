@@ -186,6 +186,32 @@ text {
 
 /*start player selection --------------------*/
 
+#landingContainer {
+  height: 100vh;
+  width: 100vw;
+}
+
+#backgroundImage {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -2;
+}
+#backgroundImage img {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  opacity: .1;
+}
+
+#backgroundTint {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  background: rgba(0, 0, 0, .1)
+}
+
 #mainHeaderDiv {
   width: 100%;
   text-align: center;

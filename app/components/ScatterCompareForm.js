@@ -1,4 +1,5 @@
 const React = require('react')
+const LandingBackground = require('./LandingBackground')
 const Util = require('../../util/Util')
 const $ = require('jquery')
 
@@ -99,7 +100,8 @@ const ScatterCompareForm = React.createClass({
     }
 
     return (
-      <div>
+      <div id='landingContainer'>
+        <LandingBackground />
         <div id='mainHeaderDiv'>
           <h1>MLB Graphs</h1>
           <h3>Enter up to 3 MLB players, past or present</h3>
