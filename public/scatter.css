@@ -208,7 +208,19 @@ text {
   width: 100vw;
     min-height: 800px;
   min-width: 800px;
-  opacity: .1;
+  opacity: .2;
+}
+
+.backgroundImgTrans-enter {
+}
+
+.backgroundImgTrans-enter-active {
+}
+
+.backgroundImgTrans-leave {
+}
+
+.backgroundImgTrans-leave-active {
 }
 
 #backgroundTint {
@@ -217,8 +229,8 @@ text {
   width: 100vw;
     min-height: 800px;
   min-width: 800px;
-  z-index: -1;
-  background: rgba(0, 0, 0, .1)
+  z-index: 0;
+  background: rgba(255, 255, 255, .6)
 }
 
 #mainHeaderDiv {
@@ -304,6 +316,11 @@ text {
 #showChartButton input {
   padding: 10px;
   font-size: 20px;
+  width: 250px;
+}
+
+#showChartButton input:hover:enabled {
+  cursor: pointer;
 }
 
 #formContainer input {
@@ -311,10 +328,6 @@ text {
   font-size: 20px;
 }
 
-#formContainer button {
-  padding: 5px;
-  font-size: 20px;
-}
 
 #formContainer #inputNew {
   outline: none;
@@ -322,7 +335,7 @@ text {
   border-bottom: 2px solid black;
   text-align: center;
   margin-bottom: 5px;
-  background: transparent;
+  background: rgba(255,255,255,.5);
   color: green;
   font-size: 22px;
 }
@@ -347,11 +360,12 @@ text {
 
 #formContainer #mainInputSpan #mainInputPlaceholder {
   position: absolute;
-  left: 31%;
-  bottom: 0px;
+  left: 20%;
+  bottom: -5px;
   pointer-events: none;
   transition: all 500ms;
   color: green;
+  font-size: 24px;
 }
 
 #formContainer #inputNew:invalid {
