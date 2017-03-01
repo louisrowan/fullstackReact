@@ -12,7 +12,7 @@ const D3ScatterCompare = React.createClass({
     }
   },
   compileChart(){
-    const height = 600
+    const height = 700
     const width = 1000
     const padding = 10
     this.setState({ height, width, padding })

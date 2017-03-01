@@ -24,7 +24,7 @@ const ScatterContainer = React.createClass({
       content = <ScatterCompareForm handleShowChart={this.handleShowChart} />
     }
     return (
-      <div>
+      <div id='d3LayoutDiv'>
         {content}
       </div>
     )

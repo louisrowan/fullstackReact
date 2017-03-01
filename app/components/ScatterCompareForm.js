@@ -108,7 +108,7 @@ const ScatterCompareForm = React.createClass({
         <LandingBackground />
         <div id='mainHeaderDiv'>
           <h1>MLB Graphs</h1>
-          <h3>Enter up to 3 MLB players, past or present</h3>
+          <h3>Compare up to ANY 3 MLB players, past or present</h3>
         </div>
         <div id='formContainer'>
           <div>
@@ -140,7 +140,7 @@ const ScatterCompareForm = React.createClass({
             {error}
           </div>
           <div>
-            <h3>Are you looking for...</h3>
+            <h3>Recent Similar Searches...</h3>
             <table>
               <tbody>
                 {predictiveText}
