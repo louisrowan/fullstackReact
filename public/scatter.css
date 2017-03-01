@@ -186,6 +186,22 @@ text {
 
 /*start player selection --------------------*/
 
+#mainHeaderDiv {
+  width: 100%;
+  text-align: center;
+}
+
+#mainHeaderDiv h1 {
+  padding: 40px;
+  font-size: 60px;
+  margin: auto;
+}
+
+#mainHeaderDiv h3 {
+  padding: 3px;
+  font-size: 26px;
+}
+
 #formContainer div {
   margin: 0;
   width: 33%;
@@ -196,7 +212,7 @@ text {
 }
 
 #formContainer h3 {
-  padding: 0;
+  padding: 10px;
   margin: 0;
 }
 
