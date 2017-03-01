@@ -24,6 +24,10 @@ const ScatterCompareForm = React.createClass({
   },
   handleSubmit(e){
     this.setState({ chartReady: false })
+    if (this.state.players.indexOf(this.state.newPlayer) >= 0){
+      this.setState({ newPlayer: ''})
+      return
+    }
     var that = this
     $.ajax({
       url: '/api/baseball',
