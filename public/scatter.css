@@ -258,10 +258,12 @@ text {
 }
 
 #showChartButton {
+  position: fixed;
+  width: 100%;
   margin: auto;
   text-align: center;
-  padding: 50px;
-  clear: both;
+  bottom: 200px;
+  text-align: center;
 }
 
 #showChartButton input {

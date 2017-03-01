@@ -102,7 +102,7 @@ const ScatterCompareForm = React.createClass({
       <div>
         <div id='mainHeaderDiv'>
           <h1>MLB Graphs</h1>
-          <h3>Enter up to 3 MLB players past or present</h3>
+          <h3>Enter up to 3 MLB players, past or present</h3>
         </div>
         <div id='formContainer'>
           <div>
