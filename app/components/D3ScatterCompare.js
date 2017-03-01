@@ -17,16 +17,17 @@ const D3ScatterCompare = React.createClass({
     const padding = 10
     this.setState({ height, width, padding })
 
-    var svg = d3.select('svg')
+    var svg = d3.select('.d3SVG')
       .attr('height', height)
       .attr('width', width)
   },
   renderChart(data, stats) {
+    console.log('in render chart, stats = ', stats)
     var height = this.state.height
     var width = this.state.width
     var padding = this.state.padding
 
-    d3.select('svg').selectAll('*').remove()
+    d3.select('.d3SVG').selectAll('*').remove()
 
     var min = d3.min(data.map((d) => {
       return d3.min(d.map((e) => {
@@ -57,25 +58,25 @@ const D3ScatterCompare = React.createClass({
       .scale(yScale)
 
 
-    d3.select('svg')
+    d3.select('.d3SVG')
       .append('g')
       .classed('d3Axis', true)
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis)
 
-    d3.select('svg')
+    d3.select('.d3SVG')
       .append('g')
       .classed('d3Axis', true)
       .call(yAxis)
 
-    d3.select('svg').append("text")             
+    d3.select('.d3SVG').append("text")             
       .attr("transform",
             "translate(" + (width/2) + " ," + 
                            (height + 60) + ")")
       .style("text-anchor", "middle")
       .text("Year")
 
-    d3.select('svg').append("text")
+    d3.select('.d3SVG').append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", -100)
         .attr("x",0 - (height / 2))
@@ -83,7 +84,7 @@ const D3ScatterCompare = React.createClass({
         .style("text-anchor", "middle")
         .text("Performance")
 
-    var rect = d3.select('svg')
+    var rect = d3.select('.d3SVG')
       .append('g')
 
     rect.append('rect')
@@ -246,16 +247,16 @@ const D3ScatterCompare = React.createClass({
   },
   render(){
     return (
-      <div>
-        <div id='container'>
-          <svg className='d3SVG'></svg>
-        </div>
+      <div id='scatterContainer'>
         <ScatterLegend
           data={this.props.data}
           players={this.props.players}
           renderChart={this.renderChart}
           clearChart={this.clearChart}
           backToForm={this.props.backToForm} />
+        <div id='container'>
+          <svg className='d3SVG'></svg>
+        </div>
       </div>
     )
   }
