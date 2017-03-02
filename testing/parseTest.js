@@ -135,7 +135,7 @@ var baseball = function(player, id){
   }
 
   if (id === undefined) {
-    return Promise.all([promise(url), promise(url, '-1'), promise(url, '-2')])
+    return Promise.all([promise(url), promise(url, '-1'), promise(url, '-2'), promise(url, '-3')])
     .then(function(response) {
       var returnVal = response.filter((arr) => arr.data.length > 0)
       console.log(returnVal)
@@ -150,4 +150,4 @@ var baseball = function(player, id){
   }
 }
 
-baseball('pete rose')
+baseball('john valentin')
