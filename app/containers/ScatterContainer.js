@@ -37,8 +37,8 @@ const ScatterContainer = React.createClass({
     }).done((data) => {
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
-      } else if (data.length === 0) {
-        data = data.filter((d) => d.Level === 'MLB' )
+      } else if (data.length === 1) {
+        data = data[0]
         data = [...this.state.data, data]
         let players = [...this.state.players, player]
   
@@ -84,6 +84,7 @@ const ScatterContainer = React.createClass({
     })
   },
   render(){
+    console.log('data =', this.state.data)
     return (
       <div id='d3LayoutDiv'>
         {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit })}

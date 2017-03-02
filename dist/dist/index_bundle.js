@@ -8668,7 +8668,10 @@ var D3ScatterCompare = React.createClass({
   },
   clearChart: function clearChart() {
     d3.select('.d3SVG').selectAll('*').remove();
-    this.renderChart(this.props.data, []);
+    var data = this.props.data.map(function (d) {
+      return d.data;
+    });
+    this.renderChart(data, []);
   },
   componentDidMount: function componentDidMount() {
     var preload = function () {
@@ -8678,7 +8681,10 @@ var D3ScatterCompare = React.createClass({
     }.bind(this);
 
     preload().then(function () {
-      this.renderChart(this.props.data, []);
+      var data = this.props.data.map(function (d) {
+        return d.data;
+      });
+      this.renderChart(data, []);
     }.bind(this));
   },
   render: function render() {
@@ -25129,7 +25135,10 @@ var ScatterLegend = React.createClass({
       stats.push(e.target.value);
     }
     this.setState({ stats: stats });
-    this.props.renderChart(this.props.data, this.state.stats);
+    var data = this.props.data.map(function (d) {
+      return d.data;
+    });
+    this.props.renderChart(data, this.state.stats);
   },
   handleDisabled: function handleDisabled(e) {
     if (this.state.stats.length >= 3 && this.state.stats.indexOf(e) < 0) {
@@ -25397,10 +25406,8 @@ var ScatterContainer = React.createClass({
     }).done(function (data) {
       if (data.length === 0) {
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
-      } else if (data.length === 0) {
-        data = data.filter(function (d) {
-          return d.Level === 'MLB';
-        });
+      } else if (data.length === 1) {
+        data = data[0];
         data = [].concat(_toConsumableArray(_this.state.data), [data]);
         var players = [].concat(_toConsumableArray(_this.state.players), [player]);
 
@@ -25448,6 +25455,7 @@ var ScatterContainer = React.createClass({
     });
   },
   render: function render() {
+    console.log('data =', this.state.data);
     return React.createElement(
       'div',
       { id: 'd3LayoutDiv' },

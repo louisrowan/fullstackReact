@@ -43,7 +43,8 @@ const ScatterLegend = React.createClass({
       stats.push(e.target.value)
     }
     this.setState({ stats })
-    this.props.renderChart(this.props.data, this.state.stats)
+    var data = this.props.data.map((d) => d.data)
+    this.props.renderChart(data, this.state.stats)
   },
   handleDisabled(e){
     if (this.state.stats.length >= 3 && this.state.stats.indexOf(e) < 0) {
