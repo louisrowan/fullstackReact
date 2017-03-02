@@ -8710,7 +8710,6 @@ var ScatterCompareForm = React.createClass({
         );
       });
     }
-    console.log('pred', predictiveText);
     if (this.props.newPlayer.length > 0 && predictiveText.length === 0) {
       predictiveText = React.createElement(
         'tr',
@@ -15027,32 +15026,36 @@ var ScatterContainer = React.createClass({
     };
   },
   handleSubmit: function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e, this.state.newPlayer);
+    var _this = this;
+
+    if (e) e.preventDefault();
+    this.handleSubmissionErrors();
+
+    $.ajax({
+      url: '/api/baseball',
+      type: 'post',
+      data: { player: this.state.newPlayer.toLowerCase() }
+    }).done(function (data) {
+      if (data.length === 0) {
+        _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
+      } else {
+        data.name = _this.state.newPlayer;
+        data = data.filter(function (d) {
+          return d.Level === 'MLB';
+        });
+        var newData = [].concat(_toConsumableArray(_this.state.data), [data]);
+        var players = [].concat(_toConsumableArray(_this.state.players), [_this.state.newPlayer]);
+
+        _this.setState({ data: newData, players: players, newPlayer: '', error: false, chartReady: true });
+      }
+    });
+  },
+  handleSubmissionErrors: function handleSubmissionErrors() {
     this.setState({ chartReady: false });
     if (this.state.players.indexOf(this.state.newPlayer) >= 0) {
       this.setState({ newPlayer: '' });
       return;
     }
-    var that = this;
-    $.ajax({
-      url: '/api/baseball',
-      type: 'post',
-      data: { player: that.state.newPlayer.toLowerCase() }
-    }).done(function (data) {
-      if (data.length === 0) {
-        that.setState({ error: that.state.newPlayer, newPlayer: '' });
-      } else {
-        data.name = that.state.newPlayer;
-        data = data.filter(function (d) {
-          return d.Level === 'MLB';
-        });
-        var newData = [].concat(_toConsumableArray(that.state.data), [data]);
-        var players = [].concat(_toConsumableArray(that.state.players), [that.state.newPlayer]);
-
-        that.setState({ data: newData, players: players, newPlayer: '', error: false, chartReady: true });
-      }
-    });
   },
   handleRemovePlayer: function handleRemovePlayer(name) {
     var index = this.state.players.indexOf(name);
@@ -15063,15 +15066,23 @@ var ScatterContainer = React.createClass({
     this.setState({ players: players, data: data });
   },
   handlePredictiveClick: function handlePredictiveClick(e, name) {
+    e.preventDefault();
     this.setState({ newPlayer: name }, function () {
-      this.handleSubmit(e);
+      this.handleSubmit();
     }.bind(this));
   },
   handleInputChange: function handleInputChange(e) {
     this.setState({ newPlayer: e.target.value });
   },
+  componentWillMount: function componentWillMount() {
+    if (Object.keys(this.props.location.query).length > 0) {
+      this.handleParams(this.props.location.query);
+    }
+  },
+  handleParams: function handleParams(params) {
+    console.log(params);
+  },
   render: function render() {
-    console.log(this.props.location.query);
     return React.createElement(
       'div',
       { id: 'd3LayoutDiv' },

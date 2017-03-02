@@ -47,7 +47,6 @@ const ScatterCompareForm = React.createClass({
         return name
       }).map((name, i) => <tr key={name}><td onClick={(e) => this.props.handlePredictiveClick(e, name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
     }
-    console.log('pred', predictiveText)
     if (this.props.newPlayer.length > 0 && predictiveText.length === 0) {
       predictiveText = <tr><td id='noResultsTd'>No local matches, a search for '{this.props.newPlayer}' will be sent to theBaseBallCube</td></tr>
     }
