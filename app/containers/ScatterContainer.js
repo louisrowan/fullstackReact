@@ -40,8 +40,8 @@ const ScatterContainer = React.createClass({
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
       } else if (data.length === 1) {
         data = data[0]
+        let players = [...this.state.players, data.name]
         data = [...this.state.data, data]
-        let players = [...this.state.players, player]
   
         this.setState({ data, players, newPlayer: '', error: false, chartReady: true })
       } else {

@@ -58,8 +58,8 @@ const ScatterLegend = React.createClass({
     this.setState({ copied: true })
   },
   getUrl(){
-    return window.location.origin + '/#/scatter?' + this.props.players.map((p, i) => {
-      return `p${i + 1}=${p.split(' ').join('-')}&`
+    return window.location.origin + '/#/scatter?' + this.props.data.map((p, i) => {
+      return `p${i + 1}=${p.name.split(' ').join('-') + p.id}&`
     }).join('')
   },
   render(){

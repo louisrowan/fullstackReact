@@ -25214,8 +25214,8 @@ var ScatterLegend = React.createClass({
     this.setState({ copied: true });
   },
   getUrl: function getUrl() {
-    return window.location.origin + '/#/scatter?' + this.props.players.map(function (p, i) {
-      return 'p' + (i + 1) + '=' + p.split(' ').join('-') + '&';
+    return window.location.origin + '/#/scatter?' + this.props.data.map(function (p, i) {
+      return 'p' + (i + 1) + '=' + (p.name.split(' ').join('-') + p.id) + '&';
     }).join('');
   },
   render: function render() {
@@ -25471,8 +25471,8 @@ var ScatterContainer = React.createClass({
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
       } else if (data.length === 1) {
         data = data[0];
+        var players = [].concat(_toConsumableArray(_this.state.players), [data.name]);
         data = [].concat(_toConsumableArray(_this.state.data), [data]);
-        var players = [].concat(_toConsumableArray(_this.state.players), [player]);
 
         _this.setState({ data: data, players: players, newPlayer: '', error: false, chartReady: true });
       } else {

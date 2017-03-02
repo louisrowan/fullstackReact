@@ -137,9 +137,10 @@ exports.baseball = function(player, id){
 
 
   var promise = function(url, id){
-        id = id || ''
+        id = id || '0'
       return new Promise(function(resolve, reject){
-        request(url + id, function(err, res, html){
+        var param = id === '0' ? '' : id
+        request(url + param, function(err, res, html){
 
         var $ = cheerio.load(html)
         var parsedInfo = parsePlayerInfo($)
