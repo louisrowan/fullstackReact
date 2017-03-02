@@ -25104,7 +25104,7 @@ var ScatterLegend = React.createClass({
   displayName: 'ScatterLegend',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'K/BB', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }, { name: 'CS', type: 'counting' }],
+      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'K/BB', type: 'average' }, { name: 'AB/HR', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }, { name: 'CS', type: 'counting' }, { name: 'TB', type: 'counting' }],
       statType: 'average',
       stats: [],
       value: this.getUrl(),

@@ -12,11 +12,13 @@ const ScatterLegend = React.createClass({
         {name: 'OPS', type: 'average'},
         {name: 'AVG', type: 'average'},
         {name: 'K/BB', type: 'average'},
+        {name: 'AB/HR', type: 'average'},
         {name: 'HR', type: 'counting'},
         {name: 'RBI', type: 'counting'},
         {name: 'H', type: 'counting'},
         {name: 'SB', type: 'counting'},
-        {name: 'CS', type: 'counting'}
+        {name: 'CS', type: 'counting'},
+        {name: 'TB', type: 'counting'}
       ],
       statType: 'average',
       stats: [],
