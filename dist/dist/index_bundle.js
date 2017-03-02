@@ -15038,25 +15038,25 @@ var ScatterContainer = React.createClass({
       this.getPlayerData();
     }.bind(this));
   },
-  getPlayerData: function getPlayerData() {
+  getPlayerData: function getPlayerData(name) {
     var _this = this;
 
+    var player = name || this.state.newPlayer;
     $.ajax({
       url: '/api/baseball',
       type: 'post',
-      data: { player: this.state.newPlayer.toLowerCase() }
+      data: { player: player.toLowerCase() }
     }).done(function (data) {
       if (data.length === 0) {
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
       } else {
-        data.name = _this.state.newPlayer;
         data = data.filter(function (d) {
           return d.Level === 'MLB';
         });
-        var newData = [].concat(_toConsumableArray(_this.state.data), [data]);
-        var players = [].concat(_toConsumableArray(_this.state.players), [_this.state.newPlayer]);
+        data = [].concat(_toConsumableArray(_this.state.data), [data]);
+        var players = [].concat(_toConsumableArray(_this.state.players), [player]);
 
-        _this.setState({ data: newData, players: players, newPlayer: '', error: false, chartReady: true });
+        _this.setState({ data: data, players: players, newPlayer: '', error: false, chartReady: true });
       }
     });
   },
@@ -15090,7 +15090,11 @@ var ScatterContainer = React.createClass({
     }
   },
   handleParams: function handleParams(params) {
-    console.log(params);
+    var _this2 = this;
+
+    [params.p1, params.p2, params.p3].forEach(function (p) {
+      if (p) _this2.getPlayerData(p.split('-').join(' '));
+    });
   },
   render: function render() {
     return React.createElement(
