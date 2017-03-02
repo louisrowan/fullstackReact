@@ -2,82 +2,168 @@ var fs = require('fs')
 var request = require('request')
 var cheerio = require('cheerio')
 
-exports.newName = function(param){
-  console.log(param.toUpperCase())
-}
+// exports.newName = function(param){
+//   console.log(param.toUpperCase())
+// }
 
-exports.parse = function(team){
-  team = team.split(' ').join('_').toLowerCase()
-  var url = 'http://www.cfbdatawarehouse.com/data/active/' + team[0] + '/' + team + '/index.php'
+// exports.parse = function(team){
+//   team = team.split(' ').join('_').toLowerCase()
+//   var url = 'http://www.cfbdatawarehouse.com/data/active/' + team[0] + '/' + team + '/index.php'
 
 
-  return new Promise(function(resolve, reject){
-      request(url, function(err, res, html){
-          var $ = cheerio.load(html)
-          var tags = $('img')[0]
-          var coach = $(tags).attr('alt')
-          resolve(coach)
-      })
-  }).then(function(response){
-    return response
+//   return new Promise(function(resolve, reject){
+//       request(url, function(err, res, html){
+//           var $ = cheerio.load(html)
+//           var tags = $('img')[0]
+//           var coach = $(tags).attr('alt')
+//           resolve(coach)
+//       })
+//   }).then(function(response){
+//     return response
+//   })
+      
+// }
+
+function findMax(str){
+  var obj = {}
+  str = str.split(', ').forEach((duo) => {
+    duo = duo.split('-')
+    obj[duo[0]] = duo[1]
   })
       
+  var largest = 0
+  var position;
+  Object.keys(obj).forEach((key) => {
+    if (+obj[key] > largest) {
+      largest = +obj[key]
+      position = key
+    }
+  })
+  return position
 }
 
-exports.baseball = function(player){
+
+
+
+
+function cleanupYear(year){
+  var count = 0
+  year = year.split('')
+  year.forEach((e, i) => {
+    if (parseInt(e) >= 0) {
+      count += 1
+    } else {
+      count = 0
+    }
+    if (count === 4) {
+      returnVal = year.splice(i-3, 4)
+    }
+  })
+  return returnVal.join('')
+}
+
+
+
+
+
+function parsePlayerInfo($){
+  var position, born
+  var profileRow = $('.profileGrid2 tr')
+  $(profileRow).each(function(i){
+    $(this).children('td').each(function(index){
+      if ($($(profileRow[i]).children('td')[index]).text() === 'Positions:') {
+        position = findMax($($(profileRow[i]).children('td')[index + 1]).text())
+      }
+      if ($($(profileRow[i]).children('td')[index]).text() === 'Born:') {
+        born = cleanupYear($($(profileRow[i]).children('td')[index + 1]).text())
+      }
+    })
+  })
+  return [position, born]
+}
+
+
+
+
+function statParse($){
+  var tr = $('#battingReports tr')
+
+  var headers = []
+  var done = false
+  var careerArray = []
+
+  $(tr).each(function(i){
+    if ($(this).hasClass('firstRow')) done = true
+    if (done) return
+    if (i > 0) var yearObj = {}
+
+    $(this).children('td').each(function(index){
+      var text = $(this).text()
+      if (text === '') text = '-'
+
+      if (i === 0) {
+        headers.push(text)
+      } else {
+        var prop = headers[index]
+        if (prop === 'Diff' || prop === 'GDP') return
+
+        if (prop === 'OPS') {
+          yearObj[prop] = (+numParse(text)/1000)
+        } else if (index > 8) {
+          yearObj[prop] = numParse(text) 
+        } else {
+          yearObj[prop] = text
+        }
+      }
+    })
+    if (yearObj && yearObj.Level === 'MLB') careerArray.push(yearObj)
+  })
+  return careerArray
+}
+
+
+function numParse(str){
+  return str.split('').filter((s) => {
+    if (+s || s === '.' || s === '0') return s
+  }).join('')
+}
+
+exports.baseball = function(player, id){
+  var pName = player
   player = player.split(' ').join('-')
   console.log(player)
   var url = 'http://www.thebaseballcube.com/players/profile.asp?P=' + player
 
-    function numParse(str){
-      return str.split('').filter((s) => {
-        if (+s || s === '.' || s === '0') return s
-      }).join('')
-    }
 
-  return new Promise(function(resolve, reject){
-    request(url, function(err, res, html){
-      var $ = cheerio.load(html)
-      var tr = $('#battingReports tr')
 
-      var headers = []
-      var done = false
-      var file = []
+  var promise = function(url, id){
+        id = id || ''
+      return new Promise(function(resolve, reject){
+        request(url + id, function(err, res, html){
 
-      $(tr).each(function(i){
-        if ($(this).hasClass('firstRow')) done = true
-        if (done) return
-        if (i > 0) var obj = {}
+        var $ = cheerio.load(html)
+        var parsedInfo = parsePlayerInfo($)
+        var position = parsedInfo[0]
+        var born = parsedInfo[1]
+        var careerArray = statParse($)
 
-        $(this).children('td').each(function(index){
-          var text = $(this).text()
-          if (text === '') text = '-'
-
-          if (i === 0) {
-            headers.push(text)
-          } else {
-            var prop = headers[index]
-            if (prop === 'Diff' || prop === 'GDP') return
-
-            if (prop === 'OPS') {
-              obj[prop] = (+numParse(text)/1000)
-            } else if (index > 8) {
-              obj[prop] = numParse(text) 
-            } else {
-              obj[prop] = text
-            }
-          }
-
-        })
-
-        if (obj) file.push(obj)
+        resolve({data: careerArray, position: position, born: born, id: id, name: pName})
       })
-
-      resolve(file)
     })
-  }).then(function(p) {
-    return p
-  })
+  }
+
+  if (id === undefined) {
+    return Promise.all([promise(url), promise(url, '-1'), promise(url, '-2'), promise(url, '-3'), promise(url, '-4'), promise(url, '-5')])
+    .then(function(response) {
+      var returnVal = response.filter((arr) => arr.data.length > 0)
+      return returnVal
+    })
+  } else {
+    return promise(url + id)
+      .then(function(response) {
+        return response
+      })
+  }
 }
 
 exports.addPlayertoDB = function(name){

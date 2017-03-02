@@ -37,12 +37,15 @@ const ScatterContainer = React.createClass({
     }).done((data) => {
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
-      } else {
+      } else if (data.length === 0) {
         data = data.filter((d) => d.Level === 'MLB' )
         data = [...this.state.data, data]
         let players = [...this.state.players, player]
   
         this.setState({ data, players, newPlayer: '', error: false, chartReady: true })
+      } else {
+        console.log('2 players')
+        console.log(data)
       }
     })
   },
