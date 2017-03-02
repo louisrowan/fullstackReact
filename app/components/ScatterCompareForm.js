@@ -59,6 +59,21 @@ const ScatterCompareForm = React.createClass({
       error = ''
     }
 
+
+    var multipleResults;
+    if (this.props.multipleResults){
+      var players = this.props.multipleResults.map((result) => {
+        return (
+          <tr key={result.born} onClick={() => this.props.handleMultipleClick(result)}>
+            <td>Born <b>{result.born}</b>, played <b>{result.data.length}</b> seasons as a <b>{result.position}</b></td>
+            </tr>
+          )
+      })
+      multipleResults = <div id='multipleResultsDiv'><table><tbody><tr><td>{this.props.multipleResults.length} players named {Util.capitalize(this.props.multipleResults[0].name)} found, did you mean...</td></tr>{players}</tbody></table></div>
+    } else {
+      multipleResults = ''
+    }
+
     return (
       <div id='landingContainer'>
         <LandingBackground />
@@ -94,6 +109,7 @@ const ScatterCompareForm = React.createClass({
             </form>
             {max}
             {error}
+            {multipleResults}
           </div>
           <div>
             <h3>Recent Similar Searches...</h3>

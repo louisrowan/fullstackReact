@@ -10,7 +10,8 @@ const ScatterContainer = React.createClass({
       data: [],
       chartReady: false,
       newPlayer: '',
-      error: false
+      error: false,
+      multipleResults: ''
     }
   },
   handleSubmit(e){
@@ -44,8 +45,7 @@ const ScatterContainer = React.createClass({
   
         this.setState({ data, players, newPlayer: '', error: false, chartReady: true })
       } else {
-        console.log('2 players')
-        console.log(data)
+        this.setState({ multipleResults: data })
       }
     })
   },
@@ -70,6 +70,11 @@ const ScatterContainer = React.createClass({
       this.handleSubmit()
     }.bind(this))
   },
+  handleMultipleClick(player){
+      var data = [...this.state.data, player]
+      let players = [...this.state.players, player.name]
+      this.setState({ data, players, newPlayer: '', error: false, chartReady: true, multipleResults: '' })
+  },
   handleInputChange(e){
     this.setState({ newPlayer: e.target.value})
   },
@@ -84,10 +89,9 @@ const ScatterContainer = React.createClass({
     })
   },
   render(){
-    console.log('data =', this.state.data)
     return (
       <div id='d3LayoutDiv'>
-        {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit })}
+        {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit, multipleResults: this.state.multipleResults, handleMultipleClick: this.handleMultipleClick })}
       </div>
     )
   }
