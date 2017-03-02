@@ -320,6 +320,10 @@ text {
   padding: 5px;
 }
 
+#formContainer #noResultsTd {
+  font-size: 14px;
+}
+
 #formContainer .tableIcon {
   font-weight: bold;
 }

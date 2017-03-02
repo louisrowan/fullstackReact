@@ -1,5 +1,6 @@
 const React = require('react')
 const Util = require('../../util/Util')
+const { Link } = require('react-router')
 
 const ScatterLegend = React.createClass({
   getInitialState(){
@@ -116,7 +117,9 @@ const ScatterLegend = React.createClass({
           </div>
           <br />
           <div>
-            <button id='backButton' onClick={()=> this.props.backToForm()}>Back to player selection</button>
+            <Link to='/'>
+            <button id='backButton' >Back to player selection</button>
+            </Link>
           </div>
         </div>
     )

@@ -14,6 +14,8 @@ const ScatterContainer = React.createClass({
     }
   },
   handleSubmit(e){
+    e.preventDefault()
+    console.log(e, this.state.newPlayer)
     this.setState({ chartReady: false })
     if (this.state.players.indexOf(this.state.newPlayer) >= 0){
       this.setState({ newPlayer: ''})
@@ -47,9 +49,9 @@ const ScatterContainer = React.createClass({
     data.splice(index, 1)
     this.setState({ players, data })
   },
-  handlePredictiveClick(name){
+  handlePredictiveClick(e, name){
     this.setState({ newPlayer: name }, function(){
-      this.handleSubmit()
+      this.handleSubmit(e)
     }.bind(this))
   },
   handleInputChange(e){

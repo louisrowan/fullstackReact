@@ -2,6 +2,7 @@ const React = require('react')
 const LandingBackground = require('./LandingBackground')
 const Util = require('../../util/Util')
 const $ = require('jquery')
+const { Link } = require('react-router')
 
 const ScatterCompareForm = React.createClass({
   getInitialState(){
@@ -21,7 +22,6 @@ const ScatterCompareForm = React.createClass({
       })
   },
   render(){
-    console.log('scatterCompareform, props = ', this.props)
     var playerList;
     if (this.props.players.length > 0){
       playerList = this.props.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.props.handleRemovePlayer(p)}>&#8259;</td><td>{Util.capitalize(p)}</td></tr>)
@@ -45,7 +45,11 @@ const ScatterCompareForm = React.createClass({
         }
         count += 1
         return name
-      }).map((name, i) => <tr key={name}><td onClick={() => this.props.handlePredictiveClick(name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
+      }).map((name, i) => <tr key={name}><td onClick={(e) => this.props.handlePredictiveClick(e, name)} className='tableIcon plus'>&#x2b;</td><td>{Util.capitalize(name)}</td></tr>)
+    }
+    console.log('pred', predictiveText)
+    if (this.props.newPlayer.length > 0 && predictiveText.length === 0) {
+      predictiveText = <tr><td id='noResultsTd'>No local matches, a search for '{this.props.newPlayer}' will be sent to theBaseBallCube</td></tr>
     }
 
 
@@ -74,7 +78,7 @@ const ScatterCompareForm = React.createClass({
             </table>
           </div>
           <div>
-            <form onSubmit={(e) => this.props.handleSubmit()}>
+            <form onSubmit={(e) => this.props.handleSubmit(e)}>
               <input type='hidden' value='something' />
               <span id='mainInputSpan'>
               <input disabled={formDisabled} id='inputNew'
@@ -103,10 +107,11 @@ const ScatterCompareForm = React.createClass({
           </div>
         </div>
           <div id='showChartButton'>
+            <Link to='/scatter'>
             <input type='submit' 
-              onClick={()=> this.props.handleShowChart(this.props.data, this.props.players)}
               disabled={!this.props.chartReady || this.props.players.length < 1}
             value='Show Chart' />
+            </Link>
           </div>
       </div>
     )
