@@ -15130,7 +15130,7 @@ exports = module.exports = __webpack_require__(75)();
 
 
 // module
-exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: 'Orbitron', sans-serif;\r\n}\r\n\r\n#d3LayoutDiv {\r\n  max-width: 1500px;\r\n  min-height: 100vh;\r\n  position: relative;\r\n  margin: auto;\r\n  box-shadow: 0px 0px 10px black;\r\n}", ""]);
+exports.push([module.i, "body {\r\n  height: 100vh;\r\n  width: 100vw;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: 'Orbitron', sans-serif;\r\n}\r\n\r\n#d3LayoutDiv {\r\n  max-width: 1500px;\r\n  min-height: 100vh;\r\n  position: relative;\r\n  margin: auto;\r\n  box-shadow: 0px 0px 10px black;\r\n  overflow: auto;\r\n}", ""]);
 
 // exports
 
