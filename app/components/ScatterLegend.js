@@ -134,7 +134,7 @@ const ScatterLegend = React.createClass({
           <br />
           <div>
             <CopyToClipboard text={this.state.value} onCopy={this.onCopy} >
-            <button>Copy</button>
+            <button>Copy Chart URL</button>
             </CopyToClipboard>
           </div>
           <br />
