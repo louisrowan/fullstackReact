@@ -117,9 +117,10 @@ var baseball = function(player, id){
 
 
 
-  var promise = function(url){
+  var promise = function(url, id){
+        id = id || ''
       return new Promise(function(resolve, reject){
-        request(url, function(err, res, html){
+        request(url + id, function(err, res, html){
 
         var $ = cheerio.load(html)
         var parsedInfo = parsePlayerInfo($)
@@ -127,13 +128,13 @@ var baseball = function(player, id){
         var born = parsedInfo[1]
         var careerArray = statParse($)
 
-        resolve({data: careerArray, position: position, born: born})
+        resolve({data: careerArray, position: position, born: born, id: id})
       })
     })
   }
 
   if (id === undefined) {
-    return Promise.all([promise(url), promise(url + '-1'), promise(url + '-2')])
+    return Promise.all([promise(url), promise(url, '-1'), promise(url, '-2')])
     .then(function(response) {
       var returnVal = response.filter((arr) => arr.data.length > 0)
       console.log(returnVal)
