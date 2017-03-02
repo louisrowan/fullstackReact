@@ -16,6 +16,59 @@ var baseball = function(player){
       return new Promise(function(resolve, reject){
       request(url, function(err, res, html){
         var $ = cheerio.load(html)
+
+
+        var positions;
+        var born;
+        var profileRow = $('.profileGrid2 tr')
+        $(profileRow).each(function(i){
+          $(this).children('td').each(function(index){
+            if ($($(profileRow[i]).children('td')[index]).text() === 'Positions:') {
+              positions = $($(profileRow[i]).children('td')[index + 1]).text()
+            }
+            if ($($(profileRow[i]).children('td')[index]).text() === 'Born:') {
+              born = $($(profileRow[i]).children('td')[index + 1]).text()
+            }
+          })
+        })
+      
+
+        if (positions) console.log('position:' , positions)
+        if (born) console.log('born:' , born)
+
+
+        function findMax(str){
+          var obj = {}
+          str = str.split(', ').forEach((duo) => {
+            duo = duo.split('-')
+            obj[duo[0]] = duo[1]
+          })
+          
+          var largest = 0
+          var position;
+          Object.keys(obj).forEach((key) => {
+            if (+obj[key] > largest) {
+              largest = +obj[key]
+              position = key
+            }
+          })
+          return position
+        }
+
+        var position;
+        if (positions) position = findMax(positions)
+        console.log(position) 
+
+
+
+
+
+
+
+
+
+
+
         var tr = $('#battingReports tr')
 
         var headers = []
