@@ -111,6 +111,7 @@ function numParse(str){
 
 
 var baseball = function(player, id){
+  var pName = player
   player = player.split(' ').join('-')
   console.log(player)
   var url = 'http://www.thebaseballcube.com/players/profile.asp?P=' + player
@@ -128,7 +129,7 @@ var baseball = function(player, id){
         var born = parsedInfo[1]
         var careerArray = statParse($)
 
-        resolve({data: careerArray, position: position, born: born, id: id})
+        resolve({data: careerArray, position: position, born: born, id: id, name: pName})
       })
     })
   }
