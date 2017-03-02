@@ -99,7 +99,7 @@ text {
   padding-bottom: 10px;
 }
 
-#d3LegendDiv #backButton {
+#d3LegendDiv button {
   padding: 10px;
   width: 100%;
 }
@@ -112,7 +112,7 @@ text {
     border: 2px solid #555;
 }
 
-#d3LegendDiv #backButton:hover, #d3LegendDiv input:hover:enabled {
+#d3LegendDiv button:hover, #d3LegendDiv input:hover:enabled {
   cursor: pointer;
 }
 
@@ -318,6 +318,10 @@ text {
 #formContainer td {
   font-size: 24px;
   padding: 5px;
+}
+
+#formContainer #noResultsTd {
+  font-size: 14px;
 }
 
 #formContainer .tableIcon {

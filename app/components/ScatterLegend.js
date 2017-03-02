@@ -1,5 +1,7 @@
 const React = require('react')
 const Util = require('../../util/Util')
+const { Link } = require('react-router')
+const CopyToClipboard = require('react-copy-to-clipboard')
 
 const ScatterLegend = React.createClass({
   getInitialState(){
@@ -17,7 +19,9 @@ const ScatterLegend = React.createClass({
         {name: 'CS', type: 'counting'}
       ],
       statType: 'average',
-      stats: [] 
+      stats: [],
+      value: this.getUrl(),
+      copied: false
     }
   },
   showCounting(){
@@ -46,6 +50,15 @@ const ScatterLegend = React.createClass({
       return false
     }
   },
+  handleCopy(e){
+    e.preventDefault()
+    this.setState({ copied: true })
+  },
+  getUrl(){
+    return window.location.origin + '/#/scatter?' + this.props.players.map((p, i) => {
+      return `p${i + 1}=${p.split(' ').join('-')}&`
+    }).join('')
+  },
   render(){
     var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{Util.capitalize(p)}</td></tr>)
 
@@ -66,7 +79,11 @@ const ScatterLegend = React.createClass({
       return (
         <tr key={stat.name}>
           <td>
-            <input disabled={this.handleDisabled(stat.name)} type='checkbox' value={stat.name} onClick={(e)=> this.handleCheckClick(e)} />
+            <input
+              disabled={this.handleDisabled(stat.name)}
+              type='checkbox'
+              value={stat.name}
+              onClick={(e)=> this.handleCheckClick(e)} />
           </td>
           <td>
             {stat.name}
@@ -116,7 +133,15 @@ const ScatterLegend = React.createClass({
           </div>
           <br />
           <div>
-            <button id='backButton' onClick={()=> this.props.backToForm()}>Back to player selection</button>
+            <CopyToClipboard text={this.state.value} onCopy={this.onCopy} >
+            <button>Copy Chart URL</button>
+            </CopyToClipboard>
+          </div>
+          <br />
+          <div>
+            <Link to='/'>
+            <button id='backButton' >Back to player selection</button>
+            </Link>
           </div>
         </div>
     )
