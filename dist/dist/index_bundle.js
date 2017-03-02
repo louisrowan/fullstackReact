@@ -15070,20 +15070,8 @@ var ScatterContainer = React.createClass({
   handleInputChange: function handleInputChange(e) {
     this.setState({ newPlayer: e.target.value });
   },
-
-  // handleShowChart(data, players){
-  //   this.setState({ data, players, showChart: true})
-  // },
-  // backToForm(){
-  //   this.setState({ players: [], data: [], showChart: false})
-  // },
   render: function render() {
-    // let content;
-    // if (this.state.showChart){
-    //   content = <D3ScatterCompare players={this.state.players} data={this.state.data} backToForm={this.backToForm} />
-    // } else {
-    //   content = <ScatterCompareForm handleShowChart={this.handleShowChart} />
-    // }
+    console.log(this.props.location.query);
     return React.createElement(
       'div',
       { id: 'd3LayoutDiv' },

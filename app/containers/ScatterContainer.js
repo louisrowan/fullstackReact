@@ -57,19 +57,8 @@ const ScatterContainer = React.createClass({
   handleInputChange(e){
     this.setState({ newPlayer: e.target.value})
   },
-  // handleShowChart(data, players){
-  //   this.setState({ data, players, showChart: true})
-  // },
-  // backToForm(){
-  //   this.setState({ players: [], data: [], showChart: false})
-  // },
   render(){
-    // let content;
-    // if (this.state.showChart){
-    //   content = <D3ScatterCompare players={this.state.players} data={this.state.data} backToForm={this.backToForm} />
-    // } else {
-    //   content = <ScatterCompareForm handleShowChart={this.handleShowChart} />
-    // }
+    console.log(this.props.location.query)
     return (
       <div id='d3LayoutDiv'>
         {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit })}
