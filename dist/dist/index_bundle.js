@@ -8725,20 +8725,21 @@ var ScatterCompareForm = React.createClass({
     };
   },
   componentDidMount: function componentDidMount() {
-    var that = this;
+    var _this = this;
+
     $.ajax({
       url: '/api/baseball'
     }).done(function (data) {
       var databaseResults = data.map(function (d) {
         return d.name;
       });
-      that.setState({ databaseResults: databaseResults });
+      _this.setState({ databaseResults: databaseResults });
     }).fail(function (fail) {
       console.log('fail', fail);
     });
   },
   render: function render() {
-    var _this = this;
+    var _this2 = this;
 
     var playerList;
     if (this.props.players.length > 0) {
@@ -8749,7 +8750,7 @@ var ScatterCompareForm = React.createClass({
           React.createElement(
             'td',
             { className: 'tableIcon minus', onClick: function onClick() {
-                return _this.props.handleRemovePlayer(p);
+                return _this2.props.handleRemovePlayer(p);
               } },
             '\u2043'
           ),
@@ -8775,8 +8776,8 @@ var ScatterCompareForm = React.createClass({
     if (this.state.databaseResults.length > 1 && this.props.newPlayer.length > 0) {
       var count = 0;
       predictiveText = this.state.databaseResults.filter(function (name) {
-        for (var z = 0; z < _this.props.newPlayer.length; z++) {
-          if (name[z] != _this.props.newPlayer[z].toLowerCase() || count >= 5) return;
+        for (var z = 0; z < _this2.props.newPlayer.length; z++) {
+          if (name[z] != _this2.props.newPlayer[z].toLowerCase() || count >= 5) return;
         }
         count += 1;
         return name;
@@ -8787,7 +8788,7 @@ var ScatterCompareForm = React.createClass({
           React.createElement(
             'td',
             { onClick: function onClick(e) {
-                return _this.props.handlePredictiveClick(e, name);
+                return _this2.props.handlePredictiveClick(e, name);
               }, className: 'tableIcon plus' },
             '+'
           ),
@@ -8870,7 +8871,7 @@ var ScatterCompareForm = React.createClass({
           React.createElement(
             'form',
             { onSubmit: function onSubmit(e) {
-                return _this.props.handleSubmit(e);
+                return _this2.props.handleSubmit(e);
               } },
             React.createElement('input', { type: 'hidden', value: 'something' }),
             React.createElement(
@@ -8881,7 +8882,7 @@ var ScatterCompareForm = React.createClass({
                 required: true,
                 autoComplete: 'off',
                 onChange: function onChange(e) {
-                  return _this.props.handleInputChange(e);
+                  return _this2.props.handleInputChange(e);
                 } }),
               React.createElement(
                 'span',

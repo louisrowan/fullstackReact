@@ -11,12 +11,11 @@ const ScatterCompareForm = React.createClass({
     }
   },
   componentDidMount(){
-      var that = this
       $.ajax({
         url: '/api/baseball',
       }).done((data) => {
         var databaseResults = data.map((d) => d.name)
-        that.setState({ databaseResults })
+        this.setState({ databaseResults })
       }).fail((fail) => {
         console.log('fail', fail)
       })
