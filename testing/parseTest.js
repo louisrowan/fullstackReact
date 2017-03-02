@@ -20,12 +20,12 @@ var baseball = function(player){
 
         var headers = []
         var done = false
-        var file = []
+        var careerArray = []
 
         $(tr).each(function(i){
           if ($(this).hasClass('firstRow')) done = true
           if (done) return
-          if (i > 0) var obj = {}
+          if (i > 0) var yearObj = {}
 
           $(this).children('td').each(function(index){
             var text = $(this).text()
@@ -38,28 +38,27 @@ var baseball = function(player){
               if (prop === 'Diff' || prop === 'GDP') return
 
               if (prop === 'OPS') {
-                obj[prop] = (+numParse(text)/1000)
+                yearObj[prop] = (+numParse(text)/1000)
               } else if (index > 8) {
-                obj[prop] = numParse(text) 
+                yearObj[prop] = numParse(text) 
               } else {
-                obj[prop] = text
+                yearObj[prop] = text
               }
             }
 
           })
-          if (obj && obj.Level === 'MLB') file.push(obj)
+          if (yearObj && yearObj.Level === 'MLB') careerArray.push(yearObj)
         })
-        resolve(file)
+        resolve(careerArray)
       })
     })
   }
 
-  Promise.all([promise(url), promise(url + '-1'), promise(url + '-2')])
-  .then(function(p) {
-    console.log("%j", p)
-    console.log(p.length)
-    return p
+  return Promise.all([promise(url), promise(url + '-1'), promise(url + '-2')])
+  .then(function(response) {
+    var returnVal = response.filter((arr) => arr.length > 0)
+    return returnVal
   })
 }
 
-baseball('jose-reyes')
+baseball('ken griffey')
