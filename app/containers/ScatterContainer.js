@@ -15,9 +15,20 @@ const ScatterContainer = React.createClass({
   },
   handleSubmit(e){
     if (e) e.preventDefault()
-    this.handleSubmissionErrors()
 
+    var handleError = function(){
+      return new Promise(function(resolve, reject){
+        resolve(this.handleSubmissionErrors())
+      }.bind(this))
+    }.bind(this)
 
+    handleError()
+      .then(function(){
+        this.getPlayerData()
+      }.bind(this))
+
+  },
+  getPlayerData(){
     $.ajax({
       url: '/api/baseball',
       type: 'post',

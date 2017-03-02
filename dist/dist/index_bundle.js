@@ -15026,10 +15026,20 @@ var ScatterContainer = React.createClass({
     };
   },
   handleSubmit: function handleSubmit(e) {
-    var _this = this;
-
     if (e) e.preventDefault();
-    this.handleSubmissionErrors();
+
+    var handleError = function () {
+      return new Promise(function (resolve, reject) {
+        resolve(this.handleSubmissionErrors());
+      }.bind(this));
+    }.bind(this);
+
+    handleError().then(function () {
+      this.getPlayerData();
+    }.bind(this));
+  },
+  getPlayerData: function getPlayerData() {
+    var _this = this;
 
     $.ajax({
       url: '/api/baseball',
