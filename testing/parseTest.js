@@ -47,10 +47,8 @@ var baseball = function(player){
             }
 
           })
-
-          if (obj) file.push(obj)
+          if (obj && obj.Level === 'MLB') file.push(obj)
         })
-
         resolve(file)
       })
     })
