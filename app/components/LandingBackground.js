@@ -22,7 +22,7 @@ const LandingBackground = React.createClass({
         next = this.state.index + 1
       }
       this.setState({ index: next})
-    }.bind(this), 4000)
+    }.bind(this), 8000)
     this.setState({ interval })
   },
   componentWillUnmount(){
@@ -32,7 +32,7 @@ const LandingBackground = React.createClass({
     var { urls, index } = this.state
 
     var content = urls.map((url, i) => {
-      return <img key={i} src={url} />
+      return <img key={url} src={url} />
     })
     return (
         <div id='backgroundImage'>

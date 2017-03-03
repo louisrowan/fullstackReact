@@ -19,7 +19,7 @@ router.route('/baseball')
     }).then(function(p){
       res.send(p)
       if (p.length > 0) {
-        test.addPlayertoDB(req.body.player)
+        test.addPlayertoDB(p.name)
       } 
     })
   })

@@ -36,7 +36,7 @@ const ScatterCompareForm = React.createClass({
     }
 
     var predictiveText;
-    if (this.state.databaseResults.length > 1 && this.props.newPlayer.length > 0) {
+    if (this.state.databaseResults.length > 0 && this.props.newPlayer.length > 0) {
       var count = 0
       predictiveText = this.state.databaseResults.filter((name) => {
         for (let z = 0; z < this.props.newPlayer.length; z++) {
