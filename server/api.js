@@ -18,7 +18,9 @@ router.route('/baseball')
       resolve(test.baseball(req.body.player))
     }).then(function(p){
       res.send(p)
-      if (p.length > 0) {
+      if (Array.isArray(p)) p = p[0]
+        console.log(p.data.length, p.name)
+      if (p.data.length > 0) {
         test.addPlayertoDB(p.name)
       } 
     })

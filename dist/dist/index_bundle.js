@@ -8739,6 +8739,7 @@ var ScatterCompareForm = React.createClass({
       var databaseResults = data.map(function (d) {
         return d.name;
       });
+      console.log(databaseResults);
       _this.setState({ databaseResults: databaseResults });
     }).fail(function (fail) {
       console.log('fail', fail);
@@ -25215,7 +25216,7 @@ var ScatterLegend = React.createClass({
   },
   getUrl: function getUrl() {
     return window.location.origin + '/#/scatter?' + this.props.data.map(function (p, i) {
-      return 'p' + (i + 1) + '=' + (p.name.split(' ').join('-') + p.id) + '&';
+      return 'p' + (i + 1) + '=' + p.name.split(' ').join('-') + '&';
     }).join('');
   },
   render: function render() {
