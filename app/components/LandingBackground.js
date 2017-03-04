@@ -1,45 +1,48 @@
 const React = require('react')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+const images = require('json-loader!../../public/data.json').images
+
+
 
 const LandingBackground = React.createClass({
   getInitialState(){
     return {
       index: 0,
-      interval: '',
-      urls: [
-    'https://media-cdn.tripadvisor.com/media/photo-s/07/56/5f/16/love-ya-fenway-park.jpg',
-    'http://www.ballparksofbaseball.com/wp-content/uploads/2016/03/yank10954.jpg',
-    'http://thedailydeelight.com/wp-content/uploads/2016/06/camden-yards.jpg'
-      ]
+      images: images
     }
   },
-  componentDidMount(){
-    var interval = setInterval(function(){
-      var next;
-      if (this.state.index === this.state.urls.length - 1) {
-        next = 0
-      } else {
-        next = this.state.index + 1
-      }
-      this.setState({ index: next})
-    }.bind(this), 8000)
-    this.setState({ interval })
+
+  handleArrowClick(val){
+    var { index, images } = this.state
+    var newValue
+    if (index + val >= images.length) {
+      newValue = 0
+    } else if (index + val < 0) {
+      newValue = images.length - 1
+    } else {
+      newValue = index + val
+    }
+    console.log(newValue)
+    this.setState({ index: newValue})
   },
-  componentWillUnmount(){
-    clearInterval(this.state.interval)
-  },
+
   render(){
-    var { urls, index } = this.state
+    var { index, images } = this.state
 
-    var content = urls.map((url, i) => {
-      return <img key={url} src={url} />
-    })
     return (
-        <div id='backgroundImage'>
+        <div id='carouselContainer'>
+        
+        <div
+          onClick={() => this.handleArrowClick(-1)}
+          className='arrow Larrow'></div>
+        <div
+          onClick={() => this.handleArrowClick(1)} 
+          className='arrow Rarrow'></div>
 
-            {content[0]}
+        <div className='carouselImgDiv'>
+          <img src={images[index]} />
+        </div>
 
-          <div id='backgroundTint'></div>
         </div>
     )
   }

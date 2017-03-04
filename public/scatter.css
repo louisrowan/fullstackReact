@@ -232,43 +232,51 @@ text {
   background: white;
 }
 
-#backgroundImage {
- /* position: absolute;*/
+
+
+/*start landing carousel -------------------*/
+
+#carouselContainer {
   height: 800px;
   width: 100%;
   position: relative;
   float: none;
-  opacity: .5;
-}
-#backgroundImage img {
-  position: relative;
-  height: 100%;
-  width: 100%;
- /* opacity: .4;*/
- z-index: 0;
+  background: lightblue;
+  display: flex;
+  align-items: center;
 }
 
-.backgroundImgTrans-enter {
+#carouselContainer .carouselImgDiv {
+  height: 700px;
+  width: 80%;
+  margin: auto;
+  border: 5px solid black;
+  overflow: hidden;
 }
 
-.backgroundImgTrans-enter-active {
-}
-
-.backgroundImgTrans-leave {
-}
-
-.backgroundImgTrans-leave-active {
-}
-
-/*#backgroundTint {
+#carouselContainer .arrow {
   position: absolute;
-  height: 100vh;
-  width: 100%;
-    min-height: 800px;
-  min-width: 800px;
-  z-index: 0;
-  background: rgba(255, 255, 255, .6)
-}*/
+  top: 45%;
+  height: 0px;
+  width: 0px;
+  border: 40px solid transparent;
+}
+
+#carouselContainer .Larrow {
+  left: 5px;
+  border-right: 40px solid black;
+}
+
+#carouselContainer .Rarrow {
+  right: 5px;
+  border-left: 40px solid black;
+}
+
+
+
+
+
+/*end landing carousel ------------------*/
 
 #mainHeaderDiv {
   width: 100%;
