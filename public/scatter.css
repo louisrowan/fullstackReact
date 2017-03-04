@@ -507,10 +507,12 @@ text {
   margin: auto;
   padding: 20px;
   background: white;
+  font-size: 16px;
+  line-height: 30px;
 }
 
 #landingFooterContainer h1 {
-  padding: 50px;
+  padding: 50px 0px 20px;
   text-align: center;
 }
 
