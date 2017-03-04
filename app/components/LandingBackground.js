@@ -37,7 +37,7 @@ const LandingBackground = React.createClass({
     return (
         <div id='backgroundImage'>
 
-            {content[index]}
+            {content[0]}
 
           <div id='backgroundTint'></div>
         </div>

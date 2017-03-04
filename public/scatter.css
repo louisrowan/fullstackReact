@@ -224,28 +224,28 @@ text {
 /*start player selection --------------------*/
 
 #landingContainer {
-  height: 100vh;
+/*  height: 100vh;
   width: 100%;
   min-height: 800px;
   min-width: 800px;
-  position: relative;
+  position: relative;*/
+  background: white;
 }
 
 #backgroundImage {
-  position: absolute;
-  min-height: 800px;
-  min-width: 800px;
-  height: 100vh;
+ /* position: absolute;*/
+  height: 800px;
   width: 100%;
-  z-index: -2;
+  position: relative;
+  float: none;
+  opacity: .5;
 }
 #backgroundImage img {
-  position: absolute;
-  height: 100vh;
+  position: relative;
+  height: 100%;
   width: 100%;
-    min-height: 800px;
-  min-width: 800px;
-  opacity: .4;
+ /* opacity: .4;*/
+ z-index: 0;
 }
 
 .backgroundImgTrans-enter {
@@ -260,7 +260,7 @@ text {
 .backgroundImgTrans-leave-active {
 }
 
-#backgroundTint {
+/*#backgroundTint {
   position: absolute;
   height: 100vh;
   width: 100%;
@@ -268,15 +268,18 @@ text {
   min-width: 800px;
   z-index: 0;
   background: rgba(255, 255, 255, .6)
-}
+}*/
 
 #mainHeaderDiv {
   width: 100%;
+  height: 800px;
   text-align: center;
+  position: relative;
 }
 
 #mainHeaderDiv h1 {
   padding: 40px;
+  padding-top: 250px;
   font-size: 60px;
   margin: auto;
 }
@@ -295,9 +298,11 @@ text {
   box-sizing: border-box;
 }
 
-#formContainer h3 {
-  padding: 10px;
-  margin: 0;
+#formContainer #formH3Div {
+  width: 100%;
+  display: block;
+  height: 150px;
+  margin: auto;
 }
 
 #formContainer ul {
@@ -346,21 +351,13 @@ text {
 }
 
 #showChartButton {
-  position: absolute;
-  width: 100%;
-  margin: auto;
-  text-align: center;
-  bottom: 200px;
-  text-align: center;
-}
-
-#showChartButton input {
   padding: 10px;
   font-size: 20px;
   width: 250px;
+  margin: 100px auto 200px;
 }
 
-#showChartButton input:hover:enabled {
+#showChartButton:hover:enabled {
   cursor: pointer;
 }
 

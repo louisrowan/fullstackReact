@@ -14,8 +14,7 @@ const ScatterCompareForm = React.createClass({
       $.ajax({
         url: '/api/baseball',
       }).done((data) => {
-        var databaseResults = data.map((d) => d.name)
-        console.log(databaseResults)
+        var databaseResults = data.filter((d) => d.name !== null).map((d) => d.name)
         this.setState({ databaseResults })
       }).fail((fail) => {
         console.log('fail', fail)
@@ -77,12 +76,21 @@ const ScatterCompareForm = React.createClass({
 
     return (
       <div id='landingContainer'>
-        <LandingBackground />
-        <div id='mainHeaderDiv'>
+        
+        <div style={{background: 'rgba(89, 219, 57, .8)'}} id='mainHeaderDiv'>
           <h1>MLB Graphs</h1>
-          <h3>Compare up to ANY 3 MLB players, past or present</h3>
+          <h3>Built by Louis Rowan</h3>
+          <h3>Data scraped from theBaseballCube.com</h3>
         </div>
+
+
+        <LandingBackground />
+
+
         <div id='formContainer'>
+          <div id='formH3Div'>
+            <h3>Compare up to ANY 3 MLB players, past or present</h3>
+          </div>
           <div>
             <h3>Currently on your list...</h3>
             <table>
@@ -111,6 +119,12 @@ const ScatterCompareForm = React.createClass({
             {max}
             {error}
             {multipleResults}
+            <Link to='/scatter'>
+            <input type='submit' 
+              id='showChartButton'
+              disabled={!this.props.chartReady || this.props.players.length < 1}
+            value='Show Chart' />
+            </Link>
           </div>
           <div>
             <h3>Recent Similar Searches...</h3>
@@ -121,13 +135,7 @@ const ScatterCompareForm = React.createClass({
             </table>
           </div>
         </div>
-          <div id='showChartButton'>
-            <Link to='/scatter'>
-            <input type='submit' 
-              disabled={!this.props.chartReady || this.props.players.length < 1}
-            value='Show Chart' />
-            </Link>
-          </div>
+        <p style={{clear: 'both'}}></p>
       </div>
     )
   }
