@@ -31,7 +31,7 @@ const LandingBackground = React.createClass({
 
     return (
         <div id='carouselContainer'>
-        
+
         <div
           onClick={() => this.handleArrowClick(-1)}
           className='arrow Larrow'></div>
@@ -40,7 +40,8 @@ const LandingBackground = React.createClass({
           className='arrow Rarrow'></div>
 
         <div className='carouselImgDiv'>
-          <img src={images[index]} />
+          <h1>{images[index].text}</h1>
+          <img src={images[index].url} />
         </div>
 
         </div>

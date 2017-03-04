@@ -1,6 +1,25 @@
 {
   "images": [
-    "./images/img1.JPG",
-    "./images/img2.JPG"
+    {
+      "url": "./images/img1.JPG",
+      "text": "Comparing Bonds and Ruth's HR rates"
+    },
+    {
+      "url": "./images/img2.JPG",
+      "text": "Analyzing how Mike Trout's career stacks up against an all-time great"
+    },
+    {
+      "url": "./images/gif1.gif",
+      "text": "Dynamically switch which stats to view"
+    },
+    {
+      "url": "./images/gif2.gif",
+      "text": "One click to copy any chart's URL"
+    },
+    {
+      "url": "./images/gif3.gif",
+      "text": "Predictive text saves you some keystrokes if your desired player has been searched for lately"
+    }
+    
   ]
 }

@@ -254,12 +254,30 @@ text {
   overflow: hidden;
 }
 
+#carouselContainer .carouselImgDiv img {
+  height: 500px;
+  width: 100%;
+}
+
+#carouselContainer .carouselImgDiv h1 {
+  background: white;
+  text-align: center;
+  margin: 0;
+  padding: 50px;
+  height: 200px;
+  box-sizing: border-box;
+}
+
 #carouselContainer .arrow {
   position: absolute;
   top: 45%;
   height: 0px;
   width: 0px;
   border: 40px solid transparent;
+}
+
+#carouselContainer .arrow:hover {
+  cursor: pointer;
 }
 
 #carouselContainer .Larrow {
@@ -272,6 +290,13 @@ text {
   border-left: 40px solid black;
 }
 
+#carouselContainer .Larrow:hover {
+  border-right: 40px solid green;
+}
+
+#carouselContainer .Rarrow:hover {
+  border-left: 40px solid green;
+}
 
 
 
