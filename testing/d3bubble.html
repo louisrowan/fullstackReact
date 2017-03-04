@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>D3 Bubble</title>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<svg></svg>
+
+
+<script>
+
+var data = [
+  {name: 'barry bonds', data: [
+    {HR: 40, RBI: 100},
+    {HR: 45, RBI: 120},
+    {HR: 50, RBI: 115}
+    ]
+}, {name: 'babe ruth', data: [
+  {HR: 60, RBI: 120},
+  {HR: 35, RBI: 100}
+  ]
+}
+
+]
+  
+d3.select('svg')
+  .attr('height', '500px')
+  .attr('width', '800px')
+  .style('margin', '20px')
+  .style('border', '2px solid purple')
+  .classed('d3BubbleSVG', true)
+
+  var d = data.map((d) => d.data)
+
+  renderChart(d, ['HR', 'RBI'])
+
+  function renderChart(data, stats){
+
+    d3.select('.d3BubbleSVG').selectAll('*').remove()
+
+
+    var min = d3.min(data.map((d) => {
+      return d3.min(d.map((e) => {
+        return d3.min(stats.map((stat) => e[stat]))
+      }))
+    }))
+
+    var max = d3.max(data.map((d) => {
+      return d3.max(d.map((e) => {
+        return d3.max(stats.map((stat) => e[stat]))
+      }))
+    }))
+
+    var circleScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([5, 20])
+
+
+    renderData(data, stats, circleScale)
+
+  }
+  // end of renderChart
+
+  function renderData(data, stats, circleScale){
+    console.log(data, stats, circleScale)
+  }
+
+
+
+
+</script>
+
+</body>
+</html>
