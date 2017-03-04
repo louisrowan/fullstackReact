@@ -1,5 +1,6 @@
 const React = require('react')
 const LandingBackground = require('./LandingBackground')
+const LandingFooter = require('./LandingFooter')
 const Util = require('../../util/Util')
 const $ = require('jquery')
 const { Link } = require('react-router')
@@ -135,7 +136,7 @@ const ScatterCompareForm = React.createClass({
             </table>
           </div>
         </div>
-        <p style={{clear: 'both'}}></p>
+        <LandingFooter />
       </div>
     )
   }

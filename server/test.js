@@ -160,7 +160,7 @@ exports.baseball = function(player, id){
       return returnVal
     })
   } else {
-    return promise(url + id)
+    return promise(url, id)
       .then(function(response) {
         return response
       })

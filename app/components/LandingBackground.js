@@ -22,7 +22,6 @@ const LandingBackground = React.createClass({
     } else {
       newValue = index + val
     }
-    console.log(newValue)
     this.setState({ index: newValue})
   },
 
