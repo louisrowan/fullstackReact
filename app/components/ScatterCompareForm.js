@@ -78,14 +78,14 @@ const ScatterCompareForm = React.createClass({
     return (
       <div id='landingContainer'>
         
-        <div style={{background: 'rgba(89, 219, 57, .8)'}} id='mainHeaderDiv'>
+        <div id='mainHeaderDiv'>
           <h1>MLB Graphs</h1>
           <h3>Built by Louis Rowan</h3>
           <h3>Data scraped from theBaseballCube.com</h3>
         </div>
 
 
-        <LandingBackground />
+        
 
 
         <div id='formContainer'>
@@ -136,6 +136,7 @@ const ScatterCompareForm = React.createClass({
             </table>
           </div>
         </div>
+        <LandingBackground />
         <LandingFooter />
       </div>
     )
