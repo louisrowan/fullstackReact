@@ -40682,7 +40682,8 @@ var D3Bubble = React.createClass({
       }));
       scales[stat] = d3.scaleLinear().domain([min, max]).range([20, 50]);
     });
-    console.log(scales);
+
+    this.renderData(data, stats, scales);
   },
   parseStats: function parseStats(data) {
     var _this = this;
@@ -40699,6 +40700,13 @@ var D3Bubble = React.createClass({
       });
     });
     return newData;
+  },
+  renderData: function renderData(data, stats, scales) {
+    d3.select('.d3BubbleSVG').selectAll('.d3Bubble').data(data).enter().append('g').classed('d3Bubble', true);
+
+    var circles = d3.selectAll('.3Bubble').append('circle').attr('r', function (d) {
+      return scales[d.stat](d.num);
+    });
   },
   render: function render() {
     return React.createElement(
