@@ -40641,6 +40641,8 @@ module.exports = __webpack_require__(127);
 "use strict";
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var React = __webpack_require__(5);
 
 var D3Bubble = React.createClass({
@@ -40648,18 +40650,55 @@ var D3Bubble = React.createClass({
   getInitialState: function getInitialState() {
     return {
       height: 500,
-      width: 1100
+      width: 1100,
+      stats: ['OBP', 'SLG', 'OPS', 'AVG', 'K/BB', 'AB/HR', 'HR', 'RBI', 'H', 'SB', 'CS', 'TB']
     };
   },
-  renderChart: function renderChart() {
+  componentDidMount: function componentDidMount() {
+    this.setupSVG();
+  },
+  setupSVG: function setupSVG() {
     var _state = this.state,
         height = _state.height,
         width = _state.width;
 
     d3.select('.d3BubbleSVG').attr('height', height).attr('width', width).style('border', '2px solid purple');
+
+    this.setupData();
   },
-  componentDidMount: function componentDidMount() {
-    this.renderChart();
+  setupData: function setupData() {
+    var data = this.parseStats(this.props.data);
+    var stats = this.state.stats;
+
+    var scales = {};
+    stats.forEach(function (stat) {
+      var min = d3.min(data.map(function (d) {
+        if (d.stat === stat) return d.num;
+        return;
+      }));
+      var max = d3.max(data.map(function (d) {
+        if (d.stat === stat) return d.num;
+        return;
+      }));
+      scales[stat] = d3.scaleLinear().domain([min, max]).range([20, 50]);
+    });
+    console.log(scales);
+  },
+  parseStats: function parseStats(data) {
+    var _this = this;
+
+    var newData = [];
+    data.forEach(function (player) {
+      player.data.forEach(function (d) {
+        _this.state.stats.forEach(function (stat) {
+          var _obj;
+
+          var obj = (_obj = { name: player.name, year: d.year, stat: stat }, _defineProperty(_obj, 'year', d.Year), _defineProperty(_obj, 'num', d[stat]), _obj);
+          newData.push(obj);
+        });
+      });
+    });
+    return newData;
   },
   render: function render() {
     return React.createElement(
