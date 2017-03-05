@@ -10,20 +10,25 @@
 </head>
 <body>
 
+<button id='SB'>sb</button>
+<button id='HR'>hr</button>
+<button id='RBI'>rbi</button>
+
 <svg></svg>
 
 
 <script>
 
+
 var data = [
   {name: 'barry bonds', data: [
-    {HR: 40, RBI: 100},
-    {HR: 45, RBI: 120},
-    {HR: 50, RBI: 115}
+    {year: 1, HR: 40, RBI: 100, SB: 4},
+    {year: 2, HR: 45, RBI: 120, SB: 8},
+    {year: 3, HR: 50, RBI: 115, SB: 3}
     ]
 }, {name: 'babe ruth', data: [
-  {HR: 60, RBI: 120},
-  {HR: 35, RBI: 100}
+  {year: 1, HR: 60, RBI: 120, SB: 1},
+  {year: 2, HR: 35, RBI: 100, SB: 2}
   ]
 }
 
@@ -38,12 +43,13 @@ d3.select('svg')
 
   var d = data.map((d) => d.data)
 
-  renderChart(d, ['HR', 'RBI'])
+  stats = ['HR', 'RBI', 'SB']
 
-  function renderChart(data, stats){
+  renderChart(d, stats, data)
+
+  function renderChart(data, stats, d){
 
     d3.select('.d3BubbleSVG').selectAll('*').remove()
-
 
     var min = d3.min(data.map((d) => {
       return d3.min(d.map((e) => {
@@ -57,19 +63,123 @@ d3.select('svg')
       }))
     }))
 
+    var scales = {}
+    stats.forEach((stat) => {
+      var min = d3.min(data.map((d) => {
+        return d3.min(d.map((e) => {
+          return e[stat]
+        }))
+      }))
+
+      var max = d3.max(data.map((d) => {
+        return d3.max(d.map((e) => {
+          return e[stat]
+        }))
+      }))
+      scales[stat] = d3.scaleLinear()
+        .domain([min, max])
+        .range([20, 50])
+    })
+
+
     var circleScale = d3.scaleLinear()
       .domain([min, max])
-      .range([5, 20])
+      .range([20, 40])
 
+    function parse(input, stats) {
+      var result = []
+      input.forEach((player) => {
+        player.data.forEach((d) => {
+          stats.forEach((stat) => {
+            var obj = {name: player.name, stat: stat, num: d[stat]}
+            result.push(obj)
+          })
+        })
+      })
+      return result
+    }
 
-    renderData(data, stats, circleScale)
+    var newData = parse(d, stats)
+
+    renderData(newData, stats, circleScale, scales)
 
   }
   // end of renderChart
 
-  function renderData(data, stats, circleScale){
-    console.log(data, stats, circleScale)
+  function renderData(data, stats, circleScale, scales){
+
+    d3.select('.d3BubbleSVG').selectAll('.d3Bubble')
+      .data(data)
+      .enter()
+      .append('g')
+      .classed('d3Bubble', true)
+
+    var circles = d3.selectAll('.d3Bubble')
+      .append('circle')
+      .attr('r', (d) => scales[d.stat](d.num) )
+      .style('fill', 'blue')
+      .classed('d3Circle', true)
+
+
+    circles.on('mouseover', function(d){
+      console.log(d.name, d.num, d.stat)
+    })
+
+    var height = parseInt(d3.select('.d3BubbleSVG').attr('height'))
+    var width = parseInt(d3.select('.d3BubbleSVG').attr('width'))
+
+
+    var forceXNormal = d3.forceX((d) => {
+      return 2*width
+    }).strength(0.05)
+
+    var forceYNormal = d3.forceY((d) => {
+      return height/2
+    }).strength(0.05)
+
+
+    var simulation = d3.forceSimulation()
+      .force('x', forceXNormal)
+      .force('y', forceYNormal)
+      .force('collide', d3.forceCollide((d) => scales[d.stat](d.num) + 2))
+
+    
+ 
+    simulation.nodes(data)
+      .on('tick', ticked)
+
+    function ticked(){
+
+      circles
+        .attr('cx', (d) => d.x )
+        .attr('cy', (d) => d.y )
+    }
+
+    var forceXCustom = function(stat){
+      return d3.forceX((d) => {
+        if (d.stat === stat){
+          return width/2
+        } else {
+          return 2*width
+        }
+      })
+    }
+
+    d3.selectAll('button').on('click', function(){
+      var id = this.id
+
+      simulation
+        .force('x', forceXCustom(id))
+        .force('y', forceYNormal)
+        .alphaTarget(0.5)
+        .restart()
+
+    })
+
+
+
   }
+  // end of renderData
 
 
 
