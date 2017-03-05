@@ -40694,7 +40694,7 @@ var D3Bubble = React.createClass({
         _this.state.stats.forEach(function (stat) {
           var _obj;
 
-          var obj = (_obj = { name: player.name, year: d.year, stat: stat }, _defineProperty(_obj, 'year', d.Year), _defineProperty(_obj, 'num', d[stat]), _obj);
+          var obj = (_obj = { name: player.name, year: d.year, stat: stat }, _defineProperty(_obj, 'year', d.Year), _defineProperty(_obj, 'num', +d[stat]), _obj);
           newData.push(obj);
         });
       });
@@ -40702,17 +40702,71 @@ var D3Bubble = React.createClass({
     return newData;
   },
   renderData: function renderData(data, stats, scales) {
+    var _state2 = this.state,
+        height = _state2.height,
+        width = _state2.width;
+    var players = this.props.players;
+
+    console.log('player:::', players[0]);
+
     d3.select('.d3BubbleSVG').selectAll('.d3Bubble').data(data).enter().append('g').classed('d3Bubble', true);
 
-    var circles = d3.selectAll('.3Bubble').append('circle').attr('r', function (d) {
+    var circles = d3.selectAll('.d3Bubble').append('circle').attr('r', function (d) {
       return scales[d.stat](d.num);
+    }).style('fill', function (d) {
+      console.log(d.player);
+      return 'red';
+    }).classed('d3Circle', true);
+
+    var forceXNormal = d3.forceY(function (d) {
+      return -2 * width;
+    }).strength(0.05);
+
+    var forceYNormal = d3.forceY(function (d) {
+      return height / 2;
+    }).strength(0.05);
+
+    var simulation = d3.forceSimulation().force('x', forceXNormal).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
+      console.log(d, scales[d.stat](d.num));
+      return scales[d.stat](d.num) + 2;
+    }));
+
+    var forceXCustom = function forceXCustom(stat) {
+      return d3.forceX(function (d) {
+        if (d.stat === stat) {
+          return width / 2;
+        } else {
+          return -2 * width;
+        }
+      }).strength(0.05);
+    };
+
+    simulation.nodes(data).on('tick', ticked);
+
+    function ticked() {
+      circles.attr('cx', function (d) {
+        return d.x;
+      }).attr('cy', function (d) {
+        return d.y;
+      });
+    }
+
+    stats.forEach(function (stat) {
+      d3.select('#banana').append('button').attr('id', stat).text(stat);
+    });
+
+    d3.selectAll('button').on('click', function () {
+      var id = this.id;
+
+      simulation.force('x', forceXCustom(id)).force('y', forceYNormal).alphaTarget(0.5).restart();
     });
   },
   render: function render() {
     return React.createElement(
       'div',
       null,
-      React.createElement('svg', { className: 'd3BubbleSVG' })
+      React.createElement('svg', { className: 'd3BubbleSVG' }),
+      React.createElement('div', { id: 'banana', style: { float: 'left', height: '300px', width: '800px', border: '1px solid blue' } })
     );
   }
 });

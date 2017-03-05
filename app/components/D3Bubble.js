@@ -62,7 +62,7 @@ const D3Bubble = React.createClass({
     data.forEach((player) => {
       player.data.forEach((d) => {
         this.state.stats.forEach((stat) => {
-          var obj = {name: player.name, year: d.year, stat: stat, year: d.Year, num: d[stat]}
+          var obj = {name: player.name, year: d.year, stat: stat, year: d.Year, num: +d[stat]}
           newData.push(obj)
         })
       })
@@ -70,6 +70,10 @@ const D3Bubble = React.createClass({
     return newData
   },
   renderData(data, stats, scales){
+    var { height, width } = this.state
+    var { players } = this.props
+    console.log('player:::', players[0])
+
     d3.select('.d3BubbleSVG')
       .selectAll('.d3Bubble')
       .data(data)
@@ -77,15 +81,73 @@ const D3Bubble = React.createClass({
       .append('g')
       .classed('d3Bubble', true)
 
-    var circles = d3.selectAll('.3Bubble')
+    var circles = d3.selectAll('.d3Bubble')
       .append('circle')
       .attr('r', (d) => scales[d.stat](d.num))
+      .style('fill', (d) => {
+        console.log(d.player)
+        return 'red'
+      })
+      .classed('d3Circle', true)
+
+    var forceXNormal = d3.forceY((d) => {
+      return -2*width
+    }).strength(0.05)
+
+    var forceYNormal = d3.forceY((d) => {
+      return height/2
+    }).strength(0.05)
+
+    var simulation = d3.forceSimulation()
+      .force('x', forceXNormal)
+      .force('y', forceYNormal)
+      .force('collide', d3.forceCollide((d) => {
+        console.log(d, scales[d.stat](d.num))
+        return scales[d.stat](d.num) + 2
+      }))
+
+    var forceXCustom = function(stat){
+      return d3.forceX((d) => {
+        if (d.stat === stat){
+          return width/2
+        } else {
+          return -2*width
+        }
+      }).strength(0.05)
+    }
+
+    simulation.nodes(data)
+      .on('tick', ticked)
+
+    function ticked(){
+      circles
+        .attr('cx', (d) => d.x)
+        .attr('cy', (d) => d.y)
+    }
+
+    stats.forEach((stat) => {
+      d3.select('#banana')
+        .append('button')
+        .attr('id', stat)
+        .text(stat)
+    })
+
+    d3.selectAll('button').on('click', function(){
+      var id = this.id
+
+      simulation
+        .force('x', forceXCustom(id))
+        .force('y', forceYNormal)
+        .alphaTarget(0.5)
+        .restart()
+    })
 
   },
   render(){
     return (
       <div>
         <svg className='d3BubbleSVG'></svg>
+        <div id ='banana' style={{float: 'left', height: '300px', width: '800px', border: '1px solid blue'}}></div>
       </div>
     )
   }
