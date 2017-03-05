@@ -40707,27 +40707,31 @@ var D3Bubble = React.createClass({
         width = _state2.width;
     var players = this.props.players;
 
-    console.log('player:::', players[0]);
 
     d3.select('.d3BubbleSVG').selectAll('.d3Bubble').data(data).enter().append('g').classed('d3Bubble', true);
 
     var circles = d3.selectAll('.d3Bubble').append('circle').attr('r', function (d) {
       return scales[d.stat](d.num);
     }).style('fill', function (d) {
-      console.log(d.player);
-      return 'red';
+      var index = players.indexOf(d.name);
+      if (index === 0) {
+        return 'red';
+      } else if (index === 1) {
+        return 'blue';
+      } else {
+        return 'green';
+      }
     }).classed('d3Circle', true);
 
     var forceXNormal = d3.forceY(function (d) {
       return -2 * width;
-    }).strength(0.05);
+    }).strength(0.02);
 
     var forceYNormal = d3.forceY(function (d) {
       return height / 2;
-    }).strength(0.05);
+    }).strength(0.02);
 
     var simulation = d3.forceSimulation().force('x', forceXNormal).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
-      console.log(d, scales[d.stat](d.num));
       return scales[d.stat](d.num) + 2;
     }));
 
@@ -40738,7 +40742,7 @@ var D3Bubble = React.createClass({
         } else {
           return -2 * width;
         }
-      }).strength(0.05);
+      }).strength(0.02);
     };
 
     simulation.nodes(data).on('tick', ticked);

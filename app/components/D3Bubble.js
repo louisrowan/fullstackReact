@@ -72,7 +72,6 @@ const D3Bubble = React.createClass({
   renderData(data, stats, scales){
     var { height, width } = this.state
     var { players } = this.props
-    console.log('player:::', players[0])
 
     d3.select('.d3BubbleSVG')
       .selectAll('.d3Bubble')
@@ -85,24 +84,29 @@ const D3Bubble = React.createClass({
       .append('circle')
       .attr('r', (d) => scales[d.stat](d.num))
       .style('fill', (d) => {
-        console.log(d.player)
-        return 'red'
+        var index = players.indexOf(d.name)
+        if (index === 0){
+          return 'red'
+        } else if (index === 1) {
+          return 'blue'
+        } else {
+          return 'green'
+        }
       })
       .classed('d3Circle', true)
 
     var forceXNormal = d3.forceY((d) => {
       return -2*width
-    }).strength(0.05)
+    }).strength(0.02)
 
     var forceYNormal = d3.forceY((d) => {
       return height/2
-    }).strength(0.05)
+    }).strength(0.02)
 
     var simulation = d3.forceSimulation()
       .force('x', forceXNormal)
       .force('y', forceYNormal)
       .force('collide', d3.forceCollide((d) => {
-        console.log(d, scales[d.stat](d.num))
         return scales[d.stat](d.num) + 2
       }))
 
@@ -113,7 +117,7 @@ const D3Bubble = React.createClass({
         } else {
           return -2*width
         }
-      }).strength(0.05)
+      }).strength(0.02)
     }
 
     simulation.nodes(data)
