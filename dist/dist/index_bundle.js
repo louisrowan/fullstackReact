@@ -40668,7 +40668,7 @@ var D3Bubble = React.createClass({
         height = _state.height,
         width = _state.width;
 
-    d3.select('.d3BubbleSVG').attr('height', height).attr('width', width).style('border', '2px solid purple');
+    d3.select('.d3BubbleSVG').attr('height', height).attr('width', width);
 
     this.setupData();
   },
@@ -40719,7 +40719,7 @@ var D3Bubble = React.createClass({
 
     var circles = d3.selectAll('.d3Bubble').append('circle').attr('r', function (d) {
       return scales[d.stat](d.num);
-    }).style('fill', function (d) {
+    }).style('stroke', 'black').style('stroke-width', '1px').style('fill', function (d) {
       var index = players.indexOf(d.name);
       if (index === 0) {
         return 'red';
@@ -40762,11 +40762,9 @@ var D3Bubble = React.createClass({
       });
     }
 
-    stats.forEach(function (stat) {
-      d3.select('#hi').append('button').attr('id', stat).text(stat);
-    });
-
-    d3.selectAll('button').on('click', function () {
+    d3.selectAll('button').on('click', function (e) {
+      d3.selectAll('.d3BubbleButtons').classed('bubbleActive', false);
+      d3.select(this).classed('bubbleActive', true);
       var id = this.id;
 
       simulation.force('x', forceXCustom(id)).force('y', forceYNormal).alphaTarget(0.5).restart();
@@ -40792,7 +40790,7 @@ exports = module.exports = __webpack_require__(77)();
 
 
 // module
-exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n#d3BubbleDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: whitesmoke;\r\n  padding: 10px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3BubbleDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3BubbleDiv table {\r\n  width: 100%;\r\n}\r\n\r\n#d3BubbleDiv td {\r\n  padding: 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3BubbleDiv button {\r\n  width: 100%;\r\n  height: 30px;\r\n  display: block;\r\n}\r\n\r\n#d3BubbleDiv button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3BubbleDiv .playerKey0 {\r\n  color: red;\r\n}\r\n\r\n#d3BubbleDiv .playerKey1 {\r\n  color: blue;\r\n}\r\n\r\n#d3BubbleDiv .playerKey2 {\r\n  color: green;\r\n}", ""]);
+exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n#d3BubbleDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: whitesmoke;\r\n  padding: 10px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3BubbleDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3BubbleDiv table {\r\n  width: 100%;\r\n}\r\n\r\n#d3BubbleDiv td {\r\n  padding: 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3BubbleDiv button {\r\n  width: 100%;\r\n  height: 30px;\r\n  display: block;\r\n}\r\n\r\n#d3BubbleDiv button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3BubbleDiv .playerKey0 {\r\n  color: red;\r\n}\r\n\r\n#d3BubbleDiv .playerKey1 {\r\n  color: blue;\r\n}\r\n\r\n#d3BubbleDiv .playerKey2 {\r\n  color: green;\r\n}\r\n\r\n.bubbleActive {\r\n  background: blue;\r\n}", ""]);
 
 // exports
 
@@ -40848,7 +40846,7 @@ var BubbleLegend = React.createClass({
           null,
           React.createElement(
             'button',
-            { id: stat },
+            { className: 'd3BubbleButtons', id: stat },
             stat
           )
         )

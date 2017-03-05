@@ -15,7 +15,6 @@ const D3Bubble = React.createClass({
     d3.select('.d3BubbleSVG')
       .attr('height', height)
       .attr('width', width)
-      .style('border', '2px solid purple')
 
     this.setupData()
   },
@@ -69,6 +68,8 @@ const D3Bubble = React.createClass({
     var circles = d3.selectAll('.d3Bubble')
       .append('circle')
       .attr('r', (d) => scales[d.stat](d.num))
+      .style('stroke', 'black')
+      .style('stroke-width', '1px')
       .style('fill', (d) => {
         var index = players.indexOf(d.name)
         if (index === 0){
@@ -115,14 +116,10 @@ const D3Bubble = React.createClass({
         .attr('cy', (d) => d.y)
     }
 
-    stats.forEach((stat) => {
-      d3.select('#hi')
-        .append('button')
-        .attr('id', stat)
-        .text(stat)
-    })
-
-    d3.selectAll('button').on('click', function(){
+    d3.selectAll('button').on('click', function(e){
+      d3.selectAll('.d3BubbleButtons')
+        .classed('bubbleActive', false)
+      d3.select(this).classed('bubbleActive', true)
       var id = this.id
 
       simulation

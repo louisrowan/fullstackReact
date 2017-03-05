@@ -62,3 +62,7 @@
 #d3BubbleDiv .playerKey2 {
   color: green;
 }
+
+.bubbleActive {
+  background: blue;
+}
