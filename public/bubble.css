@@ -8,3 +8,57 @@
   z-index: 0;
   background: white;
 }
+
+#d3BubbleDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 225;
+  font-size: 30px;
+  pointer-events: all;
+  z-index: 1;
+  height: 100vh;
+  background: whitesmoke;
+  padding: 10px 10px;
+  box-sizing: border-box;
+}
+
+#d3BubbleDiv > div {
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 10px 0px 10px;
+  width: 225px;
+  padding-bottom: 10px;
+}
+
+#d3BubbleDiv table {
+  width: 100%;
+}
+
+#d3BubbleDiv td {
+  padding: 0;
+  font-size: 16px;
+}
+
+#d3BubbleDiv button {
+  width: 100%;
+  height: 30px;
+  display: block;
+}
+
+#d3BubbleDiv button:hover {
+  cursor: pointer;
+}
+
+#d3BubbleDiv .playerKey0 {
+  color: red;
+}
+
+#d3BubbleDiv .playerKey1 {
+  color: blue;
+}
+
+#d3BubbleDiv .playerKey2 {
+  color: green;
+}

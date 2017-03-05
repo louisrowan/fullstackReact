@@ -25529,20 +25529,27 @@ module.exports = LandingFooter;
 var React = __webpack_require__(5);
 var ScatterLegend = __webpack_require__(76);
 var D3Bubble = __webpack_require__(267);
+var BubbleLegend = __webpack_require__(270);
 
 var BubbleContainer = React.createClass({
   displayName: 'BubbleContainer',
+  getInitialState: function getInitialState() {
+    return {
+      stats: ['OBP', 'SLG', 'OPS', 'AVG', 'K/BB', 'AB/HR', 'HR', 'RBI', 'H', 'SB', 'CS', 'TB']
+    };
+  },
   render: function render() {
     return React.createElement(
       'div',
-      { id: ' BubbleContainer' },
-      React.createElement(ScatterLegend, {
+      { id: 'bubbleContainer' },
+      React.createElement(BubbleLegend, {
         data: this.props.data,
         players: this.props.players,
-        backToForm: this.props.backToForm }),
+        stats: this.state.stats }),
       React.createElement(D3Bubble, {
         data: this.props.data,
-        players: this.props.players })
+        players: this.props.players,
+        stats: this.state.stats })
     );
   }
 });
@@ -40650,8 +40657,7 @@ var D3Bubble = React.createClass({
   getInitialState: function getInitialState() {
     return {
       height: 500,
-      width: 1100,
-      stats: ['OBP', 'SLG', 'OPS', 'AVG', 'K/BB', 'AB/HR', 'HR', 'RBI', 'H', 'SB', 'CS', 'TB']
+      width: 1100
     };
   },
   componentDidMount: function componentDidMount() {
@@ -40668,7 +40674,8 @@ var D3Bubble = React.createClass({
   },
   setupData: function setupData() {
     var data = this.parseStats(this.props.data);
-    var stats = this.state.stats;
+    var stats = this.props.stats;
+
 
     var scales = {};
     stats.forEach(function (stat) {
@@ -40691,7 +40698,7 @@ var D3Bubble = React.createClass({
     var newData = [];
     data.forEach(function (player) {
       player.data.forEach(function (d) {
-        _this.state.stats.forEach(function (stat) {
+        _this.props.stats.forEach(function (stat) {
           var _obj;
 
           var obj = (_obj = { name: player.name, year: d.year, stat: stat }, _defineProperty(_obj, 'year', d.Year), _defineProperty(_obj, 'num', +d[stat]), _obj);
@@ -40756,7 +40763,7 @@ var D3Bubble = React.createClass({
     }
 
     stats.forEach(function (stat) {
-      d3.select('#banana').append('button').attr('id', stat).text(stat);
+      d3.select('#hi').append('button').attr('id', stat).text(stat);
     });
 
     d3.selectAll('button').on('click', function () {
@@ -40769,8 +40776,7 @@ var D3Bubble = React.createClass({
     return React.createElement(
       'div',
       null,
-      React.createElement('svg', { className: 'd3BubbleSVG' }),
-      React.createElement('div', { id: 'banana', style: { float: 'left', height: '300px', width: '800px', border: '1px solid blue' } })
+      React.createElement('svg', { className: 'd3BubbleSVG' })
     );
   }
 });
@@ -40786,7 +40792,7 @@ exports = module.exports = __webpack_require__(77)();
 
 
 // module
-exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}", ""]);
+exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n#d3BubbleDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: whitesmoke;\r\n  padding: 10px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3BubbleDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3BubbleDiv table {\r\n  width: 100%;\r\n}\r\n\r\n#d3BubbleDiv td {\r\n  padding: 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3BubbleDiv button {\r\n  width: 100%;\r\n  height: 30px;\r\n  display: block;\r\n}\r\n\r\n#d3BubbleDiv button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3BubbleDiv .playerKey0 {\r\n  color: red;\r\n}\r\n\r\n#d3BubbleDiv .playerKey1 {\r\n  color: blue;\r\n}\r\n\r\n#d3BubbleDiv .playerKey2 {\r\n  color: green;\r\n}", ""]);
 
 // exports
 
@@ -40816,6 +40822,110 @@ if(false) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+var Util = __webpack_require__(42);
+
+var _require = __webpack_require__(68),
+    Link = _require.Link;
+
+var BubbleLegend = React.createClass({
+  displayName: 'BubbleLegend',
+  render: function render() {
+    var statsSelector = this.props.stats.map(function (stat) {
+      return React.createElement(
+        'tr',
+        { key: stat },
+        React.createElement(
+          'td',
+          null,
+          React.createElement(
+            'button',
+            { id: stat },
+            stat
+          )
+        )
+      );
+    });
+
+    var playerKey = this.props.players.map(function (p, i) {
+      return React.createElement(
+        'tr',
+        { className: 'playerKey' + i, key: i },
+        React.createElement(
+          'td',
+          null,
+          Util.capitalize(p)
+        )
+      );
+    });
+
+    return React.createElement(
+      'div',
+      { id: 'd3BubbleDiv' },
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            statsSelector
+          )
+        )
+      ),
+      React.createElement('br', null),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            React.createElement(
+              'tr',
+              null,
+              React.createElement(
+                'th',
+                null,
+                'Legend'
+              )
+            ),
+            playerKey
+          )
+        )
+      ),
+      React.createElement('br', null),
+      React.createElement('br', null),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          Link,
+          { to: '/' },
+          React.createElement(
+            'button',
+            { id: 'backButton' },
+            'Back to player selection'
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = BubbleLegend;
 
 /***/ })
 /******/ ]);

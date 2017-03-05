@@ -4,21 +4,7 @@ const D3Bubble = React.createClass({
   getInitialState(){
     return {
       height: 500,
-      width: 1100,
-      stats: [
-        'OBP',
-        'SLG',
-        'OPS',
-        'AVG',
-        'K/BB',
-        'AB/HR',
-        'HR',
-        'RBI',
-        'H',
-        'SB',
-        'CS',
-        'TB'
-      ],
+      width: 1100
     }
   },
   componentDidMount(){
@@ -35,7 +21,7 @@ const D3Bubble = React.createClass({
   },
   setupData(){
     var data = this.parseStats(this.props.data)
-    var stats = this.state.stats
+    var { stats } = this.props
     
     var scales = {}
     stats.forEach((stat) => {
@@ -61,7 +47,7 @@ const D3Bubble = React.createClass({
     var newData = []
     data.forEach((player) => {
       player.data.forEach((d) => {
-        this.state.stats.forEach((stat) => {
+        this.props.stats.forEach((stat) => {
           var obj = {name: player.name, year: d.year, stat: stat, year: d.Year, num: +d[stat]}
           newData.push(obj)
         })
@@ -130,7 +116,7 @@ const D3Bubble = React.createClass({
     }
 
     stats.forEach((stat) => {
-      d3.select('#banana')
+      d3.select('#hi')
         .append('button')
         .attr('id', stat)
         .text(stat)
@@ -151,7 +137,6 @@ const D3Bubble = React.createClass({
     return (
       <div>
         <svg className='d3BubbleSVG'></svg>
-        <div id ='banana' style={{float: 'left', height: '300px', width: '800px', border: '1px solid blue'}}></div>
       </div>
     )
   }
