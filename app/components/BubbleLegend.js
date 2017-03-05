@@ -36,6 +36,9 @@ const BubbleLegend = React.createClass({
           <Link to='/'>
           <button id='backButton' >Back to player selection</button>
           </Link>
+          <Link to='/scatter'>
+          <button>Scatter Plot</button>
+          </Link>
         </div>       
       </div>
     )

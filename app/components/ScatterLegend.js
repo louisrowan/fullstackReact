@@ -145,6 +145,9 @@ const ScatterLegend = React.createClass({
             <Link to='/'>
             <button id='backButton' >Back to player selection</button>
             </Link>
+            <Link to='/bubble'>
+              <button>Bubble Chart</button>
+            </Link>
           </div>
         </div>
     )
