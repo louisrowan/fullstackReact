@@ -1,0 +1,10 @@
+.d3BubbleSVG {
+  display: block;
+  float: left;
+  padding: 20px 0px 60px 360px;
+  margin: 0px -20px 0px 0px;
+  overflow: visible;
+  position: relative;
+  z-index: 0;
+  background: white;
+}
