@@ -247,7 +247,7 @@ const D3ScatterCompare = React.createClass({
       }.bind(this))
   },
   render(){
-    console.log(this.props)
+
     return (
       <div id='scatterContainer'>
         <ScatterLegend

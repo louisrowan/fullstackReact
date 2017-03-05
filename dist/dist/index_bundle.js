@@ -8688,7 +8688,7 @@ var D3ScatterCompare = React.createClass({
     }.bind(this));
   },
   render: function render() {
-    console.log(this.props);
+
     return React.createElement(
       'div',
       { id: 'scatterContainer' },
