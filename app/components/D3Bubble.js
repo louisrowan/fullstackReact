@@ -53,7 +53,7 @@ const D3Bubble = React.createClass({
     data.forEach((player) => {
       player.data.forEach((d) => {
         this.props.stats.forEach((stat) => {
-          var obj = {name: player.name, year: d.year, stat: stat, year: d.Year, num: +d[stat]}
+          var obj = {name: player.name, stat: stat, year: d.Year, num: +d[stat]}
           newData.push(obj)
         })
       })
