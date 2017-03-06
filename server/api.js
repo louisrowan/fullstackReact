@@ -1,5 +1,4 @@
 var router = require('express').Router()
-var todosController = require('./controllers/todos')
 var parse = require('./parse')
 
 
