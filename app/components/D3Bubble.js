@@ -108,20 +108,9 @@ const D3Bubble = React.createClass({
         .style('stroke-width', '1px')
     })
 
-    var forceXNormal = d3.forceY((d) => {
-      return -2*width
-    }).strength(0.02)
-
     var forceYNormal = d3.forceY((d) => {
       return height/2
-    }).strength(0.02)
-
-    var simulation = d3.forceSimulation()
-      .force('x', forceXNormal)
-      .force('y', forceYNormal)
-      .force('collide', d3.forceCollide((d) => {
-        return scales[d.stat](d.num) + 2
-      }))
+    }).strength(0.03)
 
     var forceXCustom = function(stat){
       return d3.forceX((d) => {
@@ -132,6 +121,13 @@ const D3Bubble = React.createClass({
         }
       }).strength(0.02)
     }
+
+    var simulation = d3.forceSimulation()
+      .force('x', forceXCustom('OBP'))
+      .force('y', forceYNormal)
+      .force('collide', d3.forceCollide((d) => {
+        return scales[d.stat](d.num) + 2
+      }))
 
     simulation.nodes(data)
       .on('tick', ticked)

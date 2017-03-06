@@ -25449,6 +25449,10 @@ var BubbleLegend = React.createClass({
   displayName: 'BubbleLegend',
   render: function render() {
     var statsSelector = this.props.stats.map(function (stat) {
+      var green;
+      if (stat === 'OBP') {
+        green = 'bubbleActive';
+      }
       return React.createElement(
         'tr',
         { key: stat },
@@ -25457,7 +25461,7 @@ var BubbleLegend = React.createClass({
           null,
           React.createElement(
             'button',
-            { className: 'd3BubbleButtons', id: stat },
+            { className: 'd3BubbleButtons ' + green, id: stat },
             stat
           )
         )
@@ -25650,17 +25654,9 @@ var D3Bubble = React.createClass({
       d3.select(this).style('stroke-width', '1px');
     });
 
-    var forceXNormal = d3.forceY(function (d) {
-      return -2 * width;
-    }).strength(0.02);
-
     var forceYNormal = d3.forceY(function (d) {
       return height / 2;
-    }).strength(0.02);
-
-    var simulation = d3.forceSimulation().force('x', forceXNormal).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
-      return scales[d.stat](d.num) + 2;
-    }));
+    }).strength(0.03);
 
     var forceXCustom = function forceXCustom(stat) {
       return d3.forceX(function (d) {
@@ -25671,6 +25667,10 @@ var D3Bubble = React.createClass({
         }
       }).strength(0.02);
     };
+
+    var simulation = d3.forceSimulation().force('x', forceXCustom('OBP')).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
+      return scales[d.stat](d.num) + 2;
+    }));
 
     simulation.nodes(data).on('tick', ticked);
 
