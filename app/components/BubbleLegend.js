@@ -33,11 +33,11 @@ const BubbleLegend = React.createClass({
         <br />
         <br />
         <div>
-          <Link to='/'>
-          <button id='backButton' >Back to player selection</button>
-          </Link>
           <Link to='/scatter'>
-          <button>Scatter Plot</button>
+            <button>Scatter Plot</button>
+          </Link>
+          <Link to='/'>
+            <button id='backButton' >Back to player selection</button>
           </Link>
         </div>       
       </div>
