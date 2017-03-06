@@ -8992,7 +8992,7 @@ var D3ScatterCompare = React.createClass({
       var data = this.props.data.map(function (d) {
         return d.data;
       });
-      this.renderChart(data, []);
+      this.renderChart(data, ['OBP']);
     }.bind(this));
   },
   render: function render() {
@@ -9335,9 +9335,9 @@ var ScatterLegend = React.createClass({
   displayName: 'ScatterLegend',
   getInitialState: function getInitialState() {
     return {
-      allStats: [{ name: 'OBP', type: 'average' }, { name: 'SLG', type: 'average' }, { name: 'OPS', type: 'average' }, { name: 'AVG', type: 'average' }, { name: 'K/BB', type: 'average' }, { name: 'AB/HR', type: 'average' }, { name: 'HR', type: 'counting' }, { name: 'RBI', type: 'counting' }, { name: 'H', type: 'counting' }, { name: 'SB', type: 'counting' }, { name: 'CS', type: 'counting' }, { name: 'TB', type: 'counting' }],
+      allStats: [{ name: 'OBP', type: 'average', checked: true }, { name: 'SLG', type: 'average', checked: false }, { name: 'OPS', type: 'average', checked: false }, { name: 'AVG', type: 'average', checked: false }, { name: 'K/BB', type: 'average', checked: false }, { name: 'AB/HR', type: 'average', checked: false }, { name: 'HR', type: 'counting', checked: false }, { name: 'RBI', type: 'counting', checked: false }, { name: 'H', type: 'counting', checked: false }, { name: 'SB', type: 'counting', checked: false }, { name: 'CS', type: 'counting', checked: false }, { name: 'TB', type: 'counting', checked: false }],
       statType: 'average',
-      stats: [],
+      stats: ['OBP'],
       value: this.getUrl(),
       copied: false
     };
@@ -9351,6 +9351,13 @@ var ScatterLegend = React.createClass({
     this.props.clearChart();
   },
   handleCheckClick: function handleCheckClick(e) {
+    if (e.target.value === 'OBP') {
+      var newState = Object.assign([], this.state.allStats);
+      newState.forEach(function (s) {
+        if (s.name === 'OBP') s.checked = false;
+      });
+      this.setState({ allStats: newState });
+    }
     var index = this.state.stats.indexOf(e.target.value);
     var stats = this.state.stats;
     if (index >= 0) {
@@ -9452,6 +9459,7 @@ var ScatterLegend = React.createClass({
           'td',
           null,
           React.createElement('input', {
+            defaultChecked: stat.checked,
             disabled: _this.handleDisabled(stat.name),
             type: 'checkbox',
             value: stat.name,

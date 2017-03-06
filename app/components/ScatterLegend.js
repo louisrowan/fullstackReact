@@ -7,21 +7,21 @@ const ScatterLegend = React.createClass({
   getInitialState(){
     return {
       allStats: [
-        {name: 'OBP', type: 'average'},
-        {name: 'SLG', type: 'average'},
-        {name: 'OPS', type: 'average'},
-        {name: 'AVG', type: 'average'},
-        {name: 'K/BB', type: 'average'},
-        {name: 'AB/HR', type: 'average'},
-        {name: 'HR', type: 'counting'},
-        {name: 'RBI', type: 'counting'},
-        {name: 'H', type: 'counting'},
-        {name: 'SB', type: 'counting'},
-        {name: 'CS', type: 'counting'},
-        {name: 'TB', type: 'counting'}
+        {name: 'OBP', type: 'average', checked: true},
+        {name: 'SLG', type: 'average', checked: false},
+        {name: 'OPS', type: 'average', checked: false},
+        {name: 'AVG', type: 'average', checked: false},
+        {name: 'K/BB', type: 'average', checked: false},
+        {name: 'AB/HR', type: 'average', checked: false},
+        {name: 'HR', type: 'counting', checked: false},
+        {name: 'RBI', type: 'counting', checked: false},
+        {name: 'H', type: 'counting', checked: false},
+        {name: 'SB', type: 'counting', checked: false},
+        {name: 'CS', type: 'counting', checked: false},
+        {name: 'TB', type: 'counting', checked: false}
       ],
       statType: 'average',
-      stats: [],
+      stats: ['OBP'],
       value: this.getUrl(),
       copied: false
     }
@@ -35,6 +35,14 @@ const ScatterLegend = React.createClass({
     this.props.clearChart()
   },
   handleCheckClick(e){
+    if (e.target.value === 'OBP'){
+      var newState = Object.assign([], this.state.allStats)
+      newState.forEach((s) => {
+        if (s.name === 'OBP')
+          s.checked = false
+      })
+     this.setState({ allStats: newState})
+    }
     var index = this.state.stats.indexOf(e.target.value)
     var stats = this.state.stats
     if (index >= 0){
@@ -83,6 +91,7 @@ const ScatterLegend = React.createClass({
         <tr key={stat.name}>
           <td>
             <input
+              defaultChecked={stat.checked}
               disabled={this.handleDisabled(stat.name)}
               type='checkbox'
               value={stat.name}
