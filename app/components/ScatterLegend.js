@@ -148,9 +148,6 @@ const ScatterLegend = React.createClass({
             <CopyToClipboard text={this.state.value} onCopy={this.onCopy} >
             <button>Copy Chart URL</button>
             </CopyToClipboard>
-          </div>
-          <br />
-          <div>
             <Link to='/bubble'>
               <button>Bubble Chart</button>
             </Link>

@@ -18,7 +18,7 @@
   pointer-events: all;
   z-index: 1;
   height: 100vh;
-  background: whitesmoke;
+  background: green;
   padding: 10px 10px;
   box-sizing: border-box;
 }
@@ -30,6 +30,15 @@
   margin: 10px 0px 10px;
   width: 225px;
   padding-bottom: 10px;
+}
+
+#d3BubbleDiv #bubblePlayerLegend {
+  background: white;
+  border: 1px solid black;
+}
+
+#d3BubbleDiv #bubblePlayerLegend th{
+  font-size: 20px;
 }
 
 #d3BubbleDiv table {
@@ -64,6 +73,5 @@
 }
 
 .bubbleActive {
-  background: green;
-  box-shadow: 2px 2px 2px black inset;
+  background: rgba(89, 219, 57, .8);
 }

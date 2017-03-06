@@ -5,13 +5,13 @@ const { Link } = require('react-router')
 const BubbleLegend = React.createClass({
   render(){
     var statsSelector = this.props.stats.map((stat) => {
-      var green;
+      var color;
       if (stat === 'OBP') {
-        green = 'bubbleActive'
+        color = 'bubbleActive'
       } else {
-        green = ''
+        color = ''
       }
-      return <tr key={stat}><td><button className={'d3BubbleButtons ' + green} id={stat}>{stat}</button></td></tr>
+      return <tr key={stat}><td><button className={'d3BubbleButtons ' + color} id={stat}>{stat}</button></td></tr>
     })
 
     var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{Util.capitalize(p)}</td></tr>)
@@ -26,7 +26,7 @@ const BubbleLegend = React.createClass({
           </table>
         </div>
         <br />
-        <div>
+        <div id='bubblePlayerLegend'>
           <table>
             <tbody>
               <tr>
