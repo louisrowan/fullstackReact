@@ -19,6 +19,7 @@
   z-index: 1;
   height: 100vh;
   background: green;
+  border-right: 1px solid black;
   padding: 10px 10px;
   box-sizing: border-box;
 }
@@ -37,7 +38,7 @@
   border: 1px solid black;
 }
 
-#d3BubbleDiv #bubblePlayerLegend th{
+#d3BubbleDiv #bubblePlayerLegend th {
   font-size: 20px;
 }
 
