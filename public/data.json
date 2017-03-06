@@ -1,8 +1,12 @@
 {
   "images": [
     {
+      "url": "./images/gif4.gif",
+      "text": "Easily compare highs and lows with the Interactive Bubble Chart"
+    },
+    {
       "url": "./images/img1.JPG",
-      "text": "Comparing Bonds and Ruth's HR rates"
+      "text": "Comparing Bonds' and Ruth's HR rates"
     },
     {
       "url": "./images/img2.JPG",
@@ -20,7 +24,6 @@
       "url": "./images/gif3.gif",
       "text": "Predictive text saves you some keystrokes if your desired player has been searched for lately"
     }
-    
   ],
   "arrow": "./images/arrow.png"
 }

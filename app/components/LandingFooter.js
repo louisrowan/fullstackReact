@@ -15,10 +15,10 @@ const LandingFooter = React.createClass({
     site = site.getBoundingClientRect().top
     var dev = document.getElementById('aboutDev')
     dev = dev.getBoundingClientRect().top
-    if (window.scrollY > site + 800){
+    if (window.scrollY > site + 600){
       this.setState({ aboutSite: ''})
     }
-    if (window.scrollY > dev + 800){
+    if (window.scrollY > dev + 600){
       this.setState({ aboutDev: ''})
       window.removeEventListener('scroll', this.handleScroll)
     }
