@@ -15,17 +15,16 @@ const LandingFooter = React.createClass({
     site = site.getBoundingClientRect().top
     var dev = document.getElementById('aboutDev')
     dev = dev.getBoundingClientRect().top
-    if (window.scrollY > site + 600){
+    if (site - window.innerHeight < -75 ){
       this.setState({ aboutSite: ''})
     }
-    if (window.scrollY > dev + 600){
+    if (dev - window.innerHeight < -75){
       this.setState({ aboutDev: ''})
       window.removeEventListener('scroll', this.handleScroll)
     }
   },
   componentWillUnmount(){
     window.removeEventListener('scroll', this.handleScroll)
-
   },
   render(){
     return (
@@ -34,10 +33,10 @@ const LandingFooter = React.createClass({
 
         <div id='aboutSite' className={'footerDiv ' + this.state.aboutSite}>
           <p>
-            This site scrapes all data from <a target='_blank' href='http://www.thebaseballcube.com/'>The Baseball Cube</a>. Each requested player page is then parsed into a data structure that can then be used to be displayed in D3 charts.
+            This site scrapes all data from <a target='_blank' href='http://www.thebaseballcube.com/'>theBaseballCube</a>. Each requested player page is then parsed into a data structure that can then be used to be displayed in D3 charts.
           </p>
           <p>
-            Data from anybody who played in a major league baseball game, from the 1800s to now, can be accessed.
+            Data from anybody who played in a major league baseball game, from the 1800s to now, can be accessed. I wrote a blog post <a target='_blank' href='http://www.louisrowan.com/#/blog/mlbgraphs'>here</a> detailing how I implemented certain features on the site, be sure to check it out!
           </p>
         </div>
 

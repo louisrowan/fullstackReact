@@ -19,7 +19,7 @@ const LandingBackground = React.createClass({
   showCarousel(){
     var carousel = document.getElementById('carouselContainer')
     carousel = carousel.getBoundingClientRect().top
-    if (window.scrollY > carousel + 100){
+    if (carousel - window.innerHeight < -300){
       this.setState({ carouselHidden: ''})
       window.addEventListener('scroll', this.showCarousel)
     }
