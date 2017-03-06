@@ -471,6 +471,10 @@ text {
   font-size: 22px;
 }
 
+#formContainer #inputNew:not(:focus) {
+  cursor: pointer;
+}
+
 #formContainer .inputPlus {
   position: absolute;
   color: green;
@@ -479,6 +483,14 @@ text {
   border: none;
   background: transparent;
   outline: none;
+}
+
+#formContainer form:invalid .inputPlus {
+  color: gray;
+}
+
+#formContainer form:invalid .inputPlus:hover {
+  cursor: not-allowed;
 }
 
 #formContainer .inputPlus:hover {
