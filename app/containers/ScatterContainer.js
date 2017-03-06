@@ -11,7 +11,8 @@ const ScatterContainer = React.createClass({
       chartReady: false,
       newPlayer: '',
       error: false,
-      multipleResults: ''
+      multipleResults: '',
+      searching: false
     }
   },
   handleSubmit(e){
@@ -31,11 +32,13 @@ const ScatterContainer = React.createClass({
   },
   getPlayerData(name){
     var player = name || this.state.newPlayer
+    this.setState({ searching: true, error: false })
     $.ajax({
       url: '/api/baseball',
       type: 'post',
       data: { player: player.toLowerCase()}
     }).done((data) => {
+      this.setState({ searching: false })
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
       } else if (data.length === 1) {
@@ -43,7 +46,7 @@ const ScatterContainer = React.createClass({
         let players = [...this.state.players, data.name]
         data = [...this.state.data, data]
   
-        this.setState({ data, players, newPlayer: '', error: false, chartReady: true })
+        this.setState({ data, players, newPlayer: '', chartReady: true })
       } else {
         this.setState({ multipleResults: data })
       }
@@ -91,7 +94,7 @@ const ScatterContainer = React.createClass({
   render(){
     return (
       <div id='d3LayoutDiv'>
-        {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit, multipleResults: this.state.multipleResults, handleMultipleClick: this.handleMultipleClick })}
+        {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit, multipleResults: this.state.multipleResults, handleMultipleClick: this.handleMultipleClick, searching: this.state.searching })}
       </div>
     )
   }

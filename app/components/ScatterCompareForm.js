@@ -2,6 +2,7 @@ const React = require('react')
 const LandingBackground = require('./LandingBackground')
 const LandingFooter = require('./LandingFooter')
 const MainHeader = require('./MainHeader')
+const Searching = require('./Searching')
 const Util = require('../../util/Util')
 const $ = require('jquery')
 const { Link } = require('react-router')
@@ -61,6 +62,13 @@ const ScatterCompareForm = React.createClass({
       error = ''
     }
 
+    var searching;
+    if (this.props.searching){
+      searching = <Searching />
+    } else {
+      searching = ''
+    }
+
 
     var multipleResults;
     if (this.props.multipleResults){
@@ -110,6 +118,7 @@ const ScatterCompareForm = React.createClass({
             </form>
             {max}
             {error}
+            {searching}
             {multipleResults}
             <br />
             <Link to='/scatter'>

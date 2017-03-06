@@ -9028,6 +9028,7 @@ var React = __webpack_require__(5);
 var LandingBackground = __webpack_require__(132);
 var LandingFooter = __webpack_require__(133);
 var MainHeader = __webpack_require__(134);
+var Searching = __webpack_require__(273);
 var Util = __webpack_require__(32);
 var $ = __webpack_require__(85);
 
@@ -9143,6 +9144,13 @@ var ScatterCompareForm = React.createClass({
       );
     } else {
       error = '';
+    }
+
+    var searching;
+    if (this.props.searching) {
+      searching = React.createElement(Searching, null);
+    } else {
+      searching = '';
     }
 
     var multipleResults;
@@ -9269,6 +9277,7 @@ var ScatterCompareForm = React.createClass({
           ),
           max,
           error,
+          searching,
           multipleResults,
           React.createElement('br', null),
           React.createElement(
@@ -26020,7 +26029,8 @@ var ScatterContainer = React.createClass({
       chartReady: false,
       newPlayer: '',
       error: false,
-      multipleResults: ''
+      multipleResults: '',
+      searching: false
     };
   },
   handleSubmit: function handleSubmit(e) {
@@ -26040,11 +26050,13 @@ var ScatterContainer = React.createClass({
     var _this = this;
 
     var player = name || this.state.newPlayer;
+    this.setState({ searching: true, error: false });
     $.ajax({
       url: '/api/baseball',
       type: 'post',
       data: { player: player.toLowerCase() }
     }).done(function (data) {
+      _this.setState({ searching: false });
       if (data.length === 0) {
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
       } else if (data.length === 1) {
@@ -26052,7 +26064,7 @@ var ScatterContainer = React.createClass({
         var players = [].concat(_toConsumableArray(_this.state.players), [data.name]);
         data = [].concat(_toConsumableArray(_this.state.data), [data]);
 
-        _this.setState({ data: data, players: players, newPlayer: '', error: false, chartReady: true });
+        _this.setState({ data: data, players: players, newPlayer: '', chartReady: true });
       } else {
         _this.setState({ multipleResults: data });
       }
@@ -26105,7 +26117,7 @@ var ScatterContainer = React.createClass({
     return React.createElement(
       'div',
       { id: 'd3LayoutDiv' },
-      React.cloneElement(this.props.children, (_React$cloneElement = { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', this.state.multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _React$cloneElement))
+      React.cloneElement(this.props.children, (_React$cloneElement = { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', this.state.multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _defineProperty(_React$cloneElement, 'searching', this.state.searching), _React$cloneElement))
     );
   }
 });
@@ -41084,6 +41096,61 @@ module.exports = function () {
 
 module.exports = __webpack_require__(129);
 
+
+/***/ }),
+/* 272 */,
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+
+var Searching = React.createClass({
+  displayName: 'Searching',
+  getInitialState: function getInitialState() {
+    return {
+      text: '',
+      content: '...',
+      index: 0,
+      interval: ''
+    };
+  },
+  componentDidMount: function componentDidMount() {
+    var _this = this;
+
+    var interval = setInterval(function () {
+      var _state = _this.state,
+          index = _state.index,
+          content = _state.content;
+
+      var newIndex = void 0;
+      if (index >= content.length) {
+        newIndex = 0;
+      } else {
+        newIndex = index + 1;
+      }
+      _this.setState({ text: content.slice(0, newIndex), index: newIndex });
+    }, 200);
+    this.setState({ interval: interval });
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    clearInterval(this.state.interval);
+  },
+  render: function render() {
+    var text = this.state.text;
+
+    return React.createElement(
+      'p',
+      null,
+      'Searching',
+      text
+    );
+  }
+});
+
+module.exports = Searching;
 
 /***/ })
 /******/ ]);
