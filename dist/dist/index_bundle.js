@@ -25452,6 +25452,8 @@ var BubbleLegend = React.createClass({
       var green;
       if (stat === 'OBP') {
         green = 'bubbleActive';
+      } else {
+        green = '';
       }
       return React.createElement(
         'tr',
@@ -25630,7 +25632,7 @@ var D3Bubble = React.createClass({
 
     var circles = d3.selectAll('.d3Bubble').append('circle').attr('r', function (d) {
       return scales[d.stat](d.num);
-    }).attr('cx', -200).attr('cy', -200).style('stroke', 'black').style('stroke-width', '1px').style('fill', function (d) {
+    }).attr('cx', 400).attr('cy', 400).style('stroke', 'black').style('stroke-width', '1px').style('fill', function (d) {
       var index = players.indexOf(d.name);
       if (index === 0) {
         return 'red';

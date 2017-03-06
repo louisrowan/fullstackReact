@@ -74,8 +74,8 @@ const D3Bubble = React.createClass({
     var circles = d3.selectAll('.d3Bubble')
       .append('circle')
       .attr('r', (d) => scales[d.stat](d.num))
-      .attr('cx', -200)
-      .attr('cy', -200)
+      .attr('cx', 400)
+      .attr('cy', 400)
       .style('stroke', 'black')
       .style('stroke-width', '1px')
       .style('fill', (d) => {

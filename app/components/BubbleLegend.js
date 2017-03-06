@@ -8,6 +8,8 @@ const BubbleLegend = React.createClass({
       var green;
       if (stat === 'OBP') {
         green = 'bubbleActive'
+      } else {
+        green = ''
       }
       return <tr key={stat}><td><button className={'d3BubbleButtons ' + green} id={stat}>{stat}</button></td></tr>
     })
