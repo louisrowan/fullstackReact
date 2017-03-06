@@ -291,11 +291,11 @@ text {
 }
 
 #carouselContainer .Larrow:hover {
-  border-right: 40px solid green;
+  border-right: 40px solid #403075;;
 }
 
 #carouselContainer .Rarrow:hover {
-  border-left: 40px solid green;
+  border-left: 40px solid #403075;;
 }
 
 
@@ -321,6 +321,37 @@ text {
 #mainHeaderDiv h3 {
   padding: 3px;
   font-size: 26px;
+}
+
+#mainHeaderDiv #downArrowImg {
+  position: absolute;
+  bottom: 0px;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  animation: bounce 2s infinite;
+}
+
+#mainHeaderDiv .hideArrow {
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+#mainHeaderDiv #downArrowImg:hover {
+  cursor: pointer;
+}
+
+#formContainer {
+  min-height: 500px;
 }
 
 #formContainer div {
@@ -384,14 +415,14 @@ text {
   padding: 5px;
 }
 
-#showChartButton {
+.showChartButton {
   padding: 10px;
   font-size: 20px;
   width: 250px;
-  margin: 100px auto 200px;
+  margin: 5px auto;
 }
 
-#showChartButton:hover:enabled {
+.showChartButton:hover:enabled {
   cursor: pointer;
 }
 
@@ -508,7 +539,7 @@ text {
   margin: auto;
   padding: 20px;
   background: white;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 30px;
   background: rgba(89, 219, 57, .8);
 }

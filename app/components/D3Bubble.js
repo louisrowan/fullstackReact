@@ -4,7 +4,7 @@ const Util = require('../../util/Util')
 const D3Bubble = React.createClass({
   getInitialState(){
     return {
-      height: 600,
+      height: 700,
       width: 1100
     }
   },

@@ -2,6 +2,7 @@ const React = require('react')
 const LandingBackground = require('./LandingBackground')
 const LandingFooter = require('./LandingFooter')
 const Util = require('../../util/Util')
+const icon = require('json-loader!../../public/data.json').arrow
 const $ = require('jquery')
 const { Link } = require('react-router')
 
@@ -9,17 +10,32 @@ const ScatterCompareForm = React.createClass({
   getInitialState(){
     return {
       databaseResults: [],
+      arrow: ''
     }
   },
   componentDidMount(){
-      $.ajax({
-        url: '/api/baseball',
-      }).done((data) => {
-        var databaseResults = data.filter((d) => d.name !== null).map((d) => d.name)
-        this.setState({ databaseResults })
-      }).fail((fail) => {
-        console.log('fail', fail)
-      })
+    window.addEventListener('scroll', this.showArrow)
+    $.ajax({
+      url: '/api/baseball',
+    }).done((data) => {
+      var databaseResults = data.filter((d) => d.name !== null).map((d) => d.name)
+      this.setState({ databaseResults })
+    }).fail((fail) => {
+      console.log('fail', fail)
+    })
+  },
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.showArrow)
+  },
+  showArrow(){
+    if (window.scrollY > 300 && this.state.arrow === '') {
+      this.setState({ arrow: 'hideArrow'})
+      window.removeEventListener('scroll', this.showArrow)
+    }
+  },
+  arrowClick(){
+    window.scrollTo(0, 800)
+    console.log('clicked')
   },
   render(){
     var playerList;
@@ -82,6 +98,11 @@ const ScatterCompareForm = React.createClass({
           <h1>MLB Graphs</h1>
           <h3>Built by Louis Rowan</h3>
           <h3>Data scraped from theBaseballCube.com</h3>
+          <img
+            onClick={this.arrowClick}
+            id='downArrowImg'
+            src={icon}
+            className={this.state.arrow} />
         </div>
 
 
@@ -120,11 +141,19 @@ const ScatterCompareForm = React.createClass({
             {max}
             {error}
             {multipleResults}
+            <br />
             <Link to='/scatter'>
             <input type='submit' 
-              id='showChartButton'
+              className='showChartButton'
               disabled={!this.props.chartReady || this.props.players.length < 1}
-            value='Show Chart' />
+            value='Scatter Plot' />
+            </Link>
+            <br />
+            <Link to='/bubble'>
+            <input type='submit'
+              className='showChartButton'
+              disabled={!this.props.chartReady || this.props.players.length < 1}
+            value='Bubble Chart' />
             </Link>
           </div>
           <div>

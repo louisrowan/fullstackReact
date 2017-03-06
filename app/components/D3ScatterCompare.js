@@ -189,8 +189,8 @@ const D3ScatterCompare = React.createClass({
           rHeight = (+d3.select(this).attr('y') + (+d3.select(this).attr('height')/2))
         }
         d3.selectAll('.toolTipDiv')
-          .style('left', +rWidth + 88 + 'px')
-          .style('top', +rHeight - 50 + 'px')
+          .style('left', +rWidth + 350 + 'px')
+          .style('top', +rHeight - 55 + 'px')
           .html(`<p>${Util.capitalize(player)}:</p><p>${statNum} ${statName} in year ${statYear}</p>`)
           .style('opacity', 1)
           .style('z-index', 10)
