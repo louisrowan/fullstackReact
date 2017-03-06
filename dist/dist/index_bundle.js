@@ -9027,8 +9027,8 @@ module.exports = D3ScatterCompare;
 var React = __webpack_require__(5);
 var LandingBackground = __webpack_require__(130);
 var LandingFooter = __webpack_require__(131);
+var MainHeader = __webpack_require__(271);
 var Util = __webpack_require__(36);
-var icon = __webpack_require__(160).arrow;
 var $ = __webpack_require__(85);
 
 var _require = __webpack_require__(43),
@@ -9038,14 +9038,11 @@ var ScatterCompareForm = React.createClass({
   displayName: 'ScatterCompareForm',
   getInitialState: function getInitialState() {
     return {
-      databaseResults: [],
-      arrow: ''
+      databaseResults: []
     };
   },
   componentDidMount: function componentDidMount() {
     var _this = this;
-
-    window.addEventListener('scroll', this.showArrow);
 
     $.ajax({
       url: '/api/baseball'
@@ -9059,18 +9056,6 @@ var ScatterCompareForm = React.createClass({
     }).fail(function (fail) {
       console.log('fail', fail);
     });
-  },
-  componentWillUnmount: function componentWillUnmount() {
-    window.removeEventListener('scroll', this.showArrow);
-  },
-  showArrow: function showArrow() {
-    if (window.scrollY > 300 && this.state.arrow === '') {
-      this.setState({ arrow: 'hideArrow' });
-      window.removeEventListener('scroll', this.showArrow);
-    }
-  },
-  arrowClick: function arrowClick() {
-    window.scrollTo(0, 800);
   },
   render: function render() {
     var _this2 = this;
@@ -9224,30 +9209,7 @@ var ScatterCompareForm = React.createClass({
     return React.createElement(
       'div',
       { id: 'landingContainer' },
-      React.createElement(
-        'div',
-        { id: 'mainHeaderDiv' },
-        React.createElement(
-          'h1',
-          null,
-          'MLB Graphs'
-        ),
-        React.createElement(
-          'h3',
-          null,
-          'Built by Louis Rowan'
-        ),
-        React.createElement(
-          'h3',
-          null,
-          'Data scraped from theBaseballCube.com'
-        ),
-        React.createElement('img', {
-          onClick: this.arrowClick,
-          id: 'downArrowImg',
-          src: icon,
-          className: this.state.arrow })
-      ),
+      React.createElement(MainHeader, null),
       React.createElement(
         'div',
         { id: 'formContainer' },
@@ -26132,7 +26094,7 @@ exports = module.exports = __webpack_require__(44)();
 
 
 // module
-exports.push([module.i, "/*scatter container start ------------------*/\r\n\r\n#scatterContainer {\r\n\r\n}\r\n\r\n\r\n\r\n\r\n/*scatter container end ------------------*/\r\n\r\n\r\n/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n\r\n.d3SVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  min-width: 1100px;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n.toolTipDiv {\r\n  background: black;\r\n  color: white;\r\n  border-radius: 3px;\r\n  padding: 3px;\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\r\n  text-align: center;\r\n}\r\n\r\n.toolTipDiv:after {\r\n  content: '';\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 10px solid black;\r\n  position: absolute;\r\n  left: 2px;\r\n  bottom: -20px;\r\n}\r\n\r\n.toolTipDiv p {\r\n  padding: 0;\r\n  margin: 3px;\r\n}\r\n\r\n.moveableRect {\r\n  pointer-events: none;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: whitesmoke;\r\n  padding: 20px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv input[type='checkbox'] {\r\n    width: 25px;\r\n    height: 25px;\r\n    background: white;\r\n    border-radius: 5px;\r\n    border: 2px solid #555;\r\n}\r\n\r\n#d3LegendDiv button:hover, #d3LegendDiv input:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  width: 225px;\r\n  margin: auto;\r\n  border: 1px solid black;\r\n  padding: 0px;\r\n  background: whitesmoke;\r\n  overflow: hidden;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv {\r\n  float: left;\r\n  width: 50%;\r\n  height: 100%;\r\n  box-sizing: border-box;\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv th {\r\n  border: none;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv th span {\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  background: whitesmoke;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  background: white;\r\n}\r\n\r\n#d3LegendDiv #maxMetricsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#d3LegendDiv .playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n#d3LegendDiv .playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n#d3LegendDiv .playerKey2 {\r\n  color: rgb(5, 183, 35);\r\n}\r\n\r\n#d3LegendDiv .keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n#d3LegendDiv .keySymbolDiv {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n#d3LegendDiv .keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#landingContainer {\r\n/*  height: 100vh;\r\n  width: 100%;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  position: relative;*/\r\n  background: white;\r\n}\r\n\r\n\r\n\r\n/*start landing carousel -------------------*/\r\n\r\n#carouselContainer {\r\n  height: 800px;\r\n  width: 100%;\r\n  position: relative;\r\n  float: none;\r\n  background: rgba(89, 219, 57, .8);\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv {\r\n  height: 700px;\r\n  width: 80%;\r\n  margin: auto;\r\n  border: 5px solid black;\r\n  overflow: hidden;\r\n  transition: opacity 400ms linear;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv img {\r\n  height: 500px;\r\n  width: 100%;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv h1 {\r\n  background: white;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 50px;\r\n  height: 200px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#carouselContainer .arrow {\r\n  position: absolute;\r\n  top: 45%;\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 40px solid transparent;\r\n}\r\n\r\n#carouselContainer .arrow:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#carouselContainer .Larrow {\r\n  left: 5px;\r\n  border-right: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Rarrow {\r\n  right: 5px;\r\n  border-left: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Larrow:hover {\r\n  border-right: 40px solid #403075;;\r\n}\r\n\r\n#carouselContainer .Rarrow:hover {\r\n  border-left: 40px solid #403075;;\r\n}\r\n\r\n\r\n\r\n\r\n/*end landing carousel ------------------*/\r\n\r\n#mainHeaderDiv {\r\n  width: 100%;\r\n  height: 800px;\r\n  text-align: center;\r\n  position: relative;\r\n  background: rgba(89, 219, 57, .8);\r\n}\r\n\r\n#mainHeaderDiv h1 {\r\n  padding: 40px;\r\n  padding-top: 250px;\r\n  font-size: 60px;\r\n  margin: auto;\r\n}\r\n\r\n#mainHeaderDiv h3 {\r\n  padding: 3px;\r\n  font-size: 26px;\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg {\r\n  position: absolute;\r\n  bottom: 0px;\r\n  margin: auto;\r\n  width: 50px;\r\n  height: 50px;\r\n  animation: bounce 2s infinite;\r\n}\r\n\r\n#mainHeaderDiv .hideArrow {\r\n  opacity: 0;\r\n  transition: opacity 300ms linear;\r\n}\r\n\r\n@keyframes bounce {\r\n  0% {\r\n    transform: translateY(0);\r\n  }\r\n  50% {\r\n    transform: translateY(-20px);\r\n  }\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer {\r\n  min-height: 500px;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer #formH3Div {\r\n  width: 100%;\r\n  display: block;\r\n  height: 150px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer #noResultsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.showChartButton {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  width: 250px;\r\n  margin: 5px auto;\r\n}\r\n\r\n.showChartButton:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n#formContainer #inputNew {\r\n  outline: none;\r\n  border: none;\r\n  border-bottom: 2px solid black;\r\n  text-align: center;\r\n  margin-bottom: 5px;\r\n  background: rgba(255,255,255,.8);\r\n  color: green;\r\n  font-size: 22px;\r\n}\r\n\r\n#formContainer .inputPlus {\r\n  position: absolute;\r\n  color: green;\r\n  font-size: 30px;\r\n  font-weight: bold;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n}\r\n\r\n#formContainer .inputPlus:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer #mainInputSpan {\r\n  position: relative;\r\n}\r\n\r\n#formContainer #mainInputSpan #mainInputPlaceholder {\r\n  position: absolute;\r\n  left: 20%;\r\n  bottom: -5px;\r\n  pointer-events: none;\r\n  transition: all 500ms;\r\n  color: green;\r\n  font-size: 24px;\r\n}\r\n\r\n#formContainer #inputNew:invalid {\r\n  box-shadow: none;\r\n}\r\n\r\n#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {\r\n  font-size: 12px;\r\n  left: 5px;\r\n  bottom: 30px;\r\n  transition: all 500ms;\r\n  color: black;\r\n}\r\n\r\n#formContainer #inputNew:focus {\r\n  border-bottom: 4px solid black;\r\n  transition: border 400ms;\r\n}\r\n\r\n#formContainer #inputNew:disabled + #mainInputPlaceholder {\r\n  opacity: 0;\r\n}\r\n\r\n#formContainer #multipleResultsDiv {\r\n  position: fixed;\r\n  min-height: 200px;\r\n  width: 500px;\r\n  background: white;\r\n  border-radius: 5px;\r\n  margin: auto;\r\n  top: 300px;\r\n  z-index: 10;\r\n  box-shadow: 0px 0px 5px black;\r\n  display: block;\r\n  float: none;\r\n  padding: 20px;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table,  #formContainer #multipleResultsDiv tr{\r\n  width: 100%;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table tr:not(:first-child):hover {\r\n  cursor: pointer;\r\n  background: whitesmoke;\r\n}\r\n\r\n#formContainer #multipleResultsDiv td {\r\n  font-size: 18px;\r\n  padding: 10px 5px;\r\n}\r\n/*end player selection ---------------------------*/\r\n\r\n/*start landing footer -------------------*/\r\n\r\n#landingFooterContainer {\r\n  clear: both;\r\n  width: 100%;\r\n  background: white;\r\n  overflow: hidden;\r\n  padding-bottom: 100px;\r\n}\r\n\r\n#landingFooterContainer .footerDiv {\r\n  border-radius: 10px;\r\n  width: 75%;\r\n  margin: auto;\r\n  padding: 20px;\r\n  background: white;\r\n  font-size: 18px;\r\n  line-height: 30px;\r\n  background: rgba(89, 219, 57, .8);\r\n  transition: opacity 400ms linear;\r\n}\r\n\r\n#landingFooterContainer h1 {\r\n  padding: 30px 0px 20px;\r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*end landing footer --------------------*/", ""]);
+exports.push([module.i, "/*scatter container start ------------------*/\r\n\r\n#scatterContainer {\r\n\r\n}\r\n\r\n\r\n\r\n\r\n/*scatter container end ------------------*/\r\n\r\n\r\n/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n\r\n.d3SVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  min-width: 1100px;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n.toolTipDiv {\r\n  background: black;\r\n  color: white;\r\n  border-radius: 3px;\r\n  padding: 3px;\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\r\n  text-align: center;\r\n}\r\n\r\n.toolTipDiv:after {\r\n  content: '';\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 10px solid black;\r\n  position: absolute;\r\n  left: 2px;\r\n  bottom: -20px;\r\n}\r\n\r\n.toolTipDiv p {\r\n  padding: 0;\r\n  margin: 3px;\r\n}\r\n\r\n.moveableRect {\r\n  pointer-events: none;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: whitesmoke;\r\n  padding: 20px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv input[type='checkbox'] {\r\n    width: 25px;\r\n    height: 25px;\r\n    background: white;\r\n    border-radius: 5px;\r\n    border: 2px solid #555;\r\n}\r\n\r\n#d3LegendDiv button:hover, #d3LegendDiv input:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  width: 225px;\r\n  margin: auto;\r\n  border: 1px solid black;\r\n  padding: 0px;\r\n  background: whitesmoke;\r\n  overflow: hidden;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv {\r\n  float: left;\r\n  width: 50%;\r\n  height: 100%;\r\n  box-sizing: border-box;\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv th {\r\n  border: none;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv th span {\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  background: whitesmoke;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  background: white;\r\n}\r\n\r\n#d3LegendDiv #maxMetricsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#d3LegendDiv .playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n#d3LegendDiv .playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n#d3LegendDiv .playerKey2 {\r\n  color: rgb(5, 183, 35);\r\n}\r\n\r\n#d3LegendDiv .keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n#d3LegendDiv .keySymbolDiv {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n#d3LegendDiv .keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#landingContainer {\r\n/*  height: 100vh;\r\n  width: 100%;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  position: relative;*/\r\n  background: white;\r\n}\r\n\r\n\r\n\r\n/*start landing carousel -------------------*/\r\n\r\n#carouselContainer {\r\n  height: 800px;\r\n  width: 100%;\r\n  position: relative;\r\n  float: none;\r\n  background: rgba(89, 219, 57, .8);\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv {\r\n  height: 700px;\r\n  width: 80%;\r\n  margin: auto;\r\n  border: 5px solid black;\r\n  overflow: hidden;\r\n  transition: opacity 400ms linear;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv img {\r\n  height: 500px;\r\n  width: 100%;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv h1 {\r\n  background: white;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 50px;\r\n  height: 200px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#carouselContainer .arrow {\r\n  position: absolute;\r\n  top: 45%;\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 40px solid transparent;\r\n}\r\n\r\n#carouselContainer .arrow:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#carouselContainer .Larrow {\r\n  left: 5px;\r\n  border-right: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Rarrow {\r\n  right: 5px;\r\n  border-left: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Larrow:hover {\r\n  border-right: 40px solid #403075;;\r\n}\r\n\r\n#carouselContainer .Rarrow:hover {\r\n  border-left: 40px solid #403075;;\r\n}\r\n\r\n\r\n\r\n\r\n/*end landing carousel ------------------*/\r\n\r\n#mainHeaderDiv {\r\n  width: 100%;\r\n  height: 800px;\r\n  text-align: center;\r\n  position: relative;\r\n  background: rgba(89, 219, 57, .8);\r\n}\r\n\r\n.headerAppearDown-appear {\r\n  transform: translateY(-100px);\r\n  opacity: 0;\r\n}\r\n\r\n.headerAppearDown-appear-active {\r\n  transform: translateY(0px);\r\n  opacity: 1;\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n.headerAppearUp-appear {\r\n  opacity: 0;\r\n  transform: translateY(100px);\r\n}\r\n\r\n.headerAppearUp-appear-active {\r\n  opacity: 1;\r\n  transform: translateY(0px);\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n#mainHeaderDiv h1 {\r\n  padding: 40px;\r\n  padding-top: 250px;\r\n  font-size: 60px;\r\n  margin: auto;\r\n}\r\n\r\n#mainHeaderDiv h3 {\r\n  padding: 3px;\r\n  font-size: 26px;\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg {\r\n  position: absolute;\r\n  bottom: 0px;\r\n  margin: auto;\r\n  width: 50px;\r\n  height: 50px;\r\n  animation: bounce 2s infinite;\r\n}\r\n\r\n#mainHeaderDiv .hideArrow {\r\n  opacity: 0;\r\n  transition: opacity 300ms linear;\r\n}\r\n\r\n@keyframes bounce {\r\n  0% {\r\n    transform: translateY(0);\r\n  }\r\n  50% {\r\n    transform: translateY(-20px);\r\n  }\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer {\r\n  min-height: 500px;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer #formH3Div {\r\n  width: 100%;\r\n  display: block;\r\n  height: 150px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer #noResultsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.showChartButton {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  width: 250px;\r\n  margin: 5px auto;\r\n}\r\n\r\n.showChartButton:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n#formContainer #inputNew {\r\n  outline: none;\r\n  border: none;\r\n  border-bottom: 2px solid black;\r\n  text-align: center;\r\n  margin-bottom: 5px;\r\n  background: rgba(255,255,255,.8);\r\n  color: green;\r\n  font-size: 22px;\r\n}\r\n\r\n#formContainer .inputPlus {\r\n  position: absolute;\r\n  color: green;\r\n  font-size: 30px;\r\n  font-weight: bold;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n}\r\n\r\n#formContainer .inputPlus:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer #mainInputSpan {\r\n  position: relative;\r\n}\r\n\r\n#formContainer #mainInputSpan #mainInputPlaceholder {\r\n  position: absolute;\r\n  left: 20%;\r\n  bottom: -5px;\r\n  pointer-events: none;\r\n  transition: all 500ms;\r\n  color: green;\r\n  font-size: 24px;\r\n}\r\n\r\n#formContainer #inputNew:invalid {\r\n  box-shadow: none;\r\n}\r\n\r\n#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {\r\n  font-size: 12px;\r\n  left: 5px;\r\n  bottom: 30px;\r\n  transition: all 500ms;\r\n  color: black;\r\n}\r\n\r\n#formContainer #inputNew:focus {\r\n  border-bottom: 4px solid black;\r\n  transition: border 400ms;\r\n}\r\n\r\n#formContainer #inputNew:disabled + #mainInputPlaceholder {\r\n  opacity: 0;\r\n}\r\n\r\n#formContainer #multipleResultsDiv {\r\n  position: fixed;\r\n  min-height: 200px;\r\n  width: 500px;\r\n  background: white;\r\n  border-radius: 5px;\r\n  margin: auto;\r\n  top: 300px;\r\n  z-index: 10;\r\n  box-shadow: 0px 0px 5px black;\r\n  display: block;\r\n  float: none;\r\n  padding: 20px;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table,  #formContainer #multipleResultsDiv tr{\r\n  width: 100%;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table tr:not(:first-child):hover {\r\n  cursor: pointer;\r\n  background: whitesmoke;\r\n}\r\n\r\n#formContainer #multipleResultsDiv td {\r\n  font-size: 18px;\r\n  padding: 10px 5px;\r\n}\r\n/*end player selection ---------------------------*/\r\n\r\n/*start landing footer -------------------*/\r\n\r\n#landingFooterContainer {\r\n  clear: both;\r\n  width: 100%;\r\n  background: white;\r\n  overflow: hidden;\r\n  padding-bottom: 100px;\r\n}\r\n\r\n#landingFooterContainer .footerDiv {\r\n  border-radius: 10px;\r\n  width: 75%;\r\n  margin: auto;\r\n  padding: 20px;\r\n  background: white;\r\n  font-size: 18px;\r\n  line-height: 30px;\r\n  background: rgba(89, 219, 57, .8);\r\n  transition: opacity 400ms linear;\r\n  font-family: 'Lato', sans-serif;\r\n}\r\n\r\n#landingFooterContainer h1 {\r\n  padding: 30px 0px 20px;\r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*end landing footer --------------------*/", ""]);
 
 // exports
 
@@ -41030,6 +40992,87 @@ module.exports = function () {
 
 module.exports = __webpack_require__(127);
 
+
+/***/ }),
+/* 271 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+var icon = __webpack_require__(160).arrow;
+var ReactCSSTransitionGroup = __webpack_require__(162);
+
+var MainHeader = React.createClass({
+  displayName: 'MainHeader',
+  getInitialState: function getInitialState() {
+    return {
+      arrow: ''
+    };
+  },
+  componentDidMount: function componentDidMount() {
+    window.addEventListener('scroll', this.showArrow);
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    window.removeEventListener('scroll', this.showArrow);
+  },
+  showArrow: function showArrow() {
+    if (window.scrollY > 300 && this.state.arrow === '') {
+      this.setState({ arrow: 'hideArrow' });
+      window.removeEventListener('scroll', this.showArrow);
+    }
+  },
+  arrowClick: function arrowClick() {
+    window.scrollTo(0, 800);
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      { id: 'mainHeaderDiv' },
+      React.createElement(
+        ReactCSSTransitionGroup,
+        {
+          transitionName: 'headerAppearDown',
+          transitionEnter: false,
+          transitionLeave: false,
+          transitionAppear: true,
+          transitionAppearTimeout: 1000 },
+        React.createElement(
+          'h1',
+          null,
+          'MLB Graphs'
+        )
+      ),
+      React.createElement(
+        ReactCSSTransitionGroup,
+        {
+          transitionName: 'headerAppearUp',
+          transitionEnter: false,
+          transitionLeave: false,
+          transitionAppear: true,
+          transitionAppearTimeout: 1000 },
+        React.createElement(
+          'h3',
+          null,
+          'Built by Louis Rowan'
+        ),
+        React.createElement(
+          'h3',
+          null,
+          'Data scraped from theBaseballCube.com'
+        )
+      ),
+      React.createElement('img', {
+        onClick: this.arrowClick,
+        id: 'downArrowImg',
+        src: icon,
+        className: this.state.arrow })
+    );
+  }
+});
+
+module.exports = MainHeader;
 
 /***/ })
 /******/ ]);

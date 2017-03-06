@@ -312,6 +312,30 @@ text {
   background: rgba(89, 219, 57, .8);
 }
 
+.headerAppearDown-appear {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+.headerAppearDown-appear-active {
+  transform: translateY(0px);
+  opacity: 1;
+  transition: transform 1s ease-out,
+              opacity 1s ease-in;
+}
+
+.headerAppearUp-appear {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.headerAppearUp-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: transform 1s ease-out,
+              opacity 1s ease-in;
+}
+
 #mainHeaderDiv h1 {
   padding: 40px;
   padding-top: 250px;
@@ -544,6 +568,7 @@ text {
   line-height: 30px;
   background: rgba(89, 219, 57, .8);
   transition: opacity 400ms linear;
+  font-family: 'Lato', sans-serif;
 }
 
 #landingFooterContainer h1 {

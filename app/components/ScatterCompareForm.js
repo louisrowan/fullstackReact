@@ -1,21 +1,18 @@
 const React = require('react')
 const LandingBackground = require('./LandingBackground')
 const LandingFooter = require('./LandingFooter')
+const MainHeader = require('./MainHeader')
 const Util = require('../../util/Util')
-const icon = require('json-loader!../../public/data.json').arrow
 const $ = require('jquery')
 const { Link } = require('react-router')
 
 const ScatterCompareForm = React.createClass({
   getInitialState(){
     return {
-      databaseResults: [],
-      arrow: ''
+      databaseResults: []
     }
   },
-  componentDidMount(){
-    window.addEventListener('scroll', this.showArrow)
-    
+  componentDidMount(){  
     $.ajax({
       url: '/api/baseball',
     }).done((data) => {
@@ -24,21 +21,6 @@ const ScatterCompareForm = React.createClass({
     }).fail((fail) => {
       console.log('fail', fail)
     })
-
-  },
-  componentWillUnmount(){
-    window.removeEventListener('scroll', this.showArrow)
-
-  },
-  showArrow(){
-    if (window.scrollY > 300 && this.state.arrow === '') {
-      this.setState({ arrow: 'hideArrow'})
-      window.removeEventListener('scroll', this.showArrow)
-    }
-  },
-
-  arrowClick(){
-    window.scrollTo(0, 800)
   },
   render(){
     var playerList;
@@ -96,22 +78,7 @@ const ScatterCompareForm = React.createClass({
 
     return (
       <div id='landingContainer'>
-        
-        <div id='mainHeaderDiv'>
-          <h1>MLB Graphs</h1>
-          <h3>Built by Louis Rowan</h3>
-          <h3>Data scraped from theBaseballCube.com</h3>
-          <img
-            onClick={this.arrowClick}
-            id='downArrowImg'
-            src={icon}
-            className={this.state.arrow} />
-        </div>
-
-
-        
-
-
+        <MainHeader />
         <div id='formContainer'>
           <div id='formH3Div'>
             <h3>Compare up to ANY 3 MLB players, past or present</h3>
