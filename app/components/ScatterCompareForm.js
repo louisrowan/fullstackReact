@@ -112,7 +112,10 @@ const ScatterCompareForm = React.createClass({
               </span>
             
               
-              <input className='inputPlus' disabled={formDisabled} type='submit' value='&#x2b;'  />
+              <input className='inputPlus'
+                disabled={formDisabled}
+                type='submit'
+                value='&#x2b;'  />
             
 
             </form>

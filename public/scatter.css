@@ -472,7 +472,7 @@ text {
 }
 
 #formContainer #inputNew:not(:focus) {
-  cursor: pointer;
+  cursor: text;
 }
 
 #formContainer .inputPlus {
