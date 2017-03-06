@@ -1,4 +1,5 @@
 const React = require('react')
+const Util = require('../../util/Util')
 
 const D3Bubble = React.createClass({
   getInitialState(){
@@ -15,6 +16,11 @@ const D3Bubble = React.createClass({
     d3.select('.d3BubbleSVG')
       .attr('height', height)
       .attr('width', width)
+
+    d3.select('#bubbleContainerDiv')
+      .append('div')
+      .classed('toolTipDiv', true)
+      .text()
 
     this.setupData()
   },
@@ -84,6 +90,24 @@ const D3Bubble = React.createClass({
       })
       .classed('d3Circle', true)
 
+    circles.on('mouseover', function(circle){
+      var radius = d3.select(this).attr('r')
+      d3.select('.toolTipDiv')
+        .style('left', () => circle.x + 350 + 'px')
+        .style('top', () => circle.y - +radius - 45 + 'px')
+        .html(`<p>${Util.capitalize(circle.name)}:</p><p>${circle.num} ${circle.stat} in ${circle.year}</p>`)
+        .style('opacity', 1)
+        .style('z-index', 10)
+      d3.select(this)
+        .style('stroke-width', '3px')
+    }).on('mouseout', function(circle){
+      d3.select('.toolTipDiv')
+        .style('opacity', 0)
+        .style('z-index', 0)
+      d3.select(this)
+        .style('stroke-width', '1px')
+    })
+
     var forceXNormal = d3.forceY((d) => {
       return -2*width
     }).strength(0.02)
@@ -134,7 +158,7 @@ const D3Bubble = React.createClass({
   },
   render(){
     return (
-      <div>
+      <div id='bubbleContainerDiv'>
         <svg className='d3BubbleSVG'></svg>
       </div>
     )

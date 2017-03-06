@@ -25514,6 +25514,7 @@ module.exports = BubbleLegend;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var React = __webpack_require__(5);
+var Util = __webpack_require__(36);
 
 var D3Bubble = React.createClass({
   displayName: 'D3Bubble',
@@ -25532,6 +25533,8 @@ var D3Bubble = React.createClass({
         width = _state.width;
 
     d3.select('.d3BubbleSVG').attr('height', height).attr('width', width);
+
+    d3.select('#bubbleContainerDiv').append('div').classed('toolTipDiv', true).text();
 
     this.setupData();
   },
@@ -25593,6 +25596,19 @@ var D3Bubble = React.createClass({
       }
     }).classed('d3Circle', true);
 
+    circles.on('mouseover', function (circle) {
+      var radius = d3.select(this).attr('r');
+      d3.select('.toolTipDiv').style('left', function () {
+        return circle.x + 350 + 'px';
+      }).style('top', function () {
+        return circle.y - +radius - 45 + 'px';
+      }).html('<p>' + Util.capitalize(circle.name) + ':</p><p>' + circle.num + ' ' + circle.stat + ' in ' + circle.year + '</p>').style('opacity', 1).style('z-index', 10);
+      d3.select(this).style('stroke-width', '3px');
+    }).on('mouseout', function (circle) {
+      d3.select('.toolTipDiv').style('opacity', 0).style('z-index', 0);
+      d3.select(this).style('stroke-width', '1px');
+    });
+
     var forceXNormal = d3.forceY(function (d) {
       return -2 * width;
     }).strength(0.02);
@@ -25636,7 +25652,7 @@ var D3Bubble = React.createClass({
   render: function render() {
     return React.createElement(
       'div',
-      null,
+      { id: 'bubbleContainerDiv' },
       React.createElement('svg', { className: 'd3BubbleSVG' })
     );
   }
