@@ -15,3 +15,7 @@ body {
   overflow: auto;
   background: white;
 }
+
+.hide {
+  opacity: 0;
+}

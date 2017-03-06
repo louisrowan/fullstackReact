@@ -252,6 +252,7 @@ text {
   margin: auto;
   border: 5px solid black;
   overflow: hidden;
+  transition: opacity 400ms linear;
 }
 
 #carouselContainer .carouselImgDiv img {
@@ -542,6 +543,7 @@ text {
   font-size: 18px;
   line-height: 30px;
   background: rgba(89, 219, 57, .8);
+  transition: opacity 400ms linear;
 }
 
 #landingFooterContainer h1 {

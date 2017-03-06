@@ -8,8 +8,25 @@ const LandingBackground = React.createClass({
   getInitialState(){
     return {
       index: 0,
-      images: images
+      images: images,
+      carouselHidden: 'hide'
     }
+  },
+
+  componentDidMount(){
+    window.addEventListener('scroll', this.showCarousel)
+  },
+  showCarousel(){
+    var carousel = document.getElementById('carouselContainer')
+    carousel = carousel.getBoundingClientRect().top
+    if (window.scrollY > carousel + 100){
+      this.setState({ carouselHidden: ''})
+      window.addEventListener('scroll', this.showCarousel)
+    }
+  },
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.showCarousel)
   },
 
   handleArrowClick(val){
@@ -38,7 +55,7 @@ const LandingBackground = React.createClass({
           onClick={() => this.handleArrowClick(1)} 
           className='arrow Rarrow'></div>
 
-        <div className='carouselImgDiv'>
+        <div className={'carouselImgDiv ' + this.state.carouselHidden}>
           <h1>{images[index].text}</h1>
           <img src={images[index].url} />
         </div>

@@ -15,6 +15,7 @@ const ScatterCompareForm = React.createClass({
   },
   componentDidMount(){
     window.addEventListener('scroll', this.showArrow)
+    
     $.ajax({
       url: '/api/baseball',
     }).done((data) => {
@@ -23,9 +24,11 @@ const ScatterCompareForm = React.createClass({
     }).fail((fail) => {
       console.log('fail', fail)
     })
+
   },
   componentWillUnmount(){
     window.removeEventListener('scroll', this.showArrow)
+
   },
   showArrow(){
     if (window.scrollY > 300 && this.state.arrow === '') {
@@ -33,9 +36,9 @@ const ScatterCompareForm = React.createClass({
       window.removeEventListener('scroll', this.showArrow)
     }
   },
+
   arrowClick(){
     window.scrollTo(0, 800)
-    console.log('clicked')
   },
   render(){
     var playerList;
