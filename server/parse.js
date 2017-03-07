@@ -105,7 +105,6 @@ exports.baseballCubeParse = function(player, id){
         id = id || '0'
       return new Promise(function(resolve, reject){
         var param = id === '0' ? '' : id
-        console.log(url, param)
         request(url + param, function(err, res, html){
 
         var $ = cheerio.load(html)
@@ -128,7 +127,6 @@ exports.baseballCubeParse = function(player, id){
   } else {
     return promise(url, id)
       .then(function(response) {
-        console.log('response: ', response)
         return [response]
       })
   }

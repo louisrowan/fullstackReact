@@ -246,6 +246,10 @@ const D3ScatterCompare = React.createClass({
         this.renderChart(data, ['OBP'])
       }.bind(this))
   },
+  componentDidUpdate(){
+    var data = this.props.data.map((d) => d.data)
+    this.renderChart(data, ['OBP'])
+  },
   render(){
 
     return (

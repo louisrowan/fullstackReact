@@ -8995,6 +8995,12 @@ var D3ScatterCompare = React.createClass({
       this.renderChart(data, ['OBP']);
     }.bind(this));
   },
+  componentDidUpdate: function componentDidUpdate() {
+    var data = this.props.data.map(function (d) {
+      return d.data;
+    });
+    this.renderChart(data, ['OBP']);
+  },
   render: function render() {
 
     return React.createElement(
@@ -26109,7 +26115,6 @@ var ScatterContainer = React.createClass({
       type: 'post',
       data: { player: player.toLowerCase(), id: id }
     }).done(function (data) {
-      console.log('res:', data);
       _this.setState({ searching: false });
       if (data.length === 0) {
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });

@@ -38,7 +38,6 @@ const ScatterContainer = React.createClass({
       type: 'post',
       data: { player: player.toLowerCase(), id: id}
     }).done((data) => {
-      console.log('res:', data)
       this.setState({ searching: false })
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
