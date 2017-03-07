@@ -35,6 +35,7 @@ const ScatterLegend = React.createClass({
     this.props.clearChart()
   },
   handleCheckClick(e){
+    this.styleLegendforFirefox()
     if (e.target.value === 'OBP'){
       var newState = Object.assign([], this.state.allStats)
       newState.forEach((s) => {
@@ -69,6 +70,25 @@ const ScatterLegend = React.createClass({
     return window.location.origin + '/#/scatter?' + this.props.data.map((p, i) => {
       return `p${i + 1}=${p.name.split(' ').join('-')}_${p.id}&`
     }).join('')
+  },
+  styleLegendforFirefox(){
+    var filled = d3.select('.keyFullCircle')
+    if (filled) {
+      filled
+      .attr('r', 10)
+      .attr('cx', 10)
+      .attr('cy', 10)
+    }
+    var trans = d3.select('.keyTransCircle')
+    if (trans){
+      trans
+      .attr('r', 10)
+      .attr('cx', 10)
+      .attr('cy', 10)
+    }
+  },
+  componentDidMount(){
+    this.styleLegendforFirefox()
   },
   render(){
     var playerKey = this.props.players.map((p, i) => <tr className={'playerKey' + i} key={i}><td>{Util.capitalize(p)}</td></tr>)
