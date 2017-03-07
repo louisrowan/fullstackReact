@@ -161,7 +161,6 @@ const D3Bubble = React.createClass({
 
   },
   componentDidUpdate(e){
-    console.log('update', e)
     d3.select('.d3BubbleSVG').selectAll('*').remove()
     this.setupSVG()
   },

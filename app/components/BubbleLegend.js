@@ -54,7 +54,7 @@ const BubbleLegend = React.createClass({
         </div>
         <br />
         <br />
-        <div>
+        <div id='navButtons'>
           <CopyToClipboard text={this.state.value} onCopy={this.onCopy} >
             <button>Copy Chart URL</button>
           </CopyToClipboard>

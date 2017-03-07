@@ -1,7 +1,7 @@
 const React = require('react')
 const ScatterLegend = require('./ScatterLegend')
 const Util = require('../../util/Util')
-
+const { hashHistory } = require('react-router')
 
 const D3ScatterCompare = React.createClass({
   getInitialState(){
@@ -234,6 +234,11 @@ const D3ScatterCompare = React.createClass({
     this.renderChart(data, [])
   },
   componentDidMount(){
+    var params = Object.assign({}, this.props.location.query)
+    if (!params.hasOwnProperty('p1') && this.props.data.length <= 0) {
+      hashHistory.push('/')
+    }
+
     var preload = function(){
       return new Promise(function(resolve, reject){
         resolve(this.compileChart())

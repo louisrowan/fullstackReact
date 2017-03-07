@@ -8802,6 +8802,9 @@ var React = __webpack_require__(5);
 var ScatterLegend = __webpack_require__(78);
 var Util = __webpack_require__(32);
 
+var _require = __webpack_require__(43),
+    hashHistory = _require.hashHistory;
+
 var D3ScatterCompare = React.createClass({
   displayName: 'D3ScatterCompare',
   getInitialState: function getInitialState() {
@@ -8982,6 +8985,11 @@ var D3ScatterCompare = React.createClass({
     this.renderChart(data, []);
   },
   componentDidMount: function componentDidMount() {
+    var params = Object.assign({}, this.props.location.query);
+    if (!params.hasOwnProperty('p1') && this.props.data.length <= 0) {
+      hashHistory.push('/');
+    }
+
     var preload = function () {
       return new Promise(function (resolve, reject) {
         resolve(this.compileChart());
@@ -25580,7 +25588,7 @@ var BubbleLegend = React.createClass({
       React.createElement('br', null),
       React.createElement(
         'div',
-        null,
+        { id: 'navButtons' },
         React.createElement(
           CopyToClipboard,
           { text: this.state.value, onCopy: this.onCopy },
@@ -25761,7 +25769,6 @@ var D3Bubble = React.createClass({
     });
   },
   componentDidUpdate: function componentDidUpdate(e) {
-    console.log('update', e);
     d3.select('.d3BubbleSVG').selectAll('*').remove();
     this.setupSVG();
   },
@@ -26106,12 +26113,21 @@ var ScatterLegend = __webpack_require__(78);
 var D3Bubble = __webpack_require__(132);
 var BubbleLegend = __webpack_require__(131);
 
+var _require = __webpack_require__(43),
+    hashHistory = _require.hashHistory;
+
 var BubbleContainer = React.createClass({
   displayName: 'BubbleContainer',
   getInitialState: function getInitialState() {
     return {
       stats: ['OBP', 'SLG', 'OPS', 'AVG', 'K/BB', 'AB/HR', 'HR', 'RBI', 'H', 'SB', 'CS', 'TB']
     };
+  },
+  componentDidMount: function componentDidMount() {
+    var params = Object.assign({}, this.props.location.query);
+    if (!params.hasOwnProperty('p1') && this.props.data.length <= 0) {
+      hashHistory.push('/');
+    }
   },
   render: function render() {
     return React.createElement(
@@ -26350,7 +26366,7 @@ exports = module.exports = __webpack_require__(44)();
 
 
 // module
-exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n#d3BubbleDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: green;\r\n  border-right: 1px solid black;\r\n  padding: 10px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3BubbleDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3BubbleDiv #bubblePlayerLegend {\r\n  background: white;\r\n  border: 1px solid black;\r\n}\r\n\r\n#d3BubbleDiv #bubblePlayerLegend th {\r\n  font-size: 20px;\r\n}\r\n\r\n#d3BubbleDiv table {\r\n  width: 100%;\r\n}\r\n\r\n#d3BubbleDiv td {\r\n  padding: 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3BubbleDiv button {\r\n  width: 100%;\r\n  height: 30px;\r\n  outline: none;\r\n}\r\n\r\n#d3BubbleDiv button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3BubbleDiv .playerKey0 {\r\n  color: red;\r\n}\r\n\r\n#d3BubbleDiv .playerKey1 {\r\n  color: blue;\r\n}\r\n\r\n#d3BubbleDiv .playerKey2 {\r\n  color: green;\r\n}\r\n\r\n.bubbleActive {\r\n  background: rgba(89, 219, 57, .8);\r\n}", ""]);
+exports.push([module.i, ".d3BubbleSVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n#d3BubbleDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: green;\r\n  border-right: 1px solid black;\r\n  padding: 10px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3BubbleDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3BubbleDiv #bubblePlayerLegend {\r\n  background: white;\r\n  border: 1px solid black;\r\n}\r\n\r\n#d3BubbleDiv #bubblePlayerLegend th {\r\n  font-size: 20px;\r\n}\r\n\r\n#d3BubbleDiv table {\r\n  width: 100%;\r\n}\r\n\r\n#d3BubbleDiv td {\r\n  padding: 0;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3BubbleDiv .d3BubbleButtons {\r\n  width: 100%;\r\n  padding: 5px;\r\n}\r\n\r\n#d3BubbleDiv #navButtons button {\r\n  width: 100%;\r\n  padding: 10px;\r\n  outline: none;\r\n}\r\n\r\n#d3BubbleDiv button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3BubbleDiv .playerKey0 {\r\n  color: red;\r\n}\r\n\r\n#d3BubbleDiv .playerKey1 {\r\n  color: blue;\r\n}\r\n\r\n#d3BubbleDiv .playerKey2 {\r\n  color: green;\r\n}\r\n\r\n.bubbleActive {\r\n  background: rgba(89, 219, 57, .8);\r\n}", ""]);
 
 // exports
 
