@@ -1277,7 +1277,7 @@ var CallbackQueue = __webpack_require__(90);
 var PooledClass = __webpack_require__(20);
 var ReactFeatureFlags = __webpack_require__(98);
 var ReactReconciler = __webpack_require__(21);
-var Transaction = __webpack_require__(40);
+var Transaction = __webpack_require__(41);
 
 var invariant = __webpack_require__(1);
 
@@ -3132,7 +3132,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _PathUtils = __webpack_require__(16);
 
-var _Actions = __webpack_require__(37);
+var _Actions = __webpack_require__(38);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3225,7 +3225,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 
 var DOMNamespaces = __webpack_require__(51);
-var setInnerHTML = __webpack_require__(42);
+var setInnerHTML = __webpack_require__(43);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(59);
 var setTextContent = __webpack_require__(114);
@@ -3349,7 +3349,7 @@ module.exports = DOMLazyTree;
 
 var _prodInvariant = __webpack_require__(3);
 
-var EventPluginRegistry = __webpack_require__(33);
+var EventPluginRegistry = __webpack_require__(34);
 var EventPluginUtils = __webpack_require__(52);
 var ReactErrorUtils = __webpack_require__(57);
 
@@ -4057,6 +4057,95 @@ function formatPattern(pattern, params) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Router__ = __webpack_require__(240);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_0__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Link__ = __webpack_require__(116);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_1__Link__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__IndexLink__ = __webpack_require__(236);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexLink", function() { return __WEBPACK_IMPORTED_MODULE_2__IndexLink__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__withRouter__ = __webpack_require__(251);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__withRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__IndexRedirect__ = __webpack_require__(237);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexRedirect", function() { return __WEBPACK_IMPORTED_MODULE_4__IndexRedirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__IndexRoute__ = __webpack_require__(238);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexRoute", function() { return __WEBPACK_IMPORTED_MODULE_5__IndexRoute__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(118);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(239);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__RouteUtils__ = __webpack_require__(18);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createRoutes", function() { return __WEBPACK_IMPORTED_MODULE_8__RouteUtils__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__RouterContext__ = __webpack_require__(69);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "RouterContext", function() { return __WEBPACK_IMPORTED_MODULE_9__RouterContext__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__PropTypes__ = __webpack_require__(68);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "locationShape", function() { return __WEBPACK_IMPORTED_MODULE_10__PropTypes__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "routerShape", function() { return __WEBPACK_IMPORTED_MODULE_10__PropTypes__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__match__ = __webpack_require__(249);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "match", function() { return __WEBPACK_IMPORTED_MODULE_11__match__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__useRouterHistory__ = __webpack_require__(123);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "useRouterHistory", function() { return __WEBPACK_IMPORTED_MODULE_12__useRouterHistory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__PatternUtils__ = __webpack_require__(30);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "formatPattern", function() { return __WEBPACK_IMPORTED_MODULE_13__PatternUtils__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__applyRouterMiddleware__ = __webpack_require__(242);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "applyRouterMiddleware", function() { return __WEBPACK_IMPORTED_MODULE_14__applyRouterMiddleware__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__browserHistory__ = __webpack_require__(243);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "browserHistory", function() { return __WEBPACK_IMPORTED_MODULE_15__browserHistory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__hashHistory__ = __webpack_require__(247);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "hashHistory", function() { return __WEBPACK_IMPORTED_MODULE_16__hashHistory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__createMemoryHistory__ = __webpack_require__(120);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createMemoryHistory", function() { return __WEBPACK_IMPORTED_MODULE_17__createMemoryHistory__["a"]; });
+/* components */
+
+
+
+
+
+
+
+
+
+/* components (configuration) */
+
+
+
+
+
+
+
+
+
+
+/* utils */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* histories */
+
+
+
+
+
+
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = routerWarning;
@@ -4089,7 +4178,7 @@ function _resetWarned() {
 }
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4109,7 +4198,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4370,7 +4459,7 @@ module.exports = EventPluginRegistry;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4388,7 +4477,7 @@ module.exports = EventPluginRegistry;
 
 var _assign = __webpack_require__(4);
 
-var EventPluginRegistry = __webpack_require__(33);
+var EventPluginRegistry = __webpack_require__(34);
 var ReactEventEmitterMixin = __webpack_require__(197);
 var ViewportMetrics = __webpack_require__(104);
 
@@ -4703,7 +4792,7 @@ var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
 module.exports = ReactBrowserEventEmitter;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4767,7 +4856,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4809,7 +4898,7 @@ var route = oneOfType([object, element]);
 var routes = oneOfType([route, arrayOf(route)]);
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4837,7 +4926,7 @@ var REPLACE = exports.REPLACE = 'REPLACE';
 var POP = exports.POP = 'POP';
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4883,7 +4972,7 @@ var supportsPopstateOnHashchange = exports.supportsPopstateOnHashchange = functi
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4899,7 +4988,7 @@ var supportsPopstateOnHashchange = exports.supportsPopstateOnHashchange = functi
 
 
 
-var SyntheticUIEvent = __webpack_require__(35);
+var SyntheticUIEvent = __webpack_require__(36);
 var ViewportMetrics = __webpack_require__(104);
 
 var getEventModifierState = __webpack_require__(61);
@@ -4960,7 +5049,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 module.exports = SyntheticMouseEvent;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5191,7 +5280,7 @@ module.exports = TransactionImpl;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5319,7 +5408,7 @@ function escapeTextContentForBrowser(text) {
 module.exports = escapeTextContentForBrowser;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5420,95 +5509,6 @@ if (ExecutionEnvironment.canUseDOM) {
 }
 
 module.exports = setInnerHTML;
-
-/***/ }),
-/* 43 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Router__ = __webpack_require__(240);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_0__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Link__ = __webpack_require__(116);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_1__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__IndexLink__ = __webpack_require__(236);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexLink", function() { return __WEBPACK_IMPORTED_MODULE_2__IndexLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__withRouter__ = __webpack_require__(251);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__withRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__IndexRedirect__ = __webpack_require__(237);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexRedirect", function() { return __WEBPACK_IMPORTED_MODULE_4__IndexRedirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__IndexRoute__ = __webpack_require__(238);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexRoute", function() { return __WEBPACK_IMPORTED_MODULE_5__IndexRoute__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(118);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(239);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__RouteUtils__ = __webpack_require__(18);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createRoutes", function() { return __WEBPACK_IMPORTED_MODULE_8__RouteUtils__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__RouterContext__ = __webpack_require__(69);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "RouterContext", function() { return __WEBPACK_IMPORTED_MODULE_9__RouterContext__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__PropTypes__ = __webpack_require__(68);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "locationShape", function() { return __WEBPACK_IMPORTED_MODULE_10__PropTypes__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "routerShape", function() { return __WEBPACK_IMPORTED_MODULE_10__PropTypes__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__match__ = __webpack_require__(249);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "match", function() { return __WEBPACK_IMPORTED_MODULE_11__match__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__useRouterHistory__ = __webpack_require__(123);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "useRouterHistory", function() { return __WEBPACK_IMPORTED_MODULE_12__useRouterHistory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__PatternUtils__ = __webpack_require__(30);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "formatPattern", function() { return __WEBPACK_IMPORTED_MODULE_13__PatternUtils__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__applyRouterMiddleware__ = __webpack_require__(242);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "applyRouterMiddleware", function() { return __WEBPACK_IMPORTED_MODULE_14__applyRouterMiddleware__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__browserHistory__ = __webpack_require__(243);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "browserHistory", function() { return __WEBPACK_IMPORTED_MODULE_15__browserHistory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__hashHistory__ = __webpack_require__(247);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "hashHistory", function() { return __WEBPACK_IMPORTED_MODULE_16__hashHistory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__createMemoryHistory__ = __webpack_require__(120);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createMemoryHistory", function() { return __WEBPACK_IMPORTED_MODULE_17__createMemoryHistory__["a"]; });
-/* components */
-
-
-
-
-
-
-
-
-
-/* components (configuration) */
-
-
-
-
-
-
-
-
-
-
-/* utils */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* histories */
-
-
-
-
-
-
-
 
 /***/ }),
 /* 44 */
@@ -5651,7 +5651,7 @@ exports.go = exports.replaceLocation = exports.pushLocation = exports.startListe
 
 var _LocationUtils = __webpack_require__(25);
 
-var _DOMUtils = __webpack_require__(38);
+var _DOMUtils = __webpack_require__(39);
 
 var _DOMStateStorage = __webpack_require__(82);
 
@@ -5770,7 +5770,7 @@ var _runTransitionHook = __webpack_require__(49);
 
 var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-var _Actions = __webpack_require__(37);
+var _Actions = __webpack_require__(38);
 
 var _LocationUtils = __webpack_require__(25);
 
@@ -5988,7 +5988,7 @@ var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInstrumentation = __webpack_require__(11);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(59);
-var setInnerHTML = __webpack_require__(42);
+var setInnerHTML = __webpack_require__(43);
 var setTextContent = __webpack_require__(114);
 
 function getNodeAfter(parentNode, node) {
@@ -8800,9 +8800,9 @@ function updateLink(linkElement, obj) {
 
 var React = __webpack_require__(5);
 var ScatterLegend = __webpack_require__(78);
-var Util = __webpack_require__(32);
+var Util = __webpack_require__(33);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     hashHistory = _require.hashHistory;
 
 var D3ScatterCompare = React.createClass({
@@ -9043,10 +9043,10 @@ var LandingBackground = __webpack_require__(133);
 var LandingFooter = __webpack_require__(134);
 var MainHeader = __webpack_require__(135);
 var Searching = __webpack_require__(136);
-var Util = __webpack_require__(32);
+var Util = __webpack_require__(33);
 var $ = __webpack_require__(85);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     Link = _require.Link;
 
 var ScatterCompareForm = React.createClass({
@@ -9350,9 +9350,9 @@ module.exports = ScatterCompareForm;
 
 
 var React = __webpack_require__(5);
-var Util = __webpack_require__(32);
+var Util = __webpack_require__(33);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     Link = _require.Link;
 
 var CopyToClipboard = __webpack_require__(88);
@@ -22808,7 +22808,7 @@ var _prodInvariant = __webpack_require__(3);
 var DOMLazyTree = __webpack_require__(26);
 var DOMProperty = __webpack_require__(17);
 var React = __webpack_require__(13);
-var ReactBrowserEventEmitter = __webpack_require__(34);
+var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMContainerInfo = __webpack_require__(182);
@@ -22824,7 +22824,7 @@ var ReactUpdates = __webpack_require__(12);
 var emptyObject = __webpack_require__(24);
 var instantiateReactComponent = __webpack_require__(112);
 var invariant = __webpack_require__(1);
-var setInnerHTML = __webpack_require__(42);
+var setInnerHTML = __webpack_require__(43);
 var shouldUpdateReactComponent = __webpack_require__(64);
 var warning = __webpack_require__(2);
 
@@ -24009,8 +24009,8 @@ module.exports = isTextInputElement;
 
 
 var ExecutionEnvironment = __webpack_require__(7);
-var escapeTextContentForBrowser = __webpack_require__(41);
-var setInnerHTML = __webpack_require__(42);
+var escapeTextContentForBrowser = __webpack_require__(42);
+var setInnerHTML = __webpack_require__(43);
 
 /**
  * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -24408,7 +24408,7 @@ function isPromise(obj) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RouteUtils__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PatternUtils__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(37);
 
 
 
@@ -24578,7 +24578,7 @@ var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.do
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routerWarning__ = __webpack_require__(31);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routerWarning__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__computeChangedRoutes__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TransitionUtils__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__isActive__ = __webpack_require__(248);
@@ -25445,7 +25445,7 @@ module.exports = traverseAllChildren;
 var React = __webpack_require__(5);
 var ReactDOM = __webpack_require__(167);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     Router = _require.Router,
     hashHistory = _require.hashHistory,
     Route = _require.Route,
@@ -25486,9 +25486,9 @@ ReactDOM.render(React.createElement(Routes, null), document.getElementById('app'
 
 
 var React = __webpack_require__(5);
-var Util = __webpack_require__(32);
+var Util = __webpack_require__(33);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     Link = _require.Link;
 
 var CopyToClipboard = __webpack_require__(88);
@@ -25631,7 +25631,7 @@ module.exports = BubbleLegend;
 
 
 var React = __webpack_require__(5);
-var Util = __webpack_require__(32);
+var Util = __webpack_require__(33);
 
 var D3Bubble = React.createClass({
   displayName: 'D3Bubble',
@@ -26113,7 +26113,7 @@ var ScatterLegend = __webpack_require__(78);
 var D3Bubble = __webpack_require__(132);
 var BubbleLegend = __webpack_require__(131);
 
-var _require = __webpack_require__(43),
+var _require = __webpack_require__(31),
     hashHistory = _require.hashHistory;
 
 var BubbleContainer = React.createClass({
@@ -26202,6 +26202,9 @@ var ScatterContainer = React.createClass({
       _this.setState({ searching: false });
       if (data.length === 0) {
         _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
+        if (_this.state.data.length > 0) {
+          _this.setState({ chartReady: true });
+        }
       } else if (data.length === 1) {
         data = data[0];
         var players = [].concat(_toConsumableArray(_this.state.players), [data.name]);
@@ -26380,7 +26383,7 @@ exports = module.exports = __webpack_require__(44)();
 
 
 // module
-exports.push([module.i, "/*scatter container start ------------------*/\r\n\r\n#scatterContainer {\r\n\r\n}\r\n\r\n\r\n\r\n\r\n/*scatter container end ------------------*/\r\n\r\n\r\n/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n\r\n.d3SVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  min-width: 1100px;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n.toolTipDiv {\r\n  background: black;\r\n  color: white;\r\n  border-radius: 3px;\r\n  padding: 3px;\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\r\n  text-align: center;\r\n}\r\n\r\n.toolTipDiv:after {\r\n  content: '';\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 10px solid black;\r\n  position: absolute;\r\n  left: 2px;\r\n  bottom: -20px;\r\n}\r\n\r\n.toolTipDiv p {\r\n  padding: 0;\r\n  margin: 3px;\r\n}\r\n\r\n.moveableRect {\r\n  pointer-events: none;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: green;\r\n  border-right: 1px solid black;\r\n  padding: 20px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv input[type='checkbox'] {\r\n    width: 25px;\r\n    height: 25px;\r\n    background: white;\r\n    border-radius: 5px;\r\n    border: 2px solid #555;\r\n}\r\n\r\n#d3LegendDiv button:hover, #d3LegendDiv input:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  width: 225px;\r\n  margin: auto;\r\n  border: 1px solid black;\r\n  padding: 0px;\r\n  background: whitesmoke;\r\n  overflow: hidden;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv {\r\n  float: left;\r\n  width: 50%;\r\n  height: 100%;\r\n  box-sizing: border-box;\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv th {\r\n  border: none;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv th span {\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  background: whitesmoke;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  background: white;\r\n}\r\n\r\n#d3LegendDiv #maxMetricsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#d3LegendDiv .playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n#d3LegendDiv .playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n#d3LegendDiv .playerKey2 {\r\n  color: rgb(5, 183, 35);\r\n}\r\n\r\n#d3LegendDiv .keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n#d3LegendDiv .keySymbolDiv {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n#d3LegendDiv .keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#landingContainer {\r\n/*  height: 100vh;\r\n  width: 100%;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  position: relative;*/\r\n  background: white;\r\n}\r\n\r\n\r\n\r\n/*start landing carousel -------------------*/\r\n\r\n#carouselContainer {\r\n  height: 800px;\r\n  width: 100%;\r\n  position: relative;\r\n  float: none;\r\n  background: rgba(89, 219, 57, .8);\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv {\r\n  height: 700px;\r\n  width: 80%;\r\n  margin: auto;\r\n  border: 5px solid black;\r\n  overflow: hidden;\r\n  transition: opacity 400ms linear;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv img {\r\n  height: 500px;\r\n  width: 100%;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv h1 {\r\n  background: white;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 50px;\r\n  height: 200px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#carouselContainer .arrow {\r\n  position: absolute;\r\n  top: 45%;\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 40px solid transparent;\r\n}\r\n\r\n#carouselContainer .arrow:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#carouselContainer .Larrow {\r\n  left: 5px;\r\n  border-right: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Rarrow {\r\n  right: 5px;\r\n  border-left: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Larrow:hover {\r\n  border-right: 40px solid #403075;;\r\n}\r\n\r\n#carouselContainer .Rarrow:hover {\r\n  border-left: 40px solid #403075;;\r\n}\r\n\r\n\r\n\r\n\r\n/*end landing carousel ------------------*/\r\n\r\n#mainHeaderDiv {\r\n  width: 100%;\r\n  height: 800px;\r\n  text-align: center;\r\n  position: relative;\r\n  background: rgba(89, 219, 57, .8);\r\n}\r\n\r\n.headerAppearDown-appear {\r\n  transform: translateY(-100px);\r\n  opacity: 0;\r\n}\r\n\r\n.headerAppearDown-appear-active {\r\n  transform: translateY(0px);\r\n  opacity: 1;\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n.headerAppearUp-appear {\r\n  opacity: 0;\r\n  transform: translateY(100px);\r\n}\r\n\r\n.headerAppearUp-appear-active {\r\n  opacity: 1;\r\n  transform: translateY(0px);\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n#mainHeaderDiv h1 {\r\n  padding: 40px;\r\n  padding-top: 250px;\r\n  font-size: 60px;\r\n  margin: auto;\r\n}\r\n\r\n#mainHeaderDiv h3 {\r\n  padding: 3px;\r\n  font-size: 26px;\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg {\r\n  position: absolute;\r\n  bottom: 0px;\r\n  margin: auto;\r\n  left: 0;\r\n  right: 0;\r\n  width: 50px;\r\n  height: 50px;\r\n  animation: bounce 2s infinite;\r\n}\r\n\r\n#mainHeaderDiv .hideArrow {\r\n  opacity: 0;\r\n  transition: opacity 300ms linear;\r\n}\r\n\r\n@keyframes bounce {\r\n  0% {\r\n    transform: translateY(0);\r\n  }\r\n  50% {\r\n    transform: translateY(-20px);\r\n  }\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer {\r\n  min-height: 500px;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer #formH3Div {\r\n  width: 100%;\r\n  display: block;\r\n  height: 150px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 24px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer #noResultsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.showChartButton {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  width: 250px;\r\n  margin: 5px auto;\r\n}\r\n\r\n.showChartButton:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n#formContainer #inputNew {\r\n  outline: none;\r\n  border: none;\r\n  border-bottom: 2px solid black;\r\n  text-align: center;\r\n  margin-bottom: 5px;\r\n  background: rgba(255,255,255,.8);\r\n  color: green;\r\n  font-size: 22px;\r\n}\r\n\r\n#formContainer #inputNew:not(:focus) {\r\n  cursor: text;\r\n}\r\n\r\n#formContainer .inputPlus {\r\n  position: absolute;\r\n  color: green;\r\n  font-size: 30px;\r\n  font-weight: bold;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n}\r\n\r\n#formContainer form:invalid .inputPlus {\r\n  color: gray;\r\n}\r\n\r\n#formContainer form:invalid .inputPlus:hover {\r\n  cursor: not-allowed;\r\n}\r\n\r\n#formContainer .inputPlus:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer #mainInputSpan {\r\n  position: relative;\r\n}\r\n\r\n#formContainer #mainInputSpan #mainInputPlaceholder {\r\n  position: absolute;\r\n  left: 20%;\r\n  bottom: -5px;\r\n  pointer-events: none;\r\n  transition: all 500ms;\r\n  color: green;\r\n  font-size: 24px;\r\n  animation: span-bounce 2s infinite;\r\n}\r\n\r\n@keyframes span-bounce {\r\n  0% {\r\n    transform: translateY(5px);\r\n  }\r\n  25%, 75% {\r\n    transform: translateY(5px);\r\n  }\r\n  50% {\r\n    transform: translateY(0px);\r\n  }\r\n  100% {\r\n    transform: translateY(5px);\r\n  }\r\n}\r\n\r\n#formContainer #inputNew:invalid {\r\n  box-shadow: none;\r\n}\r\n\r\n#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {\r\n  font-size: 12px;\r\n  left: 5px;\r\n  bottom: 30px;\r\n  transition: all 500ms;\r\n  color: black;\r\n  animation: none;\r\n}\r\n\r\n#formContainer #inputNew:focus {\r\n  border-bottom: 4px solid black;\r\n  transition: border 400ms;\r\n}\r\n\r\n#formContainer #inputNew:disabled + #mainInputPlaceholder {\r\n  opacity: 0;\r\n}\r\n\r\n#formContainer #multipleResultsDiv {\r\n  position: fixed;\r\n  min-height: 200px;\r\n  width: 500px;\r\n  background: white;\r\n  border-radius: 5px;\r\n  margin: auto;\r\n  top: 300px;\r\n  z-index: 10;\r\n  box-shadow: 0px 0px 5px black;\r\n  display: block;\r\n  float: none;\r\n  padding: 20px;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table,  #formContainer #multipleResultsDiv tr{\r\n  width: 100%;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table tr:not(:first-child):hover {\r\n  cursor: pointer;\r\n  background: whitesmoke;\r\n}\r\n\r\n#formContainer #multipleResultsDiv td {\r\n  font-size: 18px;\r\n  padding: 10px 5px;\r\n}\r\n/*end player selection ---------------------------*/\r\n\r\n/*start landing footer -------------------*/\r\n\r\n#landingFooterContainer {\r\n  clear: both;\r\n  width: 100%;\r\n  background: white;\r\n  overflow: hidden;\r\n  padding-bottom: 100px;\r\n}\r\n\r\n#landingFooterContainer .footerDiv {\r\n  border-radius: 10px;\r\n  width: 75%;\r\n  margin: auto;\r\n  padding: 20px;\r\n  background: white;\r\n  font-size: 20px;\r\n  line-height: 30px;\r\n  background: rgba(89, 219, 57, .8);\r\n  transition: opacity 400ms linear;\r\n  font-family: 'Lato', sans-serif;\r\n}\r\n\r\n#landingFooterContainer .footerDiv a, #landingFooterContainer .footerDiv a:visited {\r\n  font-size: 24px;\r\n  text-decoration: none;\r\n  color: red;\r\n}\r\n\r\n#landingFooterContainer .footerDiv a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n#landingFooterContainer h1 {\r\n  padding: 30px 0px 20px;\r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*end landing footer --------------------*/", ""]);
+exports.push([module.i, "/*scatter container start ------------------*/\r\n\r\n#scatterContainer {\r\n\r\n}\r\n\r\n\r\n\r\n\r\n/*scatter container end ------------------*/\r\n\r\n\r\n/*scatter chart -----------------------------*/\r\n\r\n.d3Axis {\r\n  /*fill: white;*/\r\n}\r\n\r\ntext {\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n\r\n.d3SVG {\r\n  display: block;\r\n  float: left;\r\n  padding: 20px 0px 60px 360px;\r\n  margin: 0px -20px 0px 0px;\r\n  overflow: visible;\r\n  min-width: 1100px;\r\n  position: relative;\r\n  z-index: 0;\r\n  background: white;\r\n}\r\n\r\n.line {\r\n  fill: none;\r\n  stroke-width: .5px;\r\n  stroke-opacity: .5;\r\n}\r\n\r\n.toolTipDiv {\r\n  background: black;\r\n  color: white;\r\n  border-radius: 3px;\r\n  padding: 3px;\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\r\n  text-align: center;\r\n}\r\n\r\n.toolTipDiv:after {\r\n  content: '';\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 10px solid black;\r\n  position: absolute;\r\n  left: 2px;\r\n  bottom: -20px;\r\n}\r\n\r\n.toolTipDiv p {\r\n  padding: 0;\r\n  margin: 3px;\r\n}\r\n\r\n.moveableRect {\r\n  pointer-events: none;\r\n}\r\n\r\n/*end scatter chart -------------------*/\r\n\r\n/*start scatter legend --------------------*/\r\n\r\n\r\n#d3LegendDiv {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  width: 225;\r\n  font-size: 30px;\r\n  pointer-events: all;\r\n  z-index: 1;\r\n  height: 100vh;\r\n  background: green;\r\n  border-right: 1px solid black;\r\n  padding: 20px 10px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#d3LegendDiv > div {\r\n  float: left;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  margin: 10px 0px 10px;\r\n  width: 225px;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n#d3LegendDiv button {\r\n  padding: 10px;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv input[type='checkbox'] {\r\n    width: 25px;\r\n    height: 25px;\r\n    background: white;\r\n    border-radius: 5px;\r\n    border: 2px solid #555;\r\n}\r\n\r\n#d3LegendDiv button:hover, #d3LegendDiv input:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv ul {\r\n  list-style-type: none;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv li {\r\n  text-align: center;\r\n}\r\n\r\n#d3LegendDiv table {\r\n  width: 225px;\r\n  margin: auto;\r\n  border: 1px solid black;\r\n  padding: 0px;\r\n  background: whitesmoke;\r\n  overflow: hidden;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv {\r\n  float: left;\r\n  width: 50%;\r\n  height: 100%;\r\n  box-sizing: border-box;\r\n  padding: 10px;\r\n}\r\n\r\n#d3LegendDiv .legendHeaderDiv:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#d3LegendDiv th {\r\n  border: none;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv td {\r\n  padding: 10px;\r\n  font-size: 16px;\r\n}\r\n\r\n#d3LegendDiv th span {\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n#d3LegendDiv .activeButton {\r\n  background: whitesmoke;\r\n}\r\n\r\n#d3LegendDiv .inactiveButton {\r\n  background: white;\r\n}\r\n\r\n#d3LegendDiv #maxMetricsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#d3LegendDiv .playerKey0 {\r\n color: rgb(22, 97, 247);\r\n}\r\n\r\n#d3LegendDiv .playerKey1 {\r\n  color: rgb(252, 30, 41);\r\n}\r\n\r\n#d3LegendDiv .playerKey2 {\r\n  color: rgb(5, 183, 35);\r\n}\r\n\r\n#d3LegendDiv .keyFullCircle {\r\n  r: 10px;\r\n  fill: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keyTriangle {\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 10px solid transparent;\r\n  border-top: 20px solid black;\r\n  top: 5px;\r\n  position: relative;\r\n}\r\n\r\n#d3LegendDiv .keySymbolDiv {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n#d3LegendDiv .keyTransCircle {\r\n  r: 10px;\r\n  fill: transparent;\r\n  stroke: black;\r\n  cx: 10px;\r\n  cy: 10px;\r\n}\r\n\r\n#d3LegendDiv .keySVG {\r\n  height: 20px;\r\n  width: 20px;\r\n}\r\n\r\n/*end scatter legend ---------------------------*/\r\n\r\n/*start player selection --------------------*/\r\n\r\n#landingContainer {\r\n/*  height: 100vh;\r\n  width: 100%;\r\n  min-height: 800px;\r\n  min-width: 800px;\r\n  position: relative;*/\r\n  background: white;\r\n}\r\n\r\n\r\n\r\n/*start landing carousel -------------------*/\r\n\r\n#carouselContainer {\r\n  height: 800px;\r\n  width: 100%;\r\n  position: relative;\r\n  float: none;\r\n  background: rgba(89, 219, 57, .8);\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv {\r\n  height: 700px;\r\n  width: 80%;\r\n  margin: auto;\r\n  border: 5px solid black;\r\n  overflow: hidden;\r\n  transition: opacity 400ms linear;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv img {\r\n  height: 500px;\r\n  width: 100%;\r\n}\r\n\r\n#carouselContainer .carouselImgDiv h1 {\r\n  background: white;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 50px;\r\n  height: 200px;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#carouselContainer .arrow {\r\n  position: absolute;\r\n  top: 45%;\r\n  height: 0px;\r\n  width: 0px;\r\n  border: 40px solid transparent;\r\n}\r\n\r\n#carouselContainer .arrow:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#carouselContainer .Larrow {\r\n  left: 5px;\r\n  border-right: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Rarrow {\r\n  right: 5px;\r\n  border-left: 40px solid black;\r\n}\r\n\r\n#carouselContainer .Larrow:hover {\r\n  border-right: 40px solid #403075;;\r\n}\r\n\r\n#carouselContainer .Rarrow:hover {\r\n  border-left: 40px solid #403075;;\r\n}\r\n\r\n\r\n\r\n\r\n/*end landing carousel ------------------*/\r\n\r\n#mainHeaderDiv {\r\n  width: 100%;\r\n  height: 800px;\r\n  text-align: center;\r\n  position: relative;\r\n  background: rgba(89, 219, 57, .8);\r\n}\r\n\r\n.headerAppearDown-appear {\r\n  transform: translateY(-100px);\r\n  opacity: 0;\r\n}\r\n\r\n.headerAppearDown-appear-active {\r\n  transform: translateY(0px);\r\n  opacity: 1;\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n.headerAppearUp-appear {\r\n  opacity: 0;\r\n  transform: translateY(100px);\r\n}\r\n\r\n.headerAppearUp-appear-active {\r\n  opacity: 1;\r\n  transform: translateY(0px);\r\n  transition: transform 1s ease-out,\r\n              opacity 1s ease-in;\r\n}\r\n\r\n#mainHeaderDiv h1 {\r\n  padding: 40px;\r\n  padding-top: 250px;\r\n  font-size: 60px;\r\n  margin: auto;\r\n}\r\n\r\n#mainHeaderDiv h3 {\r\n  padding: 3px;\r\n  font-size: 26px;\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg {\r\n  position: absolute;\r\n  bottom: 0px;\r\n  margin: auto;\r\n  left: 0;\r\n  right: 0;\r\n  width: 50px;\r\n  height: 50px;\r\n  animation: bounce 2s infinite;\r\n}\r\n\r\n#mainHeaderDiv .hideArrow {\r\n  opacity: 0;\r\n  transition: opacity 300ms linear;\r\n}\r\n\r\n@keyframes bounce {\r\n  0% {\r\n    transform: translateY(0);\r\n  }\r\n  50% {\r\n    transform: translateY(-20px);\r\n  }\r\n}\r\n\r\n#mainHeaderDiv #downArrowImg:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer {\r\n  min-height: 500px;\r\n}\r\n\r\n#formContainer div {\r\n  margin: 0;\r\n  width: 33%;\r\n  float: left;\r\n  padding: 50px 10px;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n}\r\n\r\n#formContainer h3 {\r\n  font-size: 22px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #formH3Div {\r\n  width: 100%;\r\n  display: block;\r\n  height: 150px;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #formH3Div h3 {\r\n  font-size: 32px;\r\n}\r\n\r\n#formContainer ul {\r\n  list-style-type: none;\r\n  color: black;\r\n  margin: 0;\r\n}\r\n\r\n#formContainer table {\r\n  margin: auto;\r\n}\r\n\r\n\r\n\r\n#formContainer td {\r\n  font-size: 24px;\r\n  padding: 5px;\r\n}\r\n\r\n#formContainer #noResultsTd {\r\n  font-size: 14px;\r\n}\r\n\r\n#formContainer .tableIcon {\r\n  font-weight: bold;\r\n}\r\n\r\n#formContainer .tableIcon:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer .minus {\r\n  color: red;\r\n}\r\n\r\n#formContainer .plus {\r\n  color: green;\r\n}\r\n\r\n#formContainer li {\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.showChartButton {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n  width: 250px;\r\n  margin: 5px auto;\r\n}\r\n\r\n.showChartButton:hover:enabled {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer input {\r\n  padding: 10px;\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n#formContainer #inputNew {\r\n  outline: none;\r\n  border: none;\r\n  border-bottom: 2px solid black;\r\n  text-align: center;\r\n  margin-bottom: 5px;\r\n  background: rgba(255,255,255,.8);\r\n  color: green;\r\n  font-size: 22px;\r\n}\r\n\r\n#formContainer #inputNew:not(:focus) {\r\n  cursor: text;\r\n}\r\n\r\n#formContainer .inputPlus {\r\n  position: absolute;\r\n  color: green;\r\n  font-size: 30px;\r\n  font-weight: bold;\r\n  border: none;\r\n  background: transparent;\r\n  outline: none;\r\n}\r\n\r\n#formContainer form:invalid .inputPlus {\r\n  color: gray;\r\n}\r\n\r\n#formContainer form:invalid .inputPlus:hover {\r\n  cursor: not-allowed;\r\n}\r\n\r\n#formContainer .inputPlus:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n#formContainer #mainInputSpan {\r\n  position: relative;\r\n}\r\n\r\n#formContainer #mainInputSpan #mainInputPlaceholder {\r\n  position: absolute;\r\n  left: 20%;\r\n  bottom: -5px;\r\n  pointer-events: none;\r\n  transition: all 500ms;\r\n  color: green;\r\n  font-size: 24px;\r\n  animation: span-bounce 2s infinite;\r\n}\r\n\r\n@keyframes span-bounce {\r\n  0% {\r\n    transform: translateY(5px);\r\n  }\r\n  25%, 75% {\r\n    transform: translateY(5px);\r\n  }\r\n  50% {\r\n    transform: translateY(0px);\r\n  }\r\n  100% {\r\n    transform: translateY(5px);\r\n  }\r\n}\r\n\r\n#formContainer #inputNew:invalid {\r\n  box-shadow: none;\r\n}\r\n\r\n#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {\r\n  font-size: 12px;\r\n  left: 5px;\r\n  bottom: 30px;\r\n  transition: all 500ms;\r\n  color: black;\r\n  animation: none;\r\n}\r\n\r\n#formContainer #inputNew:focus {\r\n  border-bottom: 4px solid black;\r\n  transition: border 400ms;\r\n}\r\n\r\n#formContainer #inputNew:disabled + #mainInputPlaceholder {\r\n  opacity: 0;\r\n}\r\n\r\n#formContainer #multipleResultsDiv {\r\n  position: fixed;\r\n  min-height: 200px;\r\n  width: 500px;\r\n  background: white;\r\n  border-radius: 5px;\r\n  margin: auto;\r\n  top: 300px;\r\n  z-index: 10;\r\n  box-shadow: 0px 0px 5px black;\r\n  display: block;\r\n  float: none;\r\n  padding: 20px;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table,  #formContainer #multipleResultsDiv tr{\r\n  width: 100%;\r\n  margin: auto;\r\n}\r\n\r\n#formContainer #multipleResultsDiv table tr:not(:first-child):hover {\r\n  cursor: pointer;\r\n  background: whitesmoke;\r\n}\r\n\r\n#formContainer #multipleResultsDiv td {\r\n  font-size: 18px;\r\n  padding: 10px 5px;\r\n}\r\n/*end player selection ---------------------------*/\r\n\r\n/*start landing footer -------------------*/\r\n\r\n#landingFooterContainer {\r\n  clear: both;\r\n  width: 100%;\r\n  background: white;\r\n  overflow: hidden;\r\n  padding-bottom: 100px;\r\n}\r\n\r\n#landingFooterContainer .footerDiv {\r\n  border-radius: 10px;\r\n  width: 75%;\r\n  margin: auto;\r\n  padding: 20px;\r\n  background: white;\r\n  font-size: 20px;\r\n  line-height: 30px;\r\n  background: rgba(89, 219, 57, .8);\r\n  transition: opacity 400ms linear;\r\n  font-family: 'Lato', sans-serif;\r\n}\r\n\r\n#landingFooterContainer .footerDiv a, #landingFooterContainer .footerDiv a:visited {\r\n  font-size: 24px;\r\n  text-decoration: none;\r\n  color: red;\r\n}\r\n\r\n#landingFooterContainer .footerDiv a:hover {\r\n  text-decoration: underline;\r\n}\r\n\r\n#landingFooterContainer h1 {\r\n  padding: 30px 0px 20px;\r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n/*end landing footer --------------------*/", ""]);
 
 // exports
 
@@ -27357,7 +27360,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _LocationUtils = __webpack_require__(25);
 
-var _DOMUtils = __webpack_require__(38);
+var _DOMUtils = __webpack_require__(39);
 
 var _DOMStateStorage = __webpack_require__(82);
 
@@ -27537,7 +27540,7 @@ var _RefreshProtocol = __webpack_require__(160);
 
 var RefreshProtocol = _interopRequireWildcard(_RefreshProtocol);
 
-var _DOMUtils = __webpack_require__(38);
+var _DOMUtils = __webpack_require__(39);
 
 var _createHistory = __webpack_require__(48);
 
@@ -27633,7 +27636,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _ExecutionEnvironment = __webpack_require__(47);
 
-var _DOMUtils = __webpack_require__(38);
+var _DOMUtils = __webpack_require__(39);
 
 var _HashProtocol = __webpack_require__(159);
 
@@ -27793,7 +27796,7 @@ var _createHistory = __webpack_require__(48);
 
 var _createHistory2 = _interopRequireDefault(_createHistory);
 
-var _Actions = __webpack_require__(37);
+var _Actions = __webpack_require__(38);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29407,7 +29410,7 @@ module.exports = DefaultEventPluginOrder;
 
 var EventPropagators = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(6);
-var SyntheticMouseEvent = __webpack_require__(39);
+var SyntheticMouseEvent = __webpack_require__(40);
 
 var eventTypes = {
   mouseEnter: {
@@ -30131,8 +30134,8 @@ var DOMNamespaces = __webpack_require__(51);
 var DOMProperty = __webpack_require__(17);
 var DOMPropertyOperations = __webpack_require__(91);
 var EventPluginHub = __webpack_require__(27);
-var EventPluginRegistry = __webpack_require__(33);
-var ReactBrowserEventEmitter = __webpack_require__(34);
+var EventPluginRegistry = __webpack_require__(34);
+var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactDOMComponentFlags = __webpack_require__(93);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMInput = __webpack_require__(186);
@@ -30144,7 +30147,7 @@ var ReactMultiChild = __webpack_require__(203);
 var ReactServerRenderingTransaction = __webpack_require__(209);
 
 var emptyFunction = __webpack_require__(10);
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(42);
 var invariant = __webpack_require__(1);
 var isEventSupported = __webpack_require__(63);
 var shallowEqual = __webpack_require__(45);
@@ -32078,7 +32081,7 @@ var DOMChildrenOperations = __webpack_require__(50);
 var DOMLazyTree = __webpack_require__(26);
 var ReactDOMComponentTree = __webpack_require__(6);
 
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(42);
 var invariant = __webpack_require__(1);
 var validateDOMNesting = __webpack_require__(65);
 
@@ -32550,7 +32553,7 @@ module.exports = {
 
 
 var DOMProperty = __webpack_require__(17);
-var EventPluginRegistry = __webpack_require__(33);
+var EventPluginRegistry = __webpack_require__(34);
 var ReactComponentTreeHook = __webpack_require__(8);
 
 var warning = __webpack_require__(2);
@@ -32670,7 +32673,7 @@ module.exports = ReactDOMUnknownPropertyHook;
 var _assign = __webpack_require__(4);
 
 var ReactUpdates = __webpack_require__(12);
-var Transaction = __webpack_require__(40);
+var Transaction = __webpack_require__(41);
 
 var emptyFunction = __webpack_require__(10);
 
@@ -33007,7 +33010,7 @@ var EventPluginHub = __webpack_require__(27);
 var EventPluginUtils = __webpack_require__(52);
 var ReactComponentEnvironment = __webpack_require__(55);
 var ReactEmptyComponent = __webpack_require__(97);
-var ReactBrowserEventEmitter = __webpack_require__(34);
+var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactHostComponent = __webpack_require__(99);
 var ReactUpdates = __webpack_require__(12);
 
@@ -34237,10 +34240,10 @@ var _assign = __webpack_require__(4);
 
 var CallbackQueue = __webpack_require__(90);
 var PooledClass = __webpack_require__(20);
-var ReactBrowserEventEmitter = __webpack_require__(34);
+var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactInputSelection = __webpack_require__(100);
 var ReactInstrumentation = __webpack_require__(11);
-var Transaction = __webpack_require__(40);
+var Transaction = __webpack_require__(41);
 var ReactUpdateQueue = __webpack_require__(58);
 
 /**
@@ -34514,7 +34517,7 @@ module.exports = ReactRef;
 var _assign = __webpack_require__(4);
 
 var PooledClass = __webpack_require__(20);
-var Transaction = __webpack_require__(40);
+var Transaction = __webpack_require__(41);
 var ReactInstrumentation = __webpack_require__(11);
 var ReactServerUpdateQueue = __webpack_require__(210);
 
@@ -34898,12 +34901,12 @@ var _prodInvariant = __webpack_require__(3),
 
 var EventConstants = __webpack_require__(176);
 var EventPluginHub = __webpack_require__(27);
-var EventPluginRegistry = __webpack_require__(33);
+var EventPluginRegistry = __webpack_require__(34);
 var EventPropagators = __webpack_require__(28);
 var React = __webpack_require__(13);
 var ReactDOM = __webpack_require__(56);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactBrowserEventEmitter = __webpack_require__(34);
+var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactInstanceMap = __webpack_require__(29);
 var ReactUpdates = __webpack_require__(12);
 var SyntheticEvent = __webpack_require__(14);
@@ -35844,11 +35847,11 @@ var SyntheticClipboardEvent = __webpack_require__(218);
 var SyntheticEvent = __webpack_require__(14);
 var SyntheticFocusEvent = __webpack_require__(221);
 var SyntheticKeyboardEvent = __webpack_require__(223);
-var SyntheticMouseEvent = __webpack_require__(39);
+var SyntheticMouseEvent = __webpack_require__(40);
 var SyntheticDragEvent = __webpack_require__(220);
 var SyntheticTouchEvent = __webpack_require__(224);
 var SyntheticTransitionEvent = __webpack_require__(225);
-var SyntheticUIEvent = __webpack_require__(35);
+var SyntheticUIEvent = __webpack_require__(36);
 var SyntheticWheelEvent = __webpack_require__(226);
 
 var emptyFunction = __webpack_require__(10);
@@ -36195,7 +36198,7 @@ module.exports = SyntheticCompositionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(39);
+var SyntheticMouseEvent = __webpack_require__(40);
 
 /**
  * @interface DragEvent
@@ -36236,7 +36239,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(35);
+var SyntheticUIEvent = __webpack_require__(36);
 
 /**
  * @interface FocusEvent
@@ -36319,7 +36322,7 @@ module.exports = SyntheticInputEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(35);
+var SyntheticUIEvent = __webpack_require__(36);
 
 var getEventCharCode = __webpack_require__(60);
 var getEventKey = __webpack_require__(231);
@@ -36408,7 +36411,7 @@ module.exports = SyntheticKeyboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(35);
+var SyntheticUIEvent = __webpack_require__(36);
 
 var getEventModifierState = __webpack_require__(61);
 
@@ -36502,7 +36505,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(39);
+var SyntheticMouseEvent = __webpack_require__(40);
 
 /**
  * @interface WheelEvent
@@ -37102,7 +37105,7 @@ module.exports = getNodeForCharacterOffset;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(41);
+var escapeTextContentForBrowser = __webpack_require__(42);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -37169,11 +37172,11 @@ var IndexLink = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Redirect__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(37);
 
 
 
@@ -37228,11 +37231,11 @@ var IndexRedirect = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RouteUtils__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(37);
 
 
 
@@ -37289,7 +37292,7 @@ var IndexRoute = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RouteUtils__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InternalPropTypes__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InternalPropTypes__ = __webpack_require__(37);
 
 
 
@@ -37346,11 +37349,11 @@ var Route = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createTransitionManager__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InternalPropTypes__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InternalPropTypes__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RouterContext__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__RouteUtils__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RouterUtils__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routerWarning__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__routerWarning__ = __webpack_require__(32);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -37671,7 +37674,7 @@ function runLeaveHooks(routes, prevState) {
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RouterContext__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routerWarning__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routerWarning__ = __webpack_require__(32);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -38046,7 +38049,7 @@ function isActive(_ref, indexOnly, currentLocation, routes, params) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(37);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -38119,7 +38122,7 @@ function match(_ref, callback) {
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AsyncUtils__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PromiseUtils__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PatternUtils__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routerWarning__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routerWarning__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RouteUtils__ = __webpack_require__(18);
 /* harmony export (immutable) */ __webpack_exports__["a"] = matchRoutes;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };

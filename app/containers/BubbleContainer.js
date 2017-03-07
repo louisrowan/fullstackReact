@@ -4,6 +4,7 @@ const D3Bubble = require('../components/D3Bubble')
 const BubbleLegend = require('../components/BubbleLegend')
 const { hashHistory } = require('react-router')
 
+
 const BubbleContainer = React.createClass({
   getInitialState(){
     return {

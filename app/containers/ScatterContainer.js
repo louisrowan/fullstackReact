@@ -41,6 +41,9 @@ const ScatterContainer = React.createClass({
       this.setState({ searching: false })
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
+        if (this.state.data.length > 0){
+          this.setState({ chartReady: true })
+        }
       } else if (data.length === 1) {
         data = data[0]
         let players = [...this.state.players, data.name]

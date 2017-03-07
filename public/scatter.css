@@ -391,11 +391,20 @@ text {
   box-sizing: border-box;
 }
 
+#formContainer h3 {
+  font-size: 22px;
+  margin: auto;
+}
+
 #formContainer #formH3Div {
   width: 100%;
   display: block;
   height: 150px;
   margin: auto;
+}
+
+#formContainer #formH3Div h3 {
+  font-size: 32px;
 }
 
 #formContainer ul {
@@ -408,10 +417,7 @@ text {
   margin: auto;
 }
 
-#formContainer h3 {
-  font-size: 24px;
-  margin: auto;
-}
+
 
 #formContainer td {
   font-size: 24px;
