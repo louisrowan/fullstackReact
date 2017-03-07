@@ -67,7 +67,7 @@ const ScatterLegend = React.createClass({
   },
   getUrl(){
     return window.location.origin + '/#/scatter?' + this.props.data.map((p, i) => {
-      return `p${i + 1}=${p.name.split(' ').join('-')}&`
+      return `p${i + 1}=${p.name.split(' ').join('-')}_${p.id}&`
     }).join('')
   },
   render(){

@@ -30,14 +30,15 @@ const ScatterContainer = React.createClass({
       }.bind(this))
 
   },
-  getPlayerData(name){
+  getPlayerData(name, id){
     var player = name || this.state.newPlayer
     this.setState({ searching: true, error: false })
     $.ajax({
       url: '/api/baseball',
       type: 'post',
-      data: { player: player.toLowerCase()}
+      data: { player: player.toLowerCase(), id: id}
     }).done((data) => {
+      console.log('res:', data)
       this.setState({ searching: false })
       if (data.length === 0) {
         this.setState({ error: this.state.newPlayer, newPlayer: ''})
@@ -88,7 +89,10 @@ const ScatterContainer = React.createClass({
   },
   handleParams(params){
     [params.p1, params.p2, params.p3].forEach((p) => {
-      if (p) this.getPlayerData(p.split('-').join(' '))
+      if (p) {
+        var params = p.split('_')
+        this.getPlayerData(params[0].split('-').join(' '), params[1])
+      }
     })
   },
   render(){

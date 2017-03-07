@@ -97,7 +97,6 @@ function numParse(str){
 exports.baseballCubeParse = function(player, id){
   var pName = player
   player = player.split(' ').join('-')
-  console.log(player)
   var url = 'http://www.thebaseballcube.com/players/profile.asp?P=' + player
 
 
@@ -106,6 +105,7 @@ exports.baseballCubeParse = function(player, id){
         id = id || '0'
       return new Promise(function(resolve, reject){
         var param = id === '0' ? '' : id
+        console.log(url, param)
         request(url + param, function(err, res, html){
 
         var $ = cheerio.load(html)
@@ -128,7 +128,8 @@ exports.baseballCubeParse = function(player, id){
   } else {
     return promise(url, id)
       .then(function(response) {
-        return response
+        console.log('response: ', response)
+        return [response]
       })
   }
 }
