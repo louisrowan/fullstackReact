@@ -1,8 +1,24 @@
 const React = require('react')
 const Util = require('../../util/Util')
 const { Link } = require('react-router')
+const CopyToClipboard = require('react-copy-to-clipboard')
 
 const BubbleLegend = React.createClass({
+  getInitialState(){
+    return {
+      value: this.getUrl(),
+      copied: false
+    }
+  },
+  getUrl(){
+    return window.location.origin + '/#/bubble?' + this.props.data.map((p, i) => {
+      return `p${i + 1}=${p.name.split(' ').join('-')}_${p.id}&`
+    }).join('')
+  },
+  handleCopy(e){
+    e.preventDefault()
+    this.setState({ copied: true })
+  },
   render(){
     var statsSelector = this.props.stats.map((stat) => {
       var color;
@@ -39,6 +55,9 @@ const BubbleLegend = React.createClass({
         <br />
         <br />
         <div>
+          <CopyToClipboard text={this.state.value} onCopy={this.onCopy} >
+            <button>Copy Chart URL</button>
+          </CopyToClipboard>
           <Link to='/scatter'>
             <button>Scatter Plot</button>
           </Link>

@@ -25454,8 +25454,25 @@ var Util = __webpack_require__(32);
 var _require = __webpack_require__(43),
     Link = _require.Link;
 
+var CopyToClipboard = __webpack_require__(166);
+
 var BubbleLegend = React.createClass({
   displayName: 'BubbleLegend',
+  getInitialState: function getInitialState() {
+    return {
+      value: this.getUrl(),
+      copied: false
+    };
+  },
+  getUrl: function getUrl() {
+    return window.location.origin + '/#/bubble?' + this.props.data.map(function (p, i) {
+      return 'p' + (i + 1) + '=' + p.name.split(' ').join('-') + '_' + p.id + '&';
+    }).join('');
+  },
+  handleCopy: function handleCopy(e) {
+    e.preventDefault();
+    this.setState({ copied: true });
+  },
   render: function render() {
     var statsSelector = this.props.stats.map(function (stat) {
       var color;
@@ -25536,6 +25553,15 @@ var BubbleLegend = React.createClass({
         'div',
         null,
         React.createElement(
+          CopyToClipboard,
+          { text: this.state.value, onCopy: this.onCopy },
+          React.createElement(
+            'button',
+            null,
+            'Copy Chart URL'
+          )
+        ),
+        React.createElement(
           Link,
           { to: '/scatter' },
           React.createElement(
@@ -25574,7 +25600,7 @@ var D3Bubble = React.createClass({
   displayName: 'D3Bubble',
   getInitialState: function getInitialState() {
     return {
-      height: 700,
+      height: 800,
       width: 1100
     };
   },
@@ -25637,7 +25663,7 @@ var D3Bubble = React.createClass({
 
     var circles = d3.selectAll('.d3Bubble').append('circle').attr('r', function (d) {
       return scales[d.stat](d.num);
-    }).attr('cx', 400).attr('cy', 400).style('stroke', 'black').style('stroke-width', '1px').style('fill', function (d) {
+    }).attr('cx', -500).attr('cy', -500).style('stroke', 'black').style('stroke-width', '1px').style('fill', function (d) {
       var index = players.indexOf(d.name);
       if (index === 0) {
         return 'red';
@@ -25675,8 +25701,16 @@ var D3Bubble = React.createClass({
       }).strength(0.02);
     };
 
-    var simulation = d3.forceSimulation().force('x', forceXCustom('OBP')).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
-      return scales[d.stat](d.num) + 2;
+    var forceXStart = d3.forceX(function (d) {
+      if (d.stat === 'OBP') {
+        return width / 2;
+      } else {
+        return -2 * width;
+      }
+    }).strength(0.03);
+
+    var simulation = d3.forceSimulation().force('x', forceXStart).force('y', forceYNormal).force('collide', d3.forceCollide(function (d) {
+      return scales[d.stat](d.num) + 1;
     }));
 
     simulation.nodes(data).on('tick', ticked);
@@ -25689,13 +25723,18 @@ var D3Bubble = React.createClass({
       });
     }
 
-    d3.selectAll('button').on('click', function (e) {
+    d3.selectAll('.d3BubbleButtons').on('click', function (e) {
       d3.selectAll('.d3BubbleButtons').classed('bubbleActive', false);
       d3.select(this).classed('bubbleActive', true);
       var id = this.id;
 
       simulation.force('x', forceXCustom(id)).force('y', forceYNormal).alphaTarget(0.5).restart();
     });
+  },
+  componentDidUpdate: function componentDidUpdate(e) {
+    console.log('update', e);
+    d3.select('.d3BubbleSVG').selectAll('*').remove();
+    this.setupSVG();
   },
   render: function render() {
     return React.createElement(

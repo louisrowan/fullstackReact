@@ -4,7 +4,7 @@ const Util = require('../../util/Util')
 const D3Bubble = React.createClass({
   getInitialState(){
     return {
-      height: 700,
+      height: 800,
       width: 1100
     }
   },
@@ -74,8 +74,8 @@ const D3Bubble = React.createClass({
     var circles = d3.selectAll('.d3Bubble')
       .append('circle')
       .attr('r', (d) => scales[d.stat](d.num))
-      .attr('cx', 400)
-      .attr('cy', 400)
+      .attr('cx', -500)
+      .attr('cy', -500)
       .style('stroke', 'black')
       .style('stroke-width', '1px')
       .style('fill', (d) => {
@@ -122,11 +122,19 @@ const D3Bubble = React.createClass({
       }).strength(0.02)
     }
 
+    var forceXStart = d3.forceX((d) => {
+      if (d.stat === 'OBP'){
+        return width/2
+      } else {
+        return -2*width
+      }
+    }).strength(0.03)
+
     var simulation = d3.forceSimulation()
-      .force('x', forceXCustom('OBP'))
+      .force('x', forceXStart)
       .force('y', forceYNormal)
       .force('collide', d3.forceCollide((d) => {
-        return scales[d.stat](d.num) + 2
+        return scales[d.stat](d.num) + 1
       }))
 
     simulation.nodes(data)
@@ -138,7 +146,7 @@ const D3Bubble = React.createClass({
         .attr('cy', (d) => d.y)
     }
 
-    d3.selectAll('button').on('click', function(e){
+    d3.selectAll('.d3BubbleButtons').on('click', function(e){
       d3.selectAll('.d3BubbleButtons')
         .classed('bubbleActive', false)
       d3.select(this).classed('bubbleActive', true)
@@ -151,6 +159,11 @@ const D3Bubble = React.createClass({
         .restart()
     })
 
+  },
+  componentDidUpdate(e){
+    console.log('update', e)
+    d3.select('.d3BubbleSVG').selectAll('*').remove()
+    this.setupSVG()
   },
   render(){
     return (
