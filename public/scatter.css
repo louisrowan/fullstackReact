@@ -509,6 +509,22 @@ text {
   transition: all 500ms;
   color: green;
   font-size: 24px;
+  animation: span-bounce 2s infinite;
+}
+
+@keyframes span-bounce {
+  0% {
+    transform: translateY(5px);
+  }
+  25%, 75% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
 }
 
 #formContainer #inputNew:invalid {
@@ -521,6 +537,7 @@ text {
   bottom: 30px;
   transition: all 500ms;
   color: black;
+  animation: none;
 }
 
 #formContainer #inputNew:focus {
