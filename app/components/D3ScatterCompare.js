@@ -256,7 +256,6 @@ const D3ScatterCompare = React.createClass({
     this.renderChart(data, ['OBP'])
   },
   render(){
-
     return (
       <div id='scatterContainer'>
         <ScatterLegend

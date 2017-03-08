@@ -1,9 +1,7 @@
 const React = require('react')
-const ScatterLegend = require('../components/ScatterLegend')
 const D3Bubble = require('../components/D3Bubble')
 const BubbleLegend = require('../components/BubbleLegend')
 const { hashHistory } = require('react-router')
-
 
 const BubbleContainer = React.createClass({
   getInitialState(){

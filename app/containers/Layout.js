@@ -1,6 +1,4 @@
 const React = require('react')
-const D3ScatterCompare = require('../components/D3ScatterCompare')
-const ScatterCompareForm = require('../components/ScatterCompareForm')
 const $ = require('jquery')
 
 const Layout = React.createClass({

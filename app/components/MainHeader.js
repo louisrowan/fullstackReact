@@ -33,9 +33,7 @@ const MainHeader = React.createClass({
         transitionLeave={false}
         transitionAppear={true}
         transitionAppearTimeout={1000}>
-
-        <h1>MLB Graphs</h1>
-
+          <h1>MLB Graphs</h1>
         </ReactCSSTransitionGroup>
 
         <ReactCSSTransitionGroup
@@ -44,9 +42,8 @@ const MainHeader = React.createClass({
         transitionLeave={false}
         transitionAppear={true}
         transitionAppearTimeout={1000}>
-        <h3>Built by Louis Rowan</h3>
-        <h3>Data scraped from theBaseballCube.com</h3>
-
+          <h3>Built by Louis Rowan</h3>
+          <h3>Data scraped from theBaseballCube.com</h3>
         </ReactCSSTransitionGroup>
 
         <img

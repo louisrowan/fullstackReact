@@ -9010,7 +9010,6 @@ var D3ScatterCompare = React.createClass({
     this.renderChart(data, ['OBP']);
   },
   render: function render() {
-
     return React.createElement(
       'div',
       { id: 'scatterContainer' },
@@ -26104,7 +26103,6 @@ module.exports = Searching;
 
 
 var React = __webpack_require__(5);
-var ScatterLegend = __webpack_require__(78);
 var D3Bubble = __webpack_require__(132);
 var BubbleLegend = __webpack_require__(131);
 
@@ -41208,8 +41206,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var React = __webpack_require__(5);
-var D3ScatterCompare = __webpack_require__(76);
-var ScatterCompareForm = __webpack_require__(77);
 var $ = __webpack_require__(85);
 
 var Layout = React.createClass({
