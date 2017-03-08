@@ -1,8 +1,6 @@
 const React = require('react')
 const images = require('json-loader!../../public/data.json').images
 
-
-
 const LandingBackground = React.createClass({
   getInitialState(){
     return {

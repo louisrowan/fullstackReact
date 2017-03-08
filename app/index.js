@@ -8,6 +8,7 @@ const BubbleContainer = require('./containers/BubbleContainer')
 require('../public/styles.css')
 require('../public/scatter.css')
 require('../public/bubble.css')
+require('../public/landing.css')
 
 const Routes = React.createClass({
   render() {

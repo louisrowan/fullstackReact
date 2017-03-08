@@ -6,6 +6,8 @@ const Searching = require('./Searching')
 const Util = require('../../util/Util')
 const $ = require('jquery')
 const { Link } = require('react-router')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+
 
 const ScatterCompareForm = React.createClass({
   getInitialState(){
@@ -26,7 +28,7 @@ const ScatterCompareForm = React.createClass({
   render(){
     var playerList;
     if (this.props.players.length > 0){
-      playerList = this.props.players.map((p, i) => <tr key={i}><td className='tableIcon minus' onClick={() => this.props.handleRemovePlayer(p)}>&#8259;</td><td>{Util.capitalize(p)}</td></tr>)
+      playerList = this.props.players.map((p) => <tr key={p}><td className='tableIcon minus' onClick={() => this.props.handleRemovePlayer(p)}>&#8259;</td><td>{Util.capitalize(p)}</td></tr>)
     }
     var formDisabled;
     var max
@@ -95,7 +97,12 @@ const ScatterCompareForm = React.createClass({
             <h3>Currently on your list...</h3>
             <table>
               <tbody>
+                <ReactCSSTransitionGroup
+                transitionName='playerListTrans'
+                transitionEnter={500}
+                transitionLeave={300}>
                 {playerList}
+                </ReactCSSTransitionGroup>
               </tbody>
             </table>
           </div>

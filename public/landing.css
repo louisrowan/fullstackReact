@@ -1,0 +1,425 @@
+/*start player selection --------------------*/
+
+#landingContainer {
+
+  background: white;
+}
+
+#formContainer {
+  min-height: 500px;
+}
+
+#formContainer div {
+  margin: 0;
+  width: 33%;
+  float: left;
+  padding: 50px 10px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#formContainer h3 {
+  font-size: 22px;
+  margin: auto;
+}
+
+#formContainer #formH3Div {
+  width: 100%;
+  display: block;
+  height: 150px;
+  margin: auto;
+}
+
+#formContainer #formH3Div h3 {
+  font-size: 32px;
+}
+
+#formContainer ul {
+  list-style-type: none;
+  color: black;
+  margin: 0;
+}
+
+#formContainer table {
+  margin: auto;
+}
+
+
+
+#formContainer td {
+  font-size: 24px;
+  padding: 5px;
+}
+
+#formContainer #noResultsTd {
+  font-size: 14px;
+}
+
+#formContainer .tableIcon {
+  font-weight: bold;
+}
+
+#formContainer .tableIcon:hover {
+  cursor: pointer;
+}
+
+#formContainer .minus {
+  color: red;
+}
+
+#formContainer .plus {
+  color: green;
+}
+
+#formContainer li {
+  font-size: 20px;
+  padding: 5px;
+}
+
+.showChartButton {
+  padding: 10px;
+  font-size: 20px;
+  width: 250px;
+  margin: 5px auto;
+}
+
+.showChartButton:hover:enabled {
+  cursor: pointer;
+}
+
+#formContainer input {
+  padding: 10px;
+  font-size: 20px;
+}
+
+
+#formContainer #inputNew {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  margin-bottom: 5px;
+  background: rgba(255,255,255,.8);
+  color: green;
+  font-size: 22px;
+}
+
+#formContainer #inputNew:not(:focus) {
+  cursor: text;
+}
+
+#formContainer .inputPlus {
+  position: absolute;
+  color: green;
+  font-size: 30px;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+#formContainer form:invalid .inputPlus {
+  color: gray;
+}
+
+#formContainer form:invalid .inputPlus:hover {
+  cursor: not-allowed;
+}
+
+#formContainer .inputPlus:hover {
+  cursor: pointer;
+}
+
+#formContainer #mainInputSpan {
+  position: relative;
+}
+
+#formContainer #mainInputSpan #mainInputPlaceholder {
+  position: absolute;
+  left: 20%;
+  bottom: -5px;
+  pointer-events: none;
+  transition: all 500ms;
+  color: green;
+  font-size: 24px;
+  animation: span-bounce 2s infinite;
+}
+
+@keyframes span-bounce {
+  0% {
+    transform: translateY(5px);
+  }
+  25%, 75% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+#formContainer #inputNew:invalid {
+  box-shadow: none;
+}
+
+#formContainer #inputNew:focus + #mainInputPlaceholder, #formContainer #inputNew:valid + #mainInputPlaceholder {
+  font-size: 12px;
+  left: 5px;
+  bottom: 30px;
+  transition: all 500ms;
+  color: black;
+  animation: none;
+}
+
+#formContainer #inputNew:focus {
+  border-bottom: 4px solid black;
+  transition: border 400ms;
+}
+
+#formContainer #inputNew:disabled + #mainInputPlaceholder {
+  opacity: 0;
+}
+
+#formContainer #multipleResultsDiv {
+  position: fixed;
+  min-height: 200px;
+  width: 500px;
+  background: white;
+  border-radius: 5px;
+  margin: auto;
+  top: 300px;
+  z-index: 10;
+  box-shadow: 0px 0px 5px black;
+  display: block;
+  float: none;
+  padding: 20px;
+}
+
+#formContainer #multipleResultsDiv table,  #formContainer #multipleResultsDiv tr{
+  width: 100%;
+  margin: auto;
+}
+
+#formContainer #multipleResultsDiv table tr:not(:first-child):hover {
+  cursor: pointer;
+  background: whitesmoke;
+}
+
+#formContainer #multipleResultsDiv td {
+  font-size: 18px;
+  padding: 10px 5px;
+}
+
+.playerListTrans-enter {
+  opacity: 0;
+}
+
+.playerListTrans-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
+.playerListTrans-leave {
+  transform: rotateY(0deg);
+}
+
+.playerListTrans-leave-active {
+  transform: rotateY(90deg);
+  transition: transform 300ms ease-in;
+}
+
+
+/*end player selection -----------------*/
+
+/*start landing carousel -------------------*/
+
+#carouselContainer {
+  height: 800px;
+  width: 100%;
+  position: relative;
+  float: none;
+  background: rgba(89, 219, 57, .8);
+  display: flex;
+  align-items: center;
+}
+
+#carouselContainer .carouselImgDiv {
+  height: 600px;
+  width: 80%;
+  margin: auto;
+  border: 5px solid black;
+  overflow: hidden;
+  transition: opacity 400ms linear;
+}
+
+#carouselContainer .carouselImgDiv img {
+  height: 500px;
+  width: 100%;
+}
+
+#carouselContainer .carouselImgDiv h1 {
+  background: white;
+  text-align: center;
+  margin: 0;
+  padding: 50px;
+  height: 200px;
+  box-sizing: border-box;
+}
+
+#carouselContainer .arrow {
+  position: absolute;
+  top: 45%;
+  height: 0px;
+  width: 0px;
+  border: 40px solid transparent;
+}
+
+#carouselContainer .arrow:hover {
+  cursor: pointer;
+}
+
+#carouselContainer .Larrow {
+  left: 5px;
+  border-right: 40px solid black;
+}
+
+#carouselContainer .Rarrow {
+  right: 5px;
+  border-left: 40px solid black;
+}
+
+#carouselContainer .Larrow:hover {
+  border-right: 40px solid #403075;;
+}
+
+#carouselContainer .Rarrow:hover {
+  border-left: 40px solid #403075;;
+}
+
+
+
+
+/*end landing carousel ------------------*/
+
+
+/*start main header*/
+#mainHeaderDiv {
+  width: 100%;
+  height: 800px;
+  text-align: center;
+  position: relative;
+  background: rgba(89, 219, 57, .8);
+}
+
+.headerAppearDown-appear {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+.headerAppearDown-appear-active {
+  transform: translateY(0px);
+  opacity: 1;
+  transition: transform 1s ease-out,
+              opacity 1s ease-in;
+}
+
+.headerAppearUp-appear {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.headerAppearUp-appear-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: transform 1s ease-out,
+              opacity 1s ease-in;
+}
+
+#mainHeaderDiv h1 {
+  padding: 40px;
+  padding-top: 250px;
+  font-size: 60px;
+  margin: auto;
+}
+
+#mainHeaderDiv h3 {
+  padding: 3px;
+  font-size: 26px;
+}
+
+#mainHeaderDiv #downArrowImg {
+  position: absolute;
+  bottom: 0px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  animation: bounce 2s infinite;
+}
+
+#mainHeaderDiv .hideArrow {
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+#mainHeaderDiv #downArrowImg:hover {
+  cursor: pointer;
+}
+
+/*end main header ---------------------*/
+
+/*start landing footer -------------------*/
+
+#landingFooterContainer {
+  clear: both;
+  width: 100%;
+  background: white;
+  overflow: hidden;
+  padding-bottom: 100px;
+}
+
+#landingFooterContainer .footerDiv {
+  border-radius: 10px;
+  width: 75%;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  font-size: 20px;
+  line-height: 35px;
+  background: rgba(89, 219, 57, .8);
+  transition: opacity 400ms linear;
+  font-family: 'Lato', sans-serif;
+}
+
+#landingFooterContainer .footerDiv a, #landingFooterContainer .footerDiv a:visited {
+  font-size: 24px;
+  text-decoration: none;
+  color: red;
+}
+
+#landingFooterContainer .footerDiv a:hover {
+  text-decoration: underline;
+}
+
+#landingFooterContainer h1 {
+  padding: 30px 0px 20px;
+  text-align: center;
+}
+
+
+
+
+
+/*end landing footer --------------------*/
