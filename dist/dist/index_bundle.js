@@ -41157,23 +41157,37 @@ var ScatterCompareForm = __webpack_require__(77);
 var LandingContainer = React.createClass({
   displayName: 'LandingContainer',
   render: function render() {
+    var _props = this.props,
+        players = _props.players,
+        handleRemovePlayer = _props.handleRemovePlayer,
+        newPlayer = _props.newPlayer,
+        handlePredictiveClick = _props.handlePredictiveClick,
+        error = _props.error,
+        searching = _props.searching,
+        multipleResults = _props.multipleResults,
+        handleMultipleClick = _props.handleMultipleClick,
+        handleSubmit = _props.handleSubmit,
+        handleInputChange = _props.handleInputChange,
+        chartReady = _props.chartReady,
+        data = _props.data;
+
     return React.createElement(
       'div',
       { id: 'landingContainer' },
       React.createElement(MainHeader, null),
       React.createElement(ScatterCompareForm, {
-        players: this.props.players,
-        handleRemovePlayer: this.props.handleRemovePlayer,
-        newPlayer: this.props.newPlayer,
-        handlePredictiveClick: this.props.handlePredictiveClick,
-        error: this.props.error,
-        searching: this.props.searching,
-        multipleResults: this.props.multipleResults,
-        handleMultipleClick: this.props.handleMultipleClick,
-        handleSubmit: this.props.handleSubmit,
-        handleInputChange: this.props.handleInputChange,
-        chartReady: this.props.chartReady,
-        data: this.props.data }),
+        players: players,
+        handleRemovePlayer: handleRemovePlayer,
+        newPlayer: newPlayer,
+        handlePredictiveClick: handlePredictiveClick,
+        error: error,
+        searching: searching,
+        multipleResults: multipleResults,
+        handleMultipleClick: handleMultipleClick,
+        handleSubmit: handleSubmit,
+        handleInputChange: handleInputChange,
+        chartReady: chartReady,
+        data: data }),
       React.createElement(LandingBackground, null),
       React.createElement(LandingFooter, null)
     );
@@ -41298,20 +41312,29 @@ var Layout = React.createClass({
   render: function render() {
     var _React$cloneElement;
 
+    var _state = this.state,
+        players = _state.players,
+        data = _state.data,
+        chartReady = _state.chartReady,
+        newPlayer = _state.newPlayer,
+        error = _state.error,
+        multipleResults = _state.multipleResults,
+        searching = _state.searching;
+
     return React.createElement(
       'div',
       { id: 'd3LayoutDiv' },
       React.cloneElement(this.props.children, (_React$cloneElement = {
-        players: this.state.players,
-        data: this.state.data,
+        players: players,
+        data: data,
         handleSubmit: this.handleSubmit,
-        chartReady: this.state.chartReady,
-        newPlayer: this.state.newPlayer,
-        error: this.state.error,
+        chartReady: chartReady,
+        newPlayer: newPlayer,
+        error: error,
         handleInputChange: this.handleInputChange,
         handlePredictiveClick: this.handlePredictiveClick,
         handleRemovePlayer: this.handleRemovePlayer
-      }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', this.state.multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _defineProperty(_React$cloneElement, 'searching', this.state.searching), _React$cloneElement))
+      }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _defineProperty(_React$cloneElement, 'searching', searching), _React$cloneElement))
     );
   }
 });

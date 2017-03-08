@@ -98,22 +98,29 @@ const Layout = React.createClass({
     })
   },
   render(){
+    var { players,
+          data,
+          chartReady,
+          newPlayer,
+          error,
+          multipleResults,
+          searching } = this.state
     return (
       <div id='d3LayoutDiv'>
         {React.cloneElement(this.props.children, {
-          players: this.state.players,
-          data: this.state.data,
+          players: players,
+          data: data,
           handleSubmit: this.handleSubmit,
-          chartReady: this.state.chartReady,
-          newPlayer: this.state.newPlayer,
-          error: this.state.error,
+          chartReady: chartReady,
+          newPlayer: newPlayer,
+          error: error,
           handleInputChange: this.handleInputChange,
           handlePredictiveClick: this.handlePredictiveClick, 
           handleRemovePlayer: this.handleRemovePlayer,
           handleSubmit: this.handleSubmit,
-          multipleResults: this.state.multipleResults,
+          multipleResults: multipleResults,
           handleMultipleClick: this.handleMultipleClick,
-          searching: this.state.searching })}
+          searching: searching })}
       </div>
     )
   }

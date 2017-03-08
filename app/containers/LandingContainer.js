@@ -6,22 +6,34 @@ const ScatterCompareForm = require('../components/ScatterCompareForm')
 
 const LandingContainer = React.createClass({
   render(){
+    var { players,
+          handleRemovePlayer,
+          newPlayer,
+          handlePredictiveClick,
+          error,
+          searching,
+          multipleResults,
+          handleMultipleClick,
+          handleSubmit,
+          handleInputChange,
+          chartReady,
+          data } = this.props
     return (
       <div id='landingContainer'>
         <MainHeader />
         <ScatterCompareForm
-          players={this.props.players}
-          handleRemovePlayer={this.props.handleRemovePlayer}
-          newPlayer={this.props.newPlayer}
-          handlePredictiveClick={this.props.handlePredictiveClick}
-          error={this.props.error}
-          searching={this.props.searching}
-          multipleResults={this.props.multipleResults}
-          handleMultipleClick={this.props.handleMultipleClick}
-          handleSubmit={this.props.handleSubmit}
-          handleInputChange={this.props.handleInputChange}
-          chartReady={this.props.chartReady}
-          data={this.props.data} />
+          players={players}
+          handleRemovePlayer={handleRemovePlayer}
+          newPlayer={newPlayer}
+          handlePredictiveClick={handlePredictiveClick}
+          error={error}
+          searching={searching}
+          multipleResults={multipleResults}
+          handleMultipleClick={handleMultipleClick}
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+          chartReady={chartReady}
+          data={data} />
         <LandingBackground />
         <LandingFooter />
       </div>
