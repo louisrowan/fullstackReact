@@ -1,7 +1,4 @@
 const React = require('react')
-const LandingBackground = require('./LandingBackground')
-const LandingFooter = require('./LandingFooter')
-const MainHeader = require('./MainHeader')
 const Searching = require('./Searching')
 const Util = require('../../util/Util')
 const $ = require('jquery')
@@ -87,75 +84,64 @@ const ScatterCompareForm = React.createClass({
     }
 
     return (
-      <div id='landingContainer'>
-        <MainHeader />
-        <div id='formContainer'>
-          <div id='formH3Div'>
-            <h3>Compare up to ANY 3 MLB players, past or present</h3>
-          </div>
-          <div>
-            <h3>Currently on your list...</h3>
-            <table>
-              <tbody>
-                <ReactCSSTransitionGroup
-                transitionName='playerListTrans'
-                transitionEnter={500}
-                transitionLeave={300}>
+      <div id='formContainer'>
+        <div id='formH3Div'>
+          <h3>Compare up to ANY 3 MLB players, past or present</h3>
+        </div>
+        <div>
+          <h3>Currently on your list...</h3>
+          <table>
+            <ReactCSSTransitionGroup component='tbody'
+              transitionName='playerListTrans'
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}>
                 {playerList}
-                </ReactCSSTransitionGroup>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <form onSubmit={(e) => this.props.handleSubmit(e)}>
-              <input type='hidden' value='something' />
-              <span id='mainInputSpan'>
+            </ReactCSSTransitionGroup>
+          </table>
+        </div>
+        <div>
+          <form onSubmit={(e) => this.props.handleSubmit(e)}>
+            <input type='hidden' value='something' />
+            <span id='mainInputSpan'>
               <input disabled={formDisabled} id='inputNew'
-              value={this.props.newPlayer}
-              required
-              autoComplete='off'
-              onChange={(e)=>this.props.handleInputChange(e)} />
+                value={this.props.newPlayer}
+                required
+                autoComplete='off'
+                onChange={(e)=>this.props.handleInputChange(e)} />
               <span id='mainInputPlaceholder'>Add a Player</span>
-              </span>
-            
-              
-              <input className='inputPlus'
-                disabled={formDisabled}
-                type='submit'
-                value='&#x2b;'  />
-            
-
-            </form>
-            {max}
-            {error}
-            {searching}
-            {multipleResults}
-            <br />
-            <Link to='/scatter'>
+            </span>
+            <input className='inputPlus'
+              disabled={formDisabled}
+              type='submit'
+              value='&#x2b;'  />
+          </form>
+          {max}
+          {error}
+          {searching}
+          {multipleResults}
+          <br />
+          <Link to='/scatter'>
             <input type='submit' 
               className='showChartButton'
               disabled={!this.props.chartReady || this.props.players.length < 1}
-            value='Scatter Plot' />
-            </Link>
-            <br />
-            <Link to='/bubble'>
+              value='Scatter Plot' />
+          </Link>
+          <br />
+          <Link to='/bubble'>
             <input type='submit'
               className='showChartButton'
               disabled={!this.props.chartReady || this.props.players.length < 1}
-            value='Bubble Chart' />
-            </Link>
-          </div>
-          <div>
-            <h3>Recent Similar Searches...</h3>
-            <table>
-              <tbody>
-                {predictiveText}
-              </tbody>
-            </table>
-          </div>
+              value='Bubble Chart' />
+          </Link>
         </div>
-        <LandingBackground />
-        <LandingFooter />
+        <div>
+          <h3>Recent Similar Searches...</h3>
+          <table>
+            <tbody>
+              {predictiveText}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

@@ -9039,9 +9039,6 @@ module.exports = D3ScatterCompare;
 
 
 var React = __webpack_require__(5);
-var LandingBackground = __webpack_require__(133);
-var LandingFooter = __webpack_require__(134);
-var MainHeader = __webpack_require__(135);
 var Searching = __webpack_require__(136);
 var Util = __webpack_require__(33);
 var $ = __webpack_require__(85);
@@ -9232,119 +9229,108 @@ var ScatterCompareForm = React.createClass({
 
     return React.createElement(
       'div',
-      { id: 'landingContainer' },
-      React.createElement(MainHeader, null),
+      { id: 'formContainer' },
       React.createElement(
         'div',
-        { id: 'formContainer' },
+        { id: 'formH3Div' },
         React.createElement(
-          'div',
-          { id: 'formH3Div' },
-          React.createElement(
-            'h3',
-            null,
-            'Compare up to ANY 3 MLB players, past or present'
-          )
+          'h3',
+          null,
+          'Compare up to ANY 3 MLB players, past or present'
+        )
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h3',
+          null,
+          'Currently on your list...'
         ),
         React.createElement(
-          'div',
+          'table',
           null,
           React.createElement(
-            'h3',
-            null,
-            'Currently on your list...'
-          ),
-          React.createElement(
-            'table',
-            null,
-            React.createElement(
-              'tbody',
-              null,
-              React.createElement(
-                ReactCSSTransitionGroup,
-                {
-                  transitionName: 'playerListTrans',
-                  transitionEnter: 500,
-                  transitionLeave: 300 },
-                playerList
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'form',
-            { onSubmit: function onSubmit(e) {
-                return _this2.props.handleSubmit(e);
-              } },
-            React.createElement('input', { type: 'hidden', value: 'something' }),
-            React.createElement(
-              'span',
-              { id: 'mainInputSpan' },
-              React.createElement('input', { disabled: formDisabled, id: 'inputNew',
-                value: this.props.newPlayer,
-                required: true,
-                autoComplete: 'off',
-                onChange: function onChange(e) {
-                  return _this2.props.handleInputChange(e);
-                } }),
-              React.createElement(
-                'span',
-                { id: 'mainInputPlaceholder' },
-                'Add a Player'
-              )
-            ),
-            React.createElement('input', { className: 'inputPlus',
-              disabled: formDisabled,
-              type: 'submit',
-              value: '+' })
-          ),
-          max,
-          error,
-          searching,
-          multipleResults,
-          React.createElement('br', null),
-          React.createElement(
-            Link,
-            { to: '/scatter' },
-            React.createElement('input', { type: 'submit',
-              className: 'showChartButton',
-              disabled: !this.props.chartReady || this.props.players.length < 1,
-              value: 'Scatter Plot' })
-          ),
-          React.createElement('br', null),
-          React.createElement(
-            Link,
-            { to: '/bubble' },
-            React.createElement('input', { type: 'submit',
-              className: 'showChartButton',
-              disabled: !this.props.chartReady || this.props.players.length < 1,
-              value: 'Bubble Chart' })
-          )
-        ),
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'h3',
-            null,
-            'Recent Similar Searches...'
-          ),
-          React.createElement(
-            'table',
-            null,
-            React.createElement(
-              'tbody',
-              null,
-              predictiveText
-            )
+            ReactCSSTransitionGroup,
+            { component: 'tbody',
+              transitionName: 'playerListTrans',
+              transitionEnterTimeout: 500,
+              transitionLeaveTimeout: 300 },
+            playerList
           )
         )
       ),
-      React.createElement(LandingBackground, null),
-      React.createElement(LandingFooter, null)
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'form',
+          { onSubmit: function onSubmit(e) {
+              return _this2.props.handleSubmit(e);
+            } },
+          React.createElement('input', { type: 'hidden', value: 'something' }),
+          React.createElement(
+            'span',
+            { id: 'mainInputSpan' },
+            React.createElement('input', { disabled: formDisabled, id: 'inputNew',
+              value: this.props.newPlayer,
+              required: true,
+              autoComplete: 'off',
+              onChange: function onChange(e) {
+                return _this2.props.handleInputChange(e);
+              } }),
+            React.createElement(
+              'span',
+              { id: 'mainInputPlaceholder' },
+              'Add a Player'
+            )
+          ),
+          React.createElement('input', { className: 'inputPlus',
+            disabled: formDisabled,
+            type: 'submit',
+            value: '+' })
+        ),
+        max,
+        error,
+        searching,
+        multipleResults,
+        React.createElement('br', null),
+        React.createElement(
+          Link,
+          { to: '/scatter' },
+          React.createElement('input', { type: 'submit',
+            className: 'showChartButton',
+            disabled: !this.props.chartReady || this.props.players.length < 1,
+            value: 'Scatter Plot' })
+        ),
+        React.createElement('br', null),
+        React.createElement(
+          Link,
+          { to: '/bubble' },
+          React.createElement('input', { type: 'submit',
+            className: 'showChartButton',
+            disabled: !this.props.chartReady || this.props.players.length < 1,
+            value: 'Bubble Chart' })
+        )
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h3',
+          null,
+          'Recent Similar Searches...'
+        ),
+        React.createElement(
+          'table',
+          null,
+          React.createElement(
+            'tbody',
+            null,
+            predictiveText
+          )
+        )
+      )
     );
   }
 });
@@ -25460,8 +25446,8 @@ var _require = __webpack_require__(31),
     Route = _require.Route,
     IndexRoute = _require.IndexRoute;
 
-var ScatterContainer = __webpack_require__(138);
-var ScatterCompareForm = __webpack_require__(77);
+var Layout = __webpack_require__(276);
+var LandingContainer = __webpack_require__(275);
 var D3ScatterCompare = __webpack_require__(76);
 var BubbleContainer = __webpack_require__(137);
 __webpack_require__(270);
@@ -25477,8 +25463,8 @@ var Routes = React.createClass({
       { history: hashHistory },
       React.createElement(
         Route,
-        { path: '/', component: ScatterContainer },
-        React.createElement(IndexRoute, { component: ScatterCompareForm }),
+        { path: '/', component: Layout },
+        React.createElement(IndexRoute, { component: LandingContainer }),
         React.createElement(Route, { path: 'scatter', component: D3ScatterCompare }),
         React.createElement(Route, { path: 'bubble', component: BubbleContainer })
       )
@@ -26157,132 +26143,7 @@ var BubbleContainer = React.createClass({
 module.exports = BubbleContainer;
 
 /***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var React = __webpack_require__(5);
-var D3ScatterCompare = __webpack_require__(76);
-var ScatterCompareForm = __webpack_require__(77);
-var $ = __webpack_require__(85);
-
-var ScatterContainer = React.createClass({
-  displayName: 'ScatterContainer',
-  getInitialState: function getInitialState() {
-    return {
-      players: [],
-      data: [],
-      chartReady: false,
-      newPlayer: '',
-      error: false,
-      multipleResults: '',
-      searching: false
-    };
-  },
-  handleSubmit: function handleSubmit(e) {
-    if (e) e.preventDefault();
-
-    var handleError = function () {
-      return new Promise(function (resolve, reject) {
-        resolve(this.handleSubmissionErrors());
-      }.bind(this));
-    }.bind(this);
-
-    handleError().then(function () {
-      this.getPlayerData();
-    }.bind(this));
-  },
-  getPlayerData: function getPlayerData(name, id) {
-    var _this = this;
-
-    var player = name || this.state.newPlayer;
-    this.setState({ searching: true, error: false });
-    $.ajax({
-      url: '/api/baseball',
-      type: 'post',
-      data: { player: player.toLowerCase(), id: id }
-    }).done(function (data) {
-      _this.setState({ searching: false });
-      if (data.length === 0) {
-        _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
-        if (_this.state.data.length > 0) {
-          _this.setState({ chartReady: true });
-        }
-      } else if (data.length === 1) {
-        data = data[0];
-        var players = [].concat(_toConsumableArray(_this.state.players), [data.name]);
-        data = [].concat(_toConsumableArray(_this.state.data), [data]);
-
-        _this.setState({ data: data, players: players, newPlayer: '', chartReady: true });
-      } else {
-        _this.setState({ multipleResults: data });
-      }
-    });
-  },
-  handleSubmissionErrors: function handleSubmissionErrors() {
-    this.setState({ chartReady: false });
-    if (this.state.players.indexOf(this.state.newPlayer) >= 0) {
-      this.setState({ newPlayer: '' });
-      return;
-    }
-  },
-  handleRemovePlayer: function handleRemovePlayer(name) {
-    var index = this.state.players.indexOf(name);
-    var players = this.state.players;
-    var data = this.state.data;
-    players.splice(index, 1);
-    data.splice(index, 1);
-    this.setState({ players: players, data: data });
-  },
-  handlePredictiveClick: function handlePredictiveClick(e, name) {
-    e.preventDefault();
-    this.setState({ newPlayer: name }, function () {
-      this.handleSubmit();
-    }.bind(this));
-  },
-  handleMultipleClick: function handleMultipleClick(player) {
-    var data = [].concat(_toConsumableArray(this.state.data), [player]);
-    var players = [].concat(_toConsumableArray(this.state.players), [player.name]);
-    this.setState({ data: data, players: players, newPlayer: '', error: false, chartReady: true, multipleResults: '' });
-  },
-  handleInputChange: function handleInputChange(e) {
-    this.setState({ newPlayer: e.target.value });
-  },
-  componentWillMount: function componentWillMount() {
-    if (Object.keys(this.props.location.query).length > 0) {
-      this.handleParams(this.props.location.query);
-    }
-  },
-  handleParams: function handleParams(params) {
-    var _this2 = this;
-
-    [params.p1, params.p2, params.p3].forEach(function (p) {
-      if (p) {
-        var params = p.split('_');
-        _this2.getPlayerData(params[0].split('-').join(' '), params[1]);
-      }
-    });
-  },
-  render: function render() {
-    var _React$cloneElement;
-
-    return React.createElement(
-      'div',
-      { id: 'd3LayoutDiv' },
-      React.cloneElement(this.props.children, (_React$cloneElement = { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', this.state.multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _defineProperty(_React$cloneElement, 'searching', this.state.searching), _React$cloneElement))
-    );
-  }
-});
-
-module.exports = ScatterContainer;
-
-/***/ }),
+/* 138 */,
 /* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41279,6 +41140,183 @@ if(false) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(5);
+var LandingBackground = __webpack_require__(133);
+var LandingFooter = __webpack_require__(134);
+var MainHeader = __webpack_require__(135);
+var ScatterCompareForm = __webpack_require__(77);
+
+var LandingContainer = React.createClass({
+  displayName: 'LandingContainer',
+  render: function render() {
+    return React.createElement(
+      'div',
+      { id: 'landingContainer' },
+      React.createElement(MainHeader, null),
+      React.createElement(ScatterCompareForm, {
+        players: this.props.players,
+        handleRemovePlayer: this.props.handleRemovePlayer,
+        newPlayer: this.props.newPlayer,
+        handlePredictiveClick: this.props.handlePredictiveClick,
+        error: this.props.error,
+        searching: this.props.searching,
+        multipleResults: this.props.multipleResults,
+        handleMultipleClick: this.props.handleMultipleClick,
+        handleSubmit: this.props.handleSubmit,
+        handleInputChange: this.props.handleInputChange,
+        chartReady: this.props.chartReady,
+        data: this.props.data }),
+      React.createElement(LandingBackground, null),
+      React.createElement(LandingFooter, null)
+    );
+  }
+});
+
+module.exports = LandingContainer;
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var React = __webpack_require__(5);
+var D3ScatterCompare = __webpack_require__(76);
+var ScatterCompareForm = __webpack_require__(77);
+var $ = __webpack_require__(85);
+
+var Layout = React.createClass({
+  displayName: 'Layout',
+  getInitialState: function getInitialState() {
+    return {
+      players: [],
+      data: [],
+      chartReady: false,
+      newPlayer: '',
+      error: false,
+      multipleResults: '',
+      searching: false
+    };
+  },
+  handleSubmit: function handleSubmit(e) {
+    if (e) e.preventDefault();
+
+    var handleError = function () {
+      return new Promise(function (resolve, reject) {
+        resolve(this.handleSubmissionErrors());
+      }.bind(this));
+    }.bind(this);
+
+    handleError().then(function () {
+      this.getPlayerData();
+    }.bind(this));
+  },
+  getPlayerData: function getPlayerData(name, id) {
+    var _this = this;
+
+    var player = name || this.state.newPlayer;
+    this.setState({ searching: true, error: false });
+    $.ajax({
+      url: '/api/baseball',
+      type: 'post',
+      data: { player: player.toLowerCase(), id: id }
+    }).done(function (data) {
+      _this.setState({ searching: false });
+      if (data.length === 0) {
+        _this.setState({ error: _this.state.newPlayer, newPlayer: '' });
+        if (_this.state.data.length > 0) {
+          _this.setState({ chartReady: true });
+        }
+      } else if (data.length === 1) {
+        data = data[0];
+        var players = [].concat(_toConsumableArray(_this.state.players), [data.name]);
+        data = [].concat(_toConsumableArray(_this.state.data), [data]);
+
+        _this.setState({ data: data, players: players, newPlayer: '', chartReady: true });
+      } else {
+        _this.setState({ multipleResults: data });
+      }
+    });
+  },
+  handleSubmissionErrors: function handleSubmissionErrors() {
+    this.setState({ chartReady: false });
+    if (this.state.players.indexOf(this.state.newPlayer) >= 0) {
+      this.setState({ newPlayer: '' });
+      return;
+    }
+  },
+  handleRemovePlayer: function handleRemovePlayer(name) {
+    var index = this.state.players.indexOf(name);
+    var players = this.state.players;
+    var data = this.state.data;
+    players.splice(index, 1);
+    data.splice(index, 1);
+    this.setState({ players: players, data: data });
+  },
+  handlePredictiveClick: function handlePredictiveClick(e, name) {
+    e.preventDefault();
+    this.setState({ newPlayer: name }, function () {
+      this.handleSubmit();
+    }.bind(this));
+  },
+  handleMultipleClick: function handleMultipleClick(player) {
+    var data = [].concat(_toConsumableArray(this.state.data), [player]);
+    var players = [].concat(_toConsumableArray(this.state.players), [player.name]);
+    this.setState({ data: data, players: players, newPlayer: '', error: false, chartReady: true, multipleResults: '' });
+  },
+  handleInputChange: function handleInputChange(e) {
+    this.setState({ newPlayer: e.target.value });
+  },
+  componentWillMount: function componentWillMount() {
+    if (Object.keys(this.props.location.query).length > 0) {
+      this.handleParams(this.props.location.query);
+    }
+  },
+  handleParams: function handleParams(params) {
+    var _this2 = this;
+
+    [params.p1, params.p2, params.p3].forEach(function (p) {
+      if (p) {
+        var params = p.split('_');
+        _this2.getPlayerData(params[0].split('-').join(' '), params[1]);
+      }
+    });
+  },
+  render: function render() {
+    var _React$cloneElement;
+
+    return React.createElement(
+      'div',
+      { id: 'd3LayoutDiv' },
+      React.cloneElement(this.props.children, (_React$cloneElement = {
+        players: this.state.players,
+        data: this.state.data,
+        handleSubmit: this.handleSubmit,
+        chartReady: this.state.chartReady,
+        newPlayer: this.state.newPlayer,
+        error: this.state.error,
+        handleInputChange: this.handleInputChange,
+        handlePredictiveClick: this.handlePredictiveClick,
+        handleRemovePlayer: this.handleRemovePlayer
+      }, _defineProperty(_React$cloneElement, 'handleSubmit', this.handleSubmit), _defineProperty(_React$cloneElement, 'multipleResults', this.state.multipleResults), _defineProperty(_React$cloneElement, 'handleMultipleClick', this.handleMultipleClick), _defineProperty(_React$cloneElement, 'searching', this.state.searching), _React$cloneElement))
+    );
+  }
+});
+
+module.exports = Layout;
 
 /***/ })
 /******/ ]);

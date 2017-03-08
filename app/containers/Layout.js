@@ -3,7 +3,7 @@ const D3ScatterCompare = require('../components/D3ScatterCompare')
 const ScatterCompareForm = require('../components/ScatterCompareForm')
 const $ = require('jquery')
 
-const ScatterContainer = React.createClass({
+const Layout = React.createClass({
   getInitialState(){
     return {
       players: [],
@@ -100,10 +100,23 @@ const ScatterContainer = React.createClass({
   render(){
     return (
       <div id='d3LayoutDiv'>
-        {React.cloneElement(this.props.children, { players: this.state.players, data: this.state.data, handleSubmit: this.handleSubmit, chartReady: this.state.chartReady, newPlayer: this.state.newPlayer, error: this.state.error, handleInputChange: this.handleInputChange, handlePredictiveClick: this.handlePredictiveClick, handleRemovePlayer: this.handleRemovePlayer, handleSubmit: this.handleSubmit, multipleResults: this.state.multipleResults, handleMultipleClick: this.handleMultipleClick, searching: this.state.searching })}
+        {React.cloneElement(this.props.children, {
+          players: this.state.players,
+          data: this.state.data,
+          handleSubmit: this.handleSubmit,
+          chartReady: this.state.chartReady,
+          newPlayer: this.state.newPlayer,
+          error: this.state.error,
+          handleInputChange: this.handleInputChange,
+          handlePredictiveClick: this.handlePredictiveClick, 
+          handleRemovePlayer: this.handleRemovePlayer,
+          handleSubmit: this.handleSubmit,
+          multipleResults: this.state.multipleResults,
+          handleMultipleClick: this.handleMultipleClick,
+          searching: this.state.searching })}
       </div>
     )
   }
 })
 
-module.exports = ScatterContainer
+module.exports = Layout
