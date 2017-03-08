@@ -248,7 +248,7 @@ text {
 }
 
 #carouselContainer .carouselImgDiv {
-  height: 700px;
+  height: 600px;
   width: 80%;
   margin: auto;
   border: 5px solid black;
@@ -603,7 +603,7 @@ text {
   padding: 20px;
   background: white;
   font-size: 20px;
-  line-height: 30px;
+  line-height: 35px;
   background: rgba(89, 219, 57, .8);
   transition: opacity 400ms linear;
   font-family: 'Lato', sans-serif;

@@ -1,5 +1,4 @@
 const React = require('react')
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 const images = require('json-loader!../../public/data.json').images
 
 
